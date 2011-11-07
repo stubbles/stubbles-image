@@ -1,0 +1,65 @@
+﻿body {
+  font-family: arial, verdana, sans serif;
+  font-size: 12px;
+}
+
+h1 {
+  font-size: 20px;
+  color: #0a328c;
+  padding: 0;
+  margin: 10px 0;
+}
+
+table {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color:#C0D5F0;
+}
+
+table tbody td {
+  padding: 2px 4px;
+  border-left: 1px solid #fff;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #99A7C8;
+  border-bottom: 1px solid #99A7C8;
+}
+
+table tbody td a {
+  color: #000;
+  text-decoration: none;
+}
+
+table tbody tr.tr_file td {
+  background-color:#ccffcc; 
+  padding: 2px 4px;
+  border-left: 1px solid #fff;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #77aa77;
+  border-bottom: 1px solid #77aa77;
+}
+
+table tbody tr.tr_info td,
+table tbody tr.tr_body td.warning {
+  background-color:#ffffcc; 
+  padding: 2px 4px;
+  border-left: 1px solid #fff;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #aaaa77;
+  border-bottom: 1px solid #aaaa77;
+}
+
+table tbody tr.tr_info strong.head {
+  color: #000099;
+}
+
+table tbody th,
+table tbody tr.tr_body td.error {
+  text-align: left;
+  background-color:#ffcccc; 
+  padding: 2px 4px;
+  border-left: 1px solid #fff;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #aa7777;
+  border-bottom: 1px solid #aa7777;
+}
