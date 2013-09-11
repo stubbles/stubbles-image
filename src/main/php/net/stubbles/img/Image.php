@@ -1,67 +1,65 @@
 <?php
 /**
- * Container for an image.
+ * This file is part of stubbles.
  *
- * @author   Frank Kleine <mikey@stubbles.net>
- * @package  stubforge_image
- * @version  $Id: stubImage.php 1919 2008-11-07 15:08:56Z mikey $
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package  net\stubbles\img
  */
-stubClassLoader::load('net::stubbles::lang::exceptions::stubIllegalArgumentException',
-                      'net::stubforge::image::stubImageType'
-);
+namespace net\stubbles\img;
+use net\stubbles\lang\exception\IllegalArgumentException;
 /**
  * Container for an image.
- *
- * @package  stubforge_image
  */
-class stubImage extends stubBaseObject
+class Image
 {
     /**
      * image handle
      *
-     * @var  resource<gd>
+     * @type  resource
      */
-    protected $handle;
+    private $handle;
     /**
      * name of image
      *
-     * @var  string
+     * @type  string
      */
-    protected $name;
+    private $name;
     /**
      * image type
      *
-     * @var  ImageType
+     * @type  ImageType
      */
-    protected $type;
+    private $type;
 
     /**
      * constructor
      *
-     * @param   string         $name
-     * @param   stubImageType  $type    optional  defaults to ImageType::$PNG
-     * @param   resource<gd>   $handle  optional
-     * @throws  stubIllegalArgumentException
+     * @param   string     $name
+     * @param   ImageType  $type    defaults to ImageType::$PNG
+     * @param   resource   $handle
+     * @throws  IllegalArgumentException
      */
-    public function __construct($name, stubImageType $type = null, $handle = null)
+    public function __construct($name, ImageType $type = null, $handle = null)
     {
         $this->name   = $name;
-        $this->type   = ((null === $type) ? (stubImageType::$PNG) : ($type));
+        $this->type   = ((null === $type) ? (ImageType::$PNG) : ($type));
         if (null !== $handle && (is_resource($handle) === false || get_resource_type($handle) !== 'gd')) {
-            throw new stubIllegalArgumentException('Given handle is not a valid gd resource.');
+            throw new IllegalArgumentException('Given handle is not a valid gd resource.');
         }
-        
+
         $this->handle = $handle;
     }
 
     /**
      * loads image from file
      *
-     * @param   string         $fileName
-     * @param   stubImageType  $type      optional  defaults to ImageType::$PNG
+     * @param   string     $fileName
+     * @param   ImageType  $type      defaults to ImageType::$PNG
      * @return  Image
      */
-    public static function load($fileName, stubImageType $type = null)
+    public static function load($fileName, ImageType $type = null)
     {
         $self = new self($fileName, $type);
         $self->handle = $self->type->load($fileName);
@@ -81,7 +79,7 @@ class stubImage extends stubBaseObject
     /**
      * returns type of image
      *
-     * @return  stubImageType
+     * @return  ImageType
      */
     public function getType()
     {
@@ -91,7 +89,7 @@ class stubImage extends stubBaseObject
     /**
      * returns image handle
      *
-     * @return  resource<gd>
+     * @return  resource
      */
     public function getHandle()
     {
@@ -138,4 +136,3 @@ class stubImage extends stubBaseObject
         return $this->type->getContentType();
     }
 }
-?>

@@ -1,52 +1,48 @@
 <?php
 /**
- * Dummy driver for images.
+ * This file is part of stubbles.
  *
- * @author      Frank Kleine <mikey@stubbles.net>
- * @package     stubforge_image
- * @subpackage  driver
- * @version     $Id: stubImageDummyDriver.php 1919 2008-11-07 15:08:56Z mikey $
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package  net\stubbles\img
  */
-stubClassLoader::load('net::stubbles::lang::exceptions::stubIOException',
-                      'net::stubforge::image::driver::stubImageDriver'
-);
+namespace net\stubbles\img\driver;
+use net\stubbles\lang\exception\IOException;
 /**
  * Dummy driver for images.
- *
- * @package     stubforge_image
- * @subpackage  driver
  */
-class stubImageDummyDriver extends stubBaseObject implements stubImageDriver
+class DummyImageDriver implements ImageDriver
 {
     /**
      * dummy handle to be used
      *
-     * @var  resource<gd>
+     * @type  resource
      */
-    protected $handle;
+    private $handle;
     /**
      * last stored file name
      *
-     * @var  string
+     * @type  string
      */
-    protected $lastStoredFileName;
+    private $lastStoredFileName;
     /**
      * last stored handle
      *
-     * @var  resource<gd>
+     * @type  resource
      */
-    protected $lastStoredHandle;
+    private $lastStoredHandle;
     /**
      * last displayed handle
      *
-     * @var  resource<gd>
+     * @type  resource
      */
-    protected $lastDisplayedHandle;
+    private $lastDisplayedHandle;
 
     /**
      * constructor
      *
-     * @param  resource<gd>  $handle  optional
+     * @param  resource  $handle
      */
     public function __construct($handle = null)
     {
@@ -56,26 +52,24 @@ class stubImageDummyDriver extends stubBaseObject implements stubImageDriver
     /**
      * loads given image
      *
-     * @param   string        $fileName
-     * @return  resource<gd>
-     * @throws  stubIOException
+     * @param   string    $fileName
+     * @return  resource
+     * @throws  IOException
      */
     public function load($fileName)
     {
         if (null === $this->handle) {
-            throw new stubIOException('The image ' . $fileName . ' seems to be broken.');
+            throw new IOException('The image ' . $fileName . ' seems to be broken.');
         }
-        
+
         return $this->handle;
     }
 
     /**
      * stores given image
      *
-     * @param   string                $fileName
-     * @param   resource<gd>          $handle
-     * @return  stubImageDummyDriver
-     * @throws  stubIOException
+     * @param   string    $fileName
+     * @param   resource  $handle
      */
     public function store($fileName, $handle)
     {
@@ -97,7 +91,7 @@ class stubImageDummyDriver extends stubBaseObject implements stubImageDriver
     /**
      * returns last stored file name
      *
-     * @return  resource<gd>
+     * @return  resource
      */
     public function getLastStoredHandle()
     {
@@ -117,7 +111,7 @@ class stubImageDummyDriver extends stubBaseObject implements stubImageDriver
     /**
      * displays given image (raw output to browser)
      *
-     * @param  resource<gd>  $handle
+     * @param  resource  $handle
      */
     public function display($handle)
     {
@@ -127,7 +121,7 @@ class stubImageDummyDriver extends stubBaseObject implements stubImageDriver
     /**
      * returns last displayed handle
      *
-     * @return  resource<gd>
+     * @return  resource
      */
     public function getLastDisplayedHandle()
     {
@@ -154,4 +148,3 @@ class stubImageDummyDriver extends stubBaseObject implements stubImageDriver
         return 'image/dummy';
     }
 }
-?>
