@@ -45,6 +45,7 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        ImageType::$DUMMY->value()->reset();
         $this->defaultImageResponse = $this->getMockBuilder('net\stubbles\img\response\DefaultImageResponse')
                                            ->setMethods(array('header'))
                                            ->getMock();
@@ -83,5 +84,15 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->handle,
                           ImageType::$DUMMY->value()->getLastDisplayedHandle()
         );
+    }
+
+    /**
+     * @test
+     * @since  2.0.1
+     */
+    public function clearRemovesImageFromResponse()
+    {
+        $this->defaultImageResponse->setImage($this->image)->clear()->send();
+        $this->assertNull(ImageType::$DUMMY->value()->getLastDisplayedHandle());
     }
 }

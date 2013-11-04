@@ -36,6 +36,18 @@ class DefaultImageResponse extends WebResponse implements ImageResponse
     }
 
     /**
+     * clears the response
+     *
+     * @return  ImageResponse
+     */
+    public function clear()
+    {
+        $this->image = null;
+        parent::clear();
+        return $this;
+    }
+
+    /**
      * send the response out
      *
      * @return  ImageResponse
