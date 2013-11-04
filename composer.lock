@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "21f2190e78e2810d78be793aa67d486e",
+    "hash": "fdcb6d7feae45b1cf356dbe9f29470d5",
     "packages": [
         {
             "name": "stubbles/core",
-            "version": "v3.1.1",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stubbles/stubbles-core.git",
-                "reference": "6a0feb020c750b6d3e5633bcd75b9ac2cc12ddde"
+                "reference": "2d277263402118684534099da788c1270d9f18d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-core/zipball/6a0feb020c750b6d3e5633bcd75b9ac2cc12ddde",
-                "reference": "6a0feb020c750b6d3e5633bcd75b9ac2cc12ddde",
+                "url": "https://api.github.com/repos/stubbles/stubbles-core/zipball/2d277263402118684534099da788c1270d9f18d7",
+                "reference": "2d277263402118684534099da788c1270d9f18d7",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +29,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1.x-dev"
+                    "dev-master": "3.2.x-dev"
                 }
             },
             "autoload": {
@@ -48,7 +48,7 @@
             ],
             "description": "Provides base classes for Stubbles packages.",
             "homepage": "http://stubbles.net/",
-            "time": "2013-09-11 08:08:33"
+            "time": "2013-10-29 20:35:08"
         }
     ],
     "packages-dev": [
@@ -115,16 +115,16 @@
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "1.3.3",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "16a78140ed2fc01b945cfa539665fadc6a038029"
+                "reference": "acd690379117b042d1c8af1fafd61bde001bf6bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/16a78140ed2fc01b945cfa539665fadc6a038029",
-                "reference": "16a78140ed2fc01b945cfa539665fadc6a038029",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/acd690379117b042d1c8af1fafd61bde001bf6bb",
+                "reference": "acd690379117b042d1c8af1fafd61bde001bf6bb",
                 "shasum": ""
             },
             "require": {
@@ -151,12 +151,12 @@
                 }
             ],
             "description": "FilterIterator implementation that filters files based on a list of suffixes.",
-            "homepage": "http://www.phpunit.de/",
+            "homepage": "https://github.com/sebastianbergmann/php-file-iterator/",
             "keywords": [
                 "filesystem",
                 "iterator"
             ],
-            "time": "2012-10-11 11:44:38"
+            "time": "2013-10-10 15:34:57"
         },
         {
             "name": "phpunit/php-text-template",
@@ -248,16 +248,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "31babf400e5b5868573bf49a000a3519d3978233"
+                "reference": "5220af2a7929aa35cf663d97c89ad3d50cf5fa3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/31babf400e5b5868573bf49a000a3519d3978233",
-                "reference": "31babf400e5b5868573bf49a000a3519d3978233",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/5220af2a7929aa35cf663d97c89ad3d50cf5fa3e",
+                "reference": "5220af2a7929aa35cf663d97c89ad3d50cf5fa3e",
                 "shasum": ""
             },
             "require": {
@@ -294,20 +294,20 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2013-08-04 05:57:48"
+            "time": "2013-09-13 04:58:23"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.25",
+            "version": "3.7.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "162da5b9efbf2d483d4ee93dc54b7266d30beae2"
+                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/162da5b9efbf2d483d4ee93dc54b7266d30beae2",
-                "reference": "162da5b9efbf2d483d4ee93dc54b7266d30beae2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
+                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
                 "shasum": ""
             },
             "require": {
@@ -368,7 +368,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-09-10 08:23:58"
+            "time": "2013-10-17 07:27:40"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -421,21 +421,21 @@
         },
         {
             "name": "stubbles/input",
-            "version": "v2.3.0",
+            "version": "v2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stubbles/stubbles-input.git",
-                "reference": "a81072e14ba3d5e15f2d674d89b057808d40d293"
+                "reference": "88a2e78fd82a9b34f3b4f897adaff8724bc46d89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-input/zipball/a81072e14ba3d5e15f2d674d89b057808d40d293",
-                "reference": "a81072e14ba3d5e15f2d674d89b057808d40d293",
+                "url": "https://api.github.com/repos/stubbles/stubbles-input/zipball/88a2e78fd82a9b34f3b4f897adaff8724bc46d89",
+                "reference": "88a2e78fd82a9b34f3b4f897adaff8724bc46d89",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "stubbles/core": "~3.0"
+                "stubbles/core": "~3.1"
             },
             "require-dev": {
                 "mikey179/vfsstream": "~1.2",
@@ -459,25 +459,25 @@
             ],
             "description": "Stubbles Input enables to handle input data via validation and filtering.",
             "homepage": "http://stubbles.net/",
-            "time": "2013-05-02 20:57:28"
+            "time": "2013-11-01 15:50:03"
         },
         {
             "name": "stubbles/webapp-core",
-            "version": "v2.1.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stubbles/stubbles-webapp-core.git",
-                "reference": "90e583332366ed8cf0dee127b63de1e996bf77be"
+                "reference": "e44d7c709e50e54c4f616d6cf0c12f7dfde98a4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-webapp-core/zipball/90e583332366ed8cf0dee127b63de1e996bf77be",
-                "reference": "90e583332366ed8cf0dee127b63de1e996bf77be",
+                "url": "https://api.github.com/repos/stubbles/stubbles-webapp-core/zipball/e44d7c709e50e54c4f616d6cf0c12f7dfde98a4a",
+                "reference": "e44d7c709e50e54c4f616d6cf0c12f7dfde98a4a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "stubbles/core": "~3.0",
+                "stubbles/core": "~3.1",
                 "stubbles/input": "~2.3"
             },
             "require-dev": {
@@ -490,7 +490,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -505,21 +505,21 @@
             ],
             "description": "Base classes for Stubbles based web applications.",
             "homepage": "http://stubbles.net/",
-            "time": "2013-05-02 21:24:43"
+            "time": "2013-11-01 17:07:31"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.3.4",
+            "version": "v2.3.6",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "5a279f1b5f5e1045a6c432354d9ea727ff3a9847"
+                "reference": "6bb881b948368482e1abf1a75c08bcf88a1c5fc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/5a279f1b5f5e1045a6c432354d9ea727ff3a9847",
-                "reference": "5a279f1b5f5e1045a6c432354d9ea727ff3a9847",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6bb881b948368482e1abf1a75c08bcf88a1c5fc3",
+                "reference": "6bb881b948368482e1abf1a75c08bcf88a1c5fc3",
                 "shasum": ""
             },
             "require": {
@@ -552,7 +552,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-08-24 15:26:22"
+            "time": "2013-09-22 18:04:39"
         }
     ],
     "aliases": [
