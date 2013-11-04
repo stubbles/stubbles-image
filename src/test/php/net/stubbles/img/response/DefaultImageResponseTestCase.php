@@ -47,7 +47,7 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
     {
         ImageType::$DUMMY->value()->reset();
         $this->defaultImageResponse = $this->getMockBuilder('net\stubbles\img\response\DefaultImageResponse')
-                                           ->setMethods(array('header'))
+                                           ->setMethods(array('header', 'sendBody'))
                                            ->getMock();
         $this->handle               = imagecreatefrompng(\net\stubbles\lang\ResourceLoader::getRootPath() . '/src/test/resources/empty.png');
         $this->image                = new Image('test', ImageType::$DUMMY, $this->handle);
@@ -88,11 +88,22 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @since  2.0.1
+     * @since  2.0.2
      */
     public function clearRemovesImageFromResponse()
     {
         $this->defaultImageResponse->setImage($this->image)->clear()->send();
         $this->assertNull(ImageType::$DUMMY->value()->getLastDisplayedHandle());
+    }
+
+    /**
+     * @test
+     * @since  2.0.3
+     */
+    public function bodyIsNeverSendWhenImagePresent()
+    {
+        $this->defaultImageResponse->expects($this->never())
+                                   ->method('sendBody');
+        $this->defaultImageResponse->setImage($this->image)->write('something')->send();
     }
 }

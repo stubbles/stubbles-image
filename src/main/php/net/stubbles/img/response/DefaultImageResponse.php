@@ -55,7 +55,7 @@ class DefaultImageResponse extends WebResponse implements ImageResponse
     public function send()
     {
         if (null !== $this->image) {
-            $this->data = null;
+            $this->write(null);
             parent::send();
             $this->image->display();
         } else {
