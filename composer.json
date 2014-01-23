@@ -6,6 +6,7 @@
     "description": "Simple image handling support.",
     "require": {
         "php": ">=5.3.0",
+        "ext-gd": "*",
         "stubbles/core": "~3.1"
     },
     "suggest": {
