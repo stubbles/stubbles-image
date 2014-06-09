@@ -86,7 +86,7 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function extensionIsAlwaysDummy()
     {
-        $this->assertEquals('.dummy', $this->dummyImageDriver->getExtension());
+        $this->assertEquals('.dummy', $this->dummyImageDriver->fileExtension());
     }
 
     /**
@@ -94,6 +94,6 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function contentTypeIsAlwaysPresent()
     {
-        $this->assertEquals('image/dummy', $this->dummyImageDriver->getContentType());
+        $this->assertEquals('image/dummy', $this->dummyImageDriver->mimeType());
     }
 }

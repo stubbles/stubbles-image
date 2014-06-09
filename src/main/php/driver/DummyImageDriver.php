@@ -133,7 +133,7 @@ class DummyImageDriver implements ImageDriver
      *
      * @return  string
      */
-    public function getExtension()
+    public function fileExtension()
     {
         return '.dummy';
     }
@@ -143,7 +143,7 @@ class DummyImageDriver implements ImageDriver
      *
      * @return  string
      */
-    public function getContentType()
+    public function mimeType()
     {
         return 'image/dummy';
     }

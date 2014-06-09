@@ -4,6 +4,9 @@
 ### BC breaks
 
   * removed namespace prefix `net`, base namespace is now `stubbles\img` only
+  * renamed methods in `stubbles\image\driver\ImageDriver`:
+    * `getExtension()` is now `fileExtension()`
+    * `getContentType()` is now `mimeType()`
 
 ### Other changes
 

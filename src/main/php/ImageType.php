@@ -75,7 +75,7 @@ class ImageType extends Enum
      */
     public function getExtension()
     {
-        return $this->value->getExtension();
+        return $this->value->fileExtension();
     }
 
     /**
@@ -85,7 +85,7 @@ class ImageType extends Enum
      */
     public function getContentType()
     {
-        return $this->value->getContentType();
+        return $this->value->mimeType();
     }
 }
 ImageType::__static();

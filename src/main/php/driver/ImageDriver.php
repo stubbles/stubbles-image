@@ -41,12 +41,12 @@ interface ImageDriver
      *
      * @return  string
      */
-    public function getExtension();
+    public function fileExtension();
 
     /**
      * returns content type
      *
      * @return  string
      */
-    public function getContentType();
+    public function mimeType();
 }

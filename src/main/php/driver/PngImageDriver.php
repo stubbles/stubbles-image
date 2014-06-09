@@ -69,7 +69,7 @@ class PngImageDriver implements ImageDriver
      *
      * @return  string
      */
-    public function getExtension()
+    public function fileExtension()
     {
         return '.png';
     }
@@ -79,7 +79,7 @@ class PngImageDriver implements ImageDriver
      *
      * @return  string
      */
-    public function getContentType()
+    public function mimeType()
     {
         return 'image/png';
     }

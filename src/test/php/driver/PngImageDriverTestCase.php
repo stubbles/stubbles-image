@@ -106,7 +106,7 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function extensionIsAlwaysPng()
     {
-        $this->assertEquals('.png', $this->pngImageDriver->getExtension());
+        $this->assertEquals('.png', $this->pngImageDriver->fileExtension());
     }
 
     /**
@@ -114,6 +114,6 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function contentTypeIsAlwaysPresent()
     {
-        $this->assertEquals('image/png', $this->pngImageDriver->getContentType());
+        $this->assertEquals('image/png', $this->pngImageDriver->mimeType());
     }
 }
