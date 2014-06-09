@@ -5,10 +5,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package  net\stubbles\img
+ * @package  stubbles\img
  */
-namespace net\stubbles\img;
-use net\stubbles\lang\Enum;
+namespace stubbles\img;
+use stubbles\lang\Enum;
 /**
  * Collection of img type constants.
  */
@@ -17,12 +17,14 @@ class ImageType extends Enum
     /**
      * png images
      *
+     * @api
      * @type  ImageType
      */
     public static $PNG;
     /**
      * dummy images
      *
+     * @api
      * @type  ImageType
      */
     public static $DUMMY;
@@ -73,9 +75,9 @@ class ImageType extends Enum
      *
      * @return  string
      */
-    public function getExtension()
+    public function fileExtension()
     {
-        return $this->value->getExtension();
+        return $this->value->fileExtension();
     }
 
     /**
@@ -83,9 +85,9 @@ class ImageType extends Enum
      *
      * @return  string
      */
-    public function getContentType()
+    public function mimeType()
     {
-        return $this->value->getContentType();
+        return $this->value->mimeType();
     }
 }
 ImageType::__static();

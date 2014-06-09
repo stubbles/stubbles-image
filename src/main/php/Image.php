@@ -5,12 +5,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package  net\stubbles\img
+ * @package  stubbles\img
  */
-namespace net\stubbles\img;
-use net\stubbles\lang\exception\IllegalArgumentException;
+namespace stubbles\img;
+use stubbles\lang\exception\IllegalArgumentException;
 /**
  * Container for an image.
+ *
+ * @api
  */
 class Image
 {
@@ -121,9 +123,20 @@ class Image
      *
      * @return  string
      */
+    public function fileExtension()
+    {
+        return $this->type->fileExtension();
+    }
+
+    /**
+     * returns default extension for this type of image (e.g. '.png')
+     *
+     * @return  string
+     * @deprecated  since 3.0.0, use fileExtension() instead, will be removed with 4.0.0
+     */
     public function getExtension()
     {
-        return $this->type->getExtension();
+        return $this->fileExtension();
     }
 
     /**
@@ -131,8 +144,19 @@ class Image
      *
      * @return  string
      */
+    public function mimeType()
+    {
+        return $this->type->mimeType();
+    }
+
+    /**
+     * returns content type
+     *
+     * @return  string
+     * @deprecated  since 3.0.0, use mimeType() instead, will be removed with 4.0.0
+     */
     public function getContentType()
     {
-        return $this->type->getContentType();
+        return $this->mimeType();
     }
 }

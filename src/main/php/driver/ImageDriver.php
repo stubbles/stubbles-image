@@ -5,9 +5,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package  net\stubbles\img
+ * @package  stubbles\img
  */
-namespace net\stubbles\img\driver;
+namespace stubbles\img\driver;
 /**
  * Driver for images.
  */
@@ -41,12 +41,12 @@ interface ImageDriver
      *
      * @return  string
      */
-    public function getExtension();
+    public function fileExtension();
 
     /**
      * returns content type
      *
      * @return  string
      */
-    public function getContentType();
+    public function mimeType();
 }

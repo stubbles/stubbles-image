@@ -5,11 +5,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package  net\stubbles\img
+ * @package  stubbles\img
  */
-namespace net\stubbles\img;
+namespace stubbles\img;
+use stubbles\lang\Rootpath;
 /**
- * Test for net\stubbles\img\Image.
+ * Test for stubbles\img\Image.
  *
  * @group  img
  * @group  core
@@ -34,7 +35,8 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->testPath = \net\stubbles\lang\ResourceLoader::getRootPath() . '/src/test/resources/';
+        $rootpath       = new Rootpath();
+        $this->testPath = $rootpath->to('/src/test/resources/');
         $this->handle   = imagecreatefrompng($this->testPath . 'empty.png');
     }
 
@@ -48,7 +50,7 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException  net\stubbles\lang\exception\IllegalArgumentException
+     * @expectedException  stubbles\lang\exception\IllegalArgumentException
      */
     public function instantiateWithIllegalHandleThrowsIllegalArgumentException()
     {
@@ -57,7 +59,7 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException  net\stubbles\lang\exception\IllegalArgumentException
+     * @expectedException  stubbles\lang\exception\IllegalArgumentException
      */
     public function instantiateWithIllegalResourceHandleThrowsIllegalArgumentException()
     {
@@ -65,8 +67,6 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * instantiate using a handle
-     *
      * @test
      */
     public function instantiateWithHandle()
@@ -81,8 +81,6 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * instantiate using load()
-     *
      * @test
      */
     public function instantiateWithLoad()
@@ -96,16 +94,14 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * store() should use the given driver
-     *
      * @test
      */
     public function storeUsesDriver()
     {
         $image = new Image('foo', ImageType::$DUMMY, $this->handle);
         $this->assertSame($image, $image->store('bar'));
-        $this->assertEquals('bar', ImageType::$DUMMY->value()->getLastStoredFileName());
-        $this->assertSame($this->handle, ImageType::$DUMMY->value()->getLastStoredHandle());
+        $this->assertEquals('bar', ImageType::$DUMMY->value()->lastStoredFileName());
+        $this->assertSame($this->handle, ImageType::$DUMMY->value()->lastStoredHandle());
         $this->assertEquals('.dummy', $image->getExtension());
         $this->assertEquals('image/dummy', $image->getContentType());
     }
@@ -117,7 +113,7 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     {
         $image = new Image('foo', ImageType::$DUMMY, $this->handle);
         $image->display();
-        $this->assertSame($this->handle, ImageType::$DUMMY->value()->getLastDisplayedHandle());
+        $this->assertSame($this->handle, ImageType::$DUMMY->value()->lastDisplayedHandle());
         $this->assertEquals('.dummy', $image->getExtension());
         $this->assertEquals('image/dummy', $image->getContentType());
     }

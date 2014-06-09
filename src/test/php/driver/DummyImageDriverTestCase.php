@@ -5,11 +5,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package  net\stubbles\img
+ * @package  stubbles\img
  */
-namespace net\stubbles\img\driver;
+namespace stubbles\img\driver;
+use stubbles\lang\Rootpath;
 /**
- * Test for net\stubbles\img\driver\DummyImageDriver.
+ * Test for stubbles\img\driver\DummyImageDriver.
  *
  * @group  img
  * @group  driver
@@ -35,14 +36,13 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->dummyImageDriver = new DummyImageDriver();
-        $this->testPath = \net\stubbles\lang\ResourceLoader::getRootPath() . '/src/test/resources/';
+        $rootpath       = new Rootpath();
+        $this->testPath = $rootpath->to('/src/test/resources/');
     }
 
     /**
-     * load image without giving a handle on construction throws an exception
-     *
      * @test
-     * @expectedException  net\stubbles\lang\exception\IOException
+     * @expectedException  stubbles\lang\exception\IOException
      */
     public function loadWithoutHandleThrowsException()
     {
@@ -51,8 +51,6 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * load image with handle returns handle
-     *
      * @test
      */
     public function loadWithHandleReturnsHandle()
@@ -63,47 +61,39 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * storing image succeeds
-     *
      * @test
      */
     public function storeSucceeds()
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
         $this->assertSame($this->dummyImageDriver, $this->dummyImageDriver->store('dummy.png', $handle));
-        $this->assertEquals('dummy.png', $this->dummyImageDriver->getLastStoredFileName());
-        $this->assertSame($handle, $this->dummyImageDriver->getLastStoredHandle());
+        $this->assertEquals('dummy.png', $this->dummyImageDriver->lastStoredFileName());
+        $this->assertSame($handle, $this->dummyImageDriver->lastStoredHandle());
     }
 
     /**
-     * displaying image succeeds
-     *
      * @test
      */
     public function displaySucceeds()
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
         $this->dummyImageDriver->display($handle);
-        $this->assertSame($handle, $this->dummyImageDriver->getLastDisplayedHandle());
+        $this->assertSame($handle, $this->dummyImageDriver->lastDisplayedHandle());
     }
 
     /**
-     * extension for dummy driver is always .dummy
-     *
      * @test
      */
     public function extensionIsAlwaysDummy()
     {
-        $this->assertEquals('.dummy', $this->dummyImageDriver->getExtension());
+        $this->assertEquals('.dummy', $this->dummyImageDriver->fileExtension());
     }
 
     /**
-     * content type for dummy driver is always image/dummy
-     *
      * @test
      */
     public function contentTypeIsAlwaysPresent()
     {
-        $this->assertEquals('image/dummy', $this->dummyImageDriver->getContentType());
+        $this->assertEquals('image/dummy', $this->dummyImageDriver->mimeType());
     }
 }

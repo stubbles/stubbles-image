@@ -5,11 +5,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package  net\stubbles\img
+ * @package  stubbles\img
  */
-namespace net\stubbles\img\driver;
-use net\stubbles\lang\exception\IOException;
-use net\stubbles\lang\exception\FileNotFoundException;
+namespace stubbles\img\driver;
+use stubbles\lang\exception\IOException;
+use stubbles\lang\exception\FileNotFoundException;
 /**
  * Driver for png images.
  */
@@ -69,7 +69,7 @@ class PngImageDriver implements ImageDriver
      *
      * @return  string
      */
-    public function getExtension()
+    public function fileExtension()
     {
         return '.png';
     }
@@ -79,7 +79,7 @@ class PngImageDriver implements ImageDriver
      *
      * @return  string
      */
-    public function getContentType()
+    public function mimeType()
     {
         return 'image/png';
     }

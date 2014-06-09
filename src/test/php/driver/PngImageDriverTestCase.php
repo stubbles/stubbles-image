@@ -5,11 +5,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package  net\stubbles\img
+ * @package  stubbles\img
  */
-namespace net\stubbles\img\driver;
+namespace stubbles\img\driver;
+use stubbles\lang\Rootpath;
 /**
- * Test for net\stubbles\img\driver\PngImageDriver.
+ * Test for stubbles\img\driver\PngImageDriver.
  *
  * @group  img
  * @group  driver
@@ -35,8 +36,9 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->pngImageDriver = new PngImageDriver();
-        $this->testPath = \net\stubbles\lang\ResourceLoader::getRootPath() . '/src/test/resources/';
-        if (file_exists($this->testPath . 'new.png') === true) {
+        $rootpath       = new Rootpath();
+        $this->testPath = $rootpath->to('/src/test/resources/');
+        if (file_exists($this->testPath . 'new.png')) {
             unlink($this->testPath . 'new.png');
         }
     }
@@ -46,16 +48,14 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        if (file_exists($this->testPath . 'new.png') === true) {
+        if (file_exists($this->testPath . 'new.png')) {
             unlink($this->testPath . 'new.png');
         }
     }
 
     /**
-     * load image from non-existing file throws an exception
-     *
      * @test
-     * @expectedException  net\stubbles\lang\exception\FileNotFoundException
+     * @expectedException  stubbles\lang\exception\FileNotFoundException
      */
     public function loadFromNonexistingFileThrowsException()
     {
@@ -63,10 +63,8 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * load image from corrupt file throws an exception
-     *
      * @test
-     * @expectedException  net\stubbles\lang\exception\IOException
+     * @expectedException  stubbles\lang\exception\IOException
      */
     public function loadFromCorruptFileThrowsException()
     {
@@ -74,8 +72,6 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * loading image from valid file returns the resource handle
-     *
      * @test
      */
     public function loadReturnsResource()
@@ -86,8 +82,6 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * storing image succeeds
-     *
      * @test
      */
     public function storeSucceeds()
@@ -98,10 +92,8 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * failure to store an image throws an exception
-     *
      * @test
-     * @expectedException  net\stubbles\lang\exception\IOException
+     * @expectedException  stubbles\lang\exception\IOException
      */
     public function storeThrowsExceptionWhenItFails()
     {
@@ -110,22 +102,18 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * extension for png driver is always .png
-     *
      * @test
      */
     public function extensionIsAlwaysPng()
     {
-        $this->assertEquals('.png', $this->pngImageDriver->getExtension());
+        $this->assertEquals('.png', $this->pngImageDriver->fileExtension());
     }
 
     /**
-     * content type for png driver is always image/png
-     *
      * @test
      */
     public function contentTypeIsAlwaysPresent()
     {
-        $this->assertEquals('image/png', $this->pngImageDriver->getContentType());
+        $this->assertEquals('image/png', $this->pngImageDriver->mimeType());
     }
 }
