@@ -11,6 +11,8 @@ namespace stubbles\img;
 use stubbles\lang\exception\IllegalArgumentException;
 /**
  * Container for an image.
+ *
+ * @api
  */
 class Image
 {
@@ -123,7 +125,7 @@ class Image
      */
     public function getExtension()
     {
-        return $this->type->getExtension();
+        return $this->type->fileExtension();
     }
 
     /**
@@ -133,6 +135,6 @@ class Image
      */
     public function getContentType()
     {
-        return $this->type->getContentType();
+        return $this->type->mimeType();
     }
 }

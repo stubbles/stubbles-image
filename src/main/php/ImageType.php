@@ -17,12 +17,14 @@ class ImageType extends Enum
     /**
      * png images
      *
+     * @api
      * @type  ImageType
      */
     public static $PNG;
     /**
      * dummy images
      *
+     * @api
      * @type  ImageType
      */
     public static $DUMMY;
@@ -73,7 +75,7 @@ class ImageType extends Enum
      *
      * @return  string
      */
-    public function getExtension()
+    public function fileExtension()
     {
         return $this->value->fileExtension();
     }
@@ -83,7 +85,7 @@ class ImageType extends Enum
      *
      * @return  string
      */
-    public function getContentType()
+    public function mimeType()
     {
         return $this->value->mimeType();
     }

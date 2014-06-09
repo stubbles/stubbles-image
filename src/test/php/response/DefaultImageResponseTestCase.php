@@ -72,7 +72,7 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
     {
         $this->defaultImageResponse->expects($this->at(1))
                                    ->method('header')
-                                   ->with($this->equalTo('Content-type: ' . ImageType::$DUMMY->getContentType()));
+                                   ->with($this->equalTo('Content-type: ' . ImageType::$DUMMY->mimeType()));
         $this->defaultImageResponse->setImage($this->image)
                                    ->send();
     }
