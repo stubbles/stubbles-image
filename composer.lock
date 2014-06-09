@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fa86d75b56e10705b072bba4566499c0",
+    "hash": "e9fc35e736d432c718c58f8eb8c1a04d",
     "packages": [
         {
             "name": "stubbles/core",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stubbles/stubbles-core.git",
-                "reference": "0a9220d22cbaf942cc3e3f524241eccc196c41a8"
+                "reference": "865574d0e2fed36c4c0788c5c82a66906e6fbb46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-core/zipball/0a9220d22cbaf942cc3e3f524241eccc196c41a8",
-                "reference": "0a9220d22cbaf942cc3e3f524241eccc196c41a8",
+                "url": "https://api.github.com/repos/stubbles/stubbles-core/zipball/865574d0e2fed36c4c0788c5c82a66906e6fbb46",
+                "reference": "865574d0e2fed36c4c0788c5c82a66906e6fbb46",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,7 @@
             ],
             "description": "Provides base classes for Stubbles packages.",
             "homepage": "http://stubbles.net/",
-            "time": "2014-06-09 12:30:55"
+            "time": "2014-06-09 22:02:28"
         }
     ],
     "packages-dev": [
