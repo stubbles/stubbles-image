@@ -8,6 +8,7 @@
  * @package  net\stubbles\img
  */
 namespace net\stubbles\img\driver;
+use stubbles\lang\Rootpath;
 /**
  * Test for net\stubbles\img\driver\DummyImageDriver.
  *
@@ -35,14 +36,13 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->dummyImageDriver = new DummyImageDriver();
-        $this->testPath = \net\stubbles\lang\ResourceLoader::getRootPath() . '/src/test/resources/';
+        $rootpath       = new Rootpath();
+        $this->testPath = $rootpath->to('/src/test/resources/');
     }
 
     /**
-     * load image without giving a handle on construction throws an exception
-     *
      * @test
-     * @expectedException  net\stubbles\lang\exception\IOException
+     * @expectedException  stubbles\lang\exception\IOException
      */
     public function loadWithoutHandleThrowsException()
     {
@@ -51,8 +51,6 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * load image with handle returns handle
-     *
      * @test
      */
     public function loadWithHandleReturnsHandle()
@@ -63,8 +61,6 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * storing image succeeds
-     *
      * @test
      */
     public function storeSucceeds()
@@ -76,8 +72,6 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * displaying image succeeds
-     *
      * @test
      */
     public function displaySucceeds()
@@ -88,8 +82,6 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * extension for dummy driver is always .dummy
-     *
      * @test
      */
     public function extensionIsAlwaysDummy()
@@ -98,8 +90,6 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * content type for dummy driver is always image/dummy
-     *
      * @test
      */
     public function contentTypeIsAlwaysPresent()

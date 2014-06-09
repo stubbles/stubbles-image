@@ -8,7 +8,7 @@
  * @package  net\stubbles\img
  */
 namespace net\stubbles\img;
-use net\stubbles\lang\exception\IllegalArgumentException;
+use stubbles\lang\exception\IllegalArgumentException;
 /**
  * Container for an image.
  */

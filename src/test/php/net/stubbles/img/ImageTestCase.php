@@ -8,6 +8,7 @@
  * @package  net\stubbles\img
  */
 namespace net\stubbles\img;
+use stubbles\lang\Rootpath;
 /**
  * Test for net\stubbles\img\Image.
  *
@@ -34,7 +35,8 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->testPath = \net\stubbles\lang\ResourceLoader::getRootPath() . '/src/test/resources/';
+        $rootpath       = new Rootpath();
+        $this->testPath = $rootpath->to('/src/test/resources/');
         $this->handle   = imagecreatefrompng($this->testPath . 'empty.png');
     }
 
@@ -48,7 +50,7 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException  net\stubbles\lang\exception\IllegalArgumentException
+     * @expectedException  stubbles\lang\exception\IllegalArgumentException
      */
     public function instantiateWithIllegalHandleThrowsIllegalArgumentException()
     {
@@ -57,7 +59,7 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException  net\stubbles\lang\exception\IllegalArgumentException
+     * @expectedException  stubbles\lang\exception\IllegalArgumentException
      */
     public function instantiateWithIllegalResourceHandleThrowsIllegalArgumentException()
     {
@@ -65,8 +67,6 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * instantiate using a handle
-     *
      * @test
      */
     public function instantiateWithHandle()
@@ -81,8 +81,6 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * instantiate using load()
-     *
      * @test
      */
     public function instantiateWithLoad()
@@ -96,8 +94,6 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * store() should use the given driver
-     *
      * @test
      */
     public function storeUsesDriver()

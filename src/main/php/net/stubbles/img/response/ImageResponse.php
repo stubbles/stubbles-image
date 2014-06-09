@@ -9,7 +9,7 @@
  */
 namespace net\stubbles\img\response;
 use net\stubbles\img\Image;
-use net\stubbles\webapp\response\Response;
+use stubbles\webapp\response\Response;
 /**
  * Response which contains only an image.
  */
@@ -23,4 +23,4 @@ interface ImageResponse extends Response
      */
     public function setImage(Image $image);
 }
-?>
+

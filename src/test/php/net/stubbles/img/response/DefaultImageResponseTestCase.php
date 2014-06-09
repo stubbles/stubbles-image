@@ -10,6 +10,7 @@
 namespace net\stubbles\img\response;
 use net\stubbles\img\Image;
 use net\stubbles\img\ImageType;
+use stubbles\lang\Rootpath;
 /**
  * Test for net\stubbles\img\response\DefaultImageResponse.
  */
@@ -49,7 +50,8 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
         $this->defaultImageResponse = $this->getMockBuilder('net\stubbles\img\response\DefaultImageResponse')
                                            ->setMethods(array('header', 'sendBody'))
                                            ->getMock();
-        $this->handle               = imagecreatefrompng(\net\stubbles\lang\ResourceLoader::getRootPath() . '/src/test/resources/empty.png');
+        $rootpath                   = new Rootpath();
+        $this->handle               = imagecreatefrompng($rootpath->to('/src/test/resources/empty.png'));
         $this->image                = new Image('test', ImageType::$DUMMY, $this->handle);
     }
 

@@ -8,7 +8,7 @@
  * @package  net\stubbles\img
  */
 namespace net\stubbles\img\driver;
-use net\stubbles\lang\exception\IOException;
+use stubbles\lang\exception\IOException;
 /**
  * Dummy driver for images.
  */

@@ -8,8 +8,8 @@
  * @package  net\stubbles\img
  */
 namespace net\stubbles\img\driver;
-use net\stubbles\lang\exception\IOException;
-use net\stubbles\lang\exception\FileNotFoundException;
+use stubbles\lang\exception\IOException;
+use stubbles\lang\exception\FileNotFoundException;
 /**
  * Driver for png images.
  */

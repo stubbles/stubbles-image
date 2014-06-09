@@ -9,7 +9,7 @@
  */
 namespace net\stubbles\img\response;
 use net\stubbles\img\Image;
-use net\stubbles\webapp\response\WebResponse;
+use stubbles\webapp\response\WebResponse;
 /**
  * Response which contains only an image.
  */

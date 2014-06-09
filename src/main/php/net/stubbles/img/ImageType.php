@@ -8,7 +8,7 @@
  * @package  net\stubbles\img
  */
 namespace net\stubbles\img;
-use net\stubbles\lang\Enum;
+use stubbles\lang\Enum;
 /**
  * Collection of img type constants.
  */
