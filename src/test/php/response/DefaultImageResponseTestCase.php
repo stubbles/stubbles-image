@@ -48,7 +48,7 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
     {
         ImageType::$DUMMY->value()->reset();
         $this->defaultImageResponse = $this->getMockBuilder('stubbles\img\response\DefaultImageResponse')
-                                           ->setMethods(array('header', 'sendBody'))
+                                           ->setMethods(['header', 'sendBody'])
                                            ->getMock();
         $rootpath                   = new Rootpath();
         $this->handle               = imagecreatefrompng($rootpath->to('/src/test/resources/empty.png'));
