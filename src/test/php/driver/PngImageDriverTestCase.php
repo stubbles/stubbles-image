@@ -5,12 +5,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package  net\stubbles\img
+ * @package  stubbles\img
  */
-namespace net\stubbles\img\driver;
+namespace stubbles\img\driver;
 use stubbles\lang\Rootpath;
 /**
- * Test for net\stubbles\img\driver\PngImageDriver.
+ * Test for stubbles\img\driver\PngImageDriver.
  *
  * @group  img
  * @group  driver
@@ -38,7 +38,7 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
         $this->pngImageDriver = new PngImageDriver();
         $rootpath       = new Rootpath();
         $this->testPath = $rootpath->to('/src/test/resources/');
-        if (file_exists($this->testPath . 'new.png') === true) {
+        if (file_exists($this->testPath . 'new.png')) {
             unlink($this->testPath . 'new.png');
         }
     }
@@ -48,7 +48,7 @@ class PngImageDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        if (file_exists($this->testPath . 'new.png') === true) {
+        if (file_exists($this->testPath . 'new.png')) {
             unlink($this->testPath . 'new.png');
         }
     }

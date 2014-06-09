@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "net\\stubbles\\img\\": "src/main/php"
+            "stubbles\\img\\": "src/main/php"
         }
     },
     "extra": {

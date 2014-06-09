@@ -5,10 +5,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package  net\stubbles\img
+ * @package  stubbles\img
  */
-namespace net\stubbles\img\response;
-use net\stubbles\img\Image;
+namespace stubbles\img\response;
+use stubbles\img\Image;
 use stubbles\webapp\response\Response;
 /**
  * Response which contains only an image.

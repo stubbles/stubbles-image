@@ -1,3 +1,15 @@
+3.0.0 (2014-06-??)
+------------------
+
+### BC breaks
+
+  * removed namespace prefix `net`, base namespace is now `stubbles\img` only
+
+### Other changes
+
+  * upgraded to stubbles/core 4.x & stubbles/webapp-core 4.x
+
+
 2.0.3 (2013-11-04)
 ------------------
 
