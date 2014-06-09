@@ -4,9 +4,12 @@
 ### BC breaks
 
   * removed namespace prefix `net`, base namespace is now `stubbles\img` only
-  * renamed methods in `stubbles\image\driver\ImageDriver`:
-    * `getExtension()` is now `fileExtension()`
-    * `getContentType()` is now `mimeType()`
+  * api changes
+    * renamed methods in `stubbles\image\driver\ImageDriver`:
+      * `getExtension()` is now `fileExtension()`
+      * `getContentType()` is now `mimeType()`
+    * deprecated `stubbles\img\Image::getExtension()`, use `stubbles\img\Image::fileExtension()` instead, will be removed with 4.0.0
+    * deprecated `stubbles\img\Image::getContentType()`, use `stubbles\img\Image::mimeType()` instead, will be removed with 4.0.0
 
 ### Other changes
 

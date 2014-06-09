@@ -123,9 +123,20 @@ class Image
      *
      * @return  string
      */
-    public function getExtension()
+    public function fileExtension()
     {
         return $this->type->fileExtension();
+    }
+
+    /**
+     * returns default extension for this type of image (e.g. '.png')
+     *
+     * @return  string
+     * @deprecated  since 3.0.0, use fileExtension() instead, will be removed with 4.0.0
+     */
+    public function getExtension()
+    {
+        return $this->fileExtension();
     }
 
     /**
@@ -133,8 +144,19 @@ class Image
      *
      * @return  string
      */
-    public function getContentType()
+    public function mimeType()
     {
         return $this->type->mimeType();
+    }
+
+    /**
+     * returns content type
+     *
+     * @return  string
+     * @deprecated  since 3.0.0, use mimeType() instead, will be removed with 4.0.0
+     */
+    public function getContentType()
+    {
+        return $this->mimeType();
     }
 }

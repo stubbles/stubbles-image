@@ -31,7 +31,7 @@ class DefaultImageResponse extends WebResponse implements ImageResponse
     public function setImage(Image $image)
     {
         $this->image = $image;
-        $this->addHeader('Content-type', $image->getContentType());
+        $this->addHeader('Content-type', $image->mimeType());
         return $this;
     }
 
