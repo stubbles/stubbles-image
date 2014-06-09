@@ -67,8 +67,8 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
         $this->assertSame($this->dummyImageDriver, $this->dummyImageDriver->store('dummy.png', $handle));
-        $this->assertEquals('dummy.png', $this->dummyImageDriver->getLastStoredFileName());
-        $this->assertSame($handle, $this->dummyImageDriver->getLastStoredHandle());
+        $this->assertEquals('dummy.png', $this->dummyImageDriver->lastStoredFileName());
+        $this->assertSame($handle, $this->dummyImageDriver->lastStoredHandle());
     }
 
     /**
@@ -78,7 +78,7 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
         $this->dummyImageDriver->display($handle);
-        $this->assertSame($handle, $this->dummyImageDriver->getLastDisplayedHandle());
+        $this->assertSame($handle, $this->dummyImageDriver->lastDisplayedHandle());
     }
 
     /**

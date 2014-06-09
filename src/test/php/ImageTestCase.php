@@ -100,8 +100,8 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     {
         $image = new Image('foo', ImageType::$DUMMY, $this->handle);
         $this->assertSame($image, $image->store('bar'));
-        $this->assertEquals('bar', ImageType::$DUMMY->value()->getLastStoredFileName());
-        $this->assertSame($this->handle, ImageType::$DUMMY->value()->getLastStoredHandle());
+        $this->assertEquals('bar', ImageType::$DUMMY->value()->lastStoredFileName());
+        $this->assertSame($this->handle, ImageType::$DUMMY->value()->lastStoredHandle());
         $this->assertEquals('.dummy', $image->getExtension());
         $this->assertEquals('image/dummy', $image->getContentType());
     }
@@ -113,7 +113,7 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     {
         $image = new Image('foo', ImageType::$DUMMY, $this->handle);
         $image->display();
-        $this->assertSame($this->handle, ImageType::$DUMMY->value()->getLastDisplayedHandle());
+        $this->assertSame($this->handle, ImageType::$DUMMY->value()->lastDisplayedHandle());
         $this->assertEquals('.dummy', $image->getExtension());
         $this->assertEquals('image/dummy', $image->getContentType());
     }

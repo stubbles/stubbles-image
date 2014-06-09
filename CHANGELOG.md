@@ -8,6 +8,10 @@
     * renamed methods in `stubbles\image\driver\ImageDriver`:
       * `getExtension()` is now `fileExtension()`
       * `getContentType()` is now `mimeType()`
+    * renamed methods in `stubbles\image\driver\DummyImageDriver`:
+      * `getLastStoredFileName()` is now `lastStoredFileName()`
+      * `getLastStoredHandle()` is now `lastStoredHandle()`
+      * `getLastDisplayedHandle()` is now `lastDisplayedHandle()`
     * deprecated `stubbles\img\Image::getExtension()`, use `stubbles\img\Image::fileExtension()` instead, will be removed with 4.0.0
     * deprecated `stubbles\img\Image::getContentType()`, use `stubbles\img\Image::mimeType()` instead, will be removed with 4.0.0
 

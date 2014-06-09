@@ -83,7 +83,7 @@ class DummyImageDriver implements ImageDriver
      *
      * @return  string
      */
-    public function getLastStoredFileName()
+    public function lastStoredFileName()
     {
         return $this->lastStoredFileName;
     }
@@ -93,7 +93,7 @@ class DummyImageDriver implements ImageDriver
      *
      * @return  resource
      */
-    public function getLastStoredHandle()
+    public function lastStoredHandle()
     {
         return $this->lastStoredHandle;
     }
@@ -123,7 +123,7 @@ class DummyImageDriver implements ImageDriver
      *
      * @return  resource
      */
-    public function getLastDisplayedHandle()
+    public function lastDisplayedHandle()
     {
         return $this->lastDisplayedHandle;
     }
