@@ -24,11 +24,11 @@ class Image
      */
     private $handle;
     /**
-     * name of image
+     * file name of image
      *
      * @type  string
      */
-    private $name;
+    private $fileName;
     /**
      * image type
      *
@@ -39,15 +39,15 @@ class Image
     /**
      * constructor
      *
-     * @param   string     $name
-     * @param   ImageType  $type    defaults to ImageType::$PNG
+     * @param   string     $fileName  file name of image to load
+     * @param   ImageType  $type      optional defaults to ImageType::$PNG
      * @param   resource   $handle
      * @throws  IllegalArgumentException
      */
-    public function __construct($name, ImageType $type = null, $handle = null)
+    public function __construct($fileName, ImageType $type = null, $handle = null)
     {
-        $this->name   = $name;
-        $this->type   = ((null === $type) ? (ImageType::$PNG) : ($type));
+        $this->fileName = $fileName;
+        $this->type    = ((null === $type) ? (ImageType::$PNG) : ($type));
         if (null !== $handle && (!is_resource($handle) || get_resource_type($handle) !== 'gd')) {
             throw new IllegalArgumentException('Given handle is not a valid gd resource.');
         }
@@ -61,7 +61,7 @@ class Image
      * @param   string          $resource        resource uri of image to load
      * @param   ResourceLoader  $resourceLoader  resource loader to be used
      * @param   ImageType       $type            optional  defaults to ImageType::$PNG
-     * @return  Image
+     * @return  \stubbles\img\Image
      * @since   3.0.0
      */
     public static function loadFromResource($resource, ResourceLoader $resourceLoader, ImageType $type = null)
@@ -77,7 +77,7 @@ class Image
      *
      * @param   string     $fileName  file name of image to load
      * @param   ImageType  $type      optional  defaults to ImageType::$PNG
-     * @return  Image
+     * @return  \stubbles\img\Image
      */
     public static function load($fileName, ImageType $type = null)
     {
@@ -91,19 +91,41 @@ class Image
      *
      * @return  string
      */
+    public function fileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * returns name of image
+     *
+     * @return  string
+     * @deprecated  since 3.0.0, use fileName() instead, will be removed with 4.0.0
+     */
     public function getName()
     {
-        return $this->name;
+        return $this->fileName();
     }
 
     /**
      * returns type of image
      *
-     * @return  ImageType
+     * @return  \stubbles\img\ImageType
+     */
+    public function type()
+    {
+        return $this->type;
+    }
+
+    /**
+     * returns type of image
+     *
+     * @return  \stubbles\img\ImageType
+     * @deprecated  since 3.0.0, use type() instead, will be removed with 4.0.0
      */
     public function getType()
     {
-        return $this->type;
+        return $this->type();
     }
 
     /**
@@ -111,16 +133,27 @@ class Image
      *
      * @return  resource
      */
-    public function getHandle()
+    public function handle()
     {
         return $this->handle;
+    }
+
+    /**
+     * returns image handle
+     *
+     * @return  resource
+     * @deprecated  since 3.0.0, use handle() instead, will be removed with 4.0.0
+     */
+    public function getHandle()
+    {
+        return $this->handle();
     }
 
     /**
      * stores image under given file name
      *
      * @param   string     $fileName
-     * @return  stubImage
+     * @return  \stubbles\img\Image
      */
     public function store($fileName)
     {

@@ -1,7 +1,8 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
     "hash": "bc8a86cfcaaa972de5f4a677fb98805d",
     "packages": [
@@ -11,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stubbles/stubbles-core.git",
-                "reference": "865574d0e2fed36c4c0788c5c82a66906e6fbb46"
+                "reference": "84a3f3ac98a81c8dd3706e9b4c0494004c10c239"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-core/zipball/865574d0e2fed36c4c0788c5c82a66906e6fbb46",
-                "reference": "865574d0e2fed36c4c0788c5c82a66906e6fbb46",
+                "url": "https://api.github.com/repos/stubbles/stubbles-core/zipball/84a3f3ac98a81c8dd3706e9b4c0494004c10c239",
+                "reference": "84a3f3ac98a81c8dd3706e9b4c0494004c10c239",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +26,7 @@
             "require-dev": {
                 "mikey179/vfsstream": "~1.2",
                 "phpunit/phpunit": "~4.1",
-                "stubbles/core-dev": "4.0.*@dev"
+                "stubbles/core-dev": "dev-master"
             },
             "type": "library",
             "extra": {
@@ -48,7 +49,7 @@
             ],
             "description": "Provides base classes for Stubbles packages.",
             "homepage": "http://stubbles.net/",
-            "time": "2014-06-09 22:02:28"
+            "time": "2014-06-23 12:01:20"
         }
     ],
     "packages-dev": [
@@ -302,16 +303,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.1.2",
+            "version": "4.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "be5f237df860da88a7cfe247594232cae61845df"
+                "reference": "939cb801b3b2aa253aedd0b279f40bb8f35cec91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/be5f237df860da88a7cfe247594232cae61845df",
-                "reference": "be5f237df860da88a7cfe247594232cae61845df",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/939cb801b3b2aa253aedd0b279f40bb8f35cec91",
+                "reference": "939cb801b3b2aa253aedd0b279f40bb8f35cec91",
                 "shasum": ""
             },
             "require": {
@@ -372,20 +373,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-06-07 07:30:48"
+            "time": "2014-06-11 14:15:47"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "92f4b49d2cd4f2537db7ef969231f3d43c8da957"
+                "reference": "1a894a16b6c15fcdc5ef2b110f0e6233952c9b0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/92f4b49d2cd4f2537db7ef969231f3d43c8da957",
-                "reference": "92f4b49d2cd4f2537db7ef969231f3d43c8da957",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/1a894a16b6c15fcdc5ef2b110f0e6233952c9b0f",
+                "reference": "1a894a16b6c15fcdc5ef2b110f0e6233952c9b0f",
                 "shasum": ""
             },
             "require": {
@@ -429,7 +430,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2014-06-07 12:56:52"
+            "time": "2014-06-07 16:22:57"
         },
         {
             "name": "sebastian/comparator",
@@ -750,12 +751,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stubbles/stubbles-webapp-core.git",
-                "reference": "88a2419f718521c47dd7bff0cad44c5635ae8a41"
+                "reference": "ad69afb84a4a7b0b6aee360aa3858850aadcccdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-webapp-core/zipball/88a2419f718521c47dd7bff0cad44c5635ae8a41",
-                "reference": "88a2419f718521c47dd7bff0cad44c5635ae8a41",
+                "url": "https://api.github.com/repos/stubbles/stubbles-webapp-core/zipball/ad69afb84a4a7b0b6aee360aa3858850aadcccdd",
+                "reference": "ad69afb84a4a7b0b6aee360aa3858850aadcccdd",
                 "shasum": ""
             },
             "require": {
@@ -765,9 +766,11 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.1",
+                "stubbles/webapp-session": "~4.0",
                 "stubbles/xml": "~3.0"
             },
             "suggest": {
+                "stubbles/webapp-session": "~4.0",
                 "stubbles/xml": "~3.0"
             },
             "type": "library",
@@ -787,7 +790,7 @@
             ],
             "description": "Base classes for Stubbles based web applications.",
             "homepage": "http://stubbles.net/",
-            "time": "2014-06-09 15:16:57"
+            "time": "2014-06-20 11:41:07"
         },
         {
             "name": "symfony/yaml",
@@ -839,12 +842,18 @@
             "time": "2014-05-16 14:25:18"
         }
     ],
-    "aliases": [],
+    "aliases": [
+
+    ],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": [
+
+    ],
     "platform": {
         "php": ">=5.4.0",
         "ext-gd": "*"
     },
-    "platform-dev": []
+    "platform-dev": [
+
+    ]
 }

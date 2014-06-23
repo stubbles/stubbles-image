@@ -12,6 +12,9 @@
       * `getLastStoredFileName()` is now `lastStoredFileName()`
       * `getLastStoredHandle()` is now `lastStoredHandle()`
       * `getLastDisplayedHandle()` is now `lastDisplayedHandle()`
+    * deprecated `stubbles\img\Image::getName()`, use `stubbles\img\Image::fileName()` instead, will be removed with 4.0.0
+    * deprecated `stubbles\img\Image::getType()`, use `stubbles\img\Image::type()` instead, will be removed with 4.0.0
+    * deprecated `stubbles\img\Image::getHandle()`, use `stubbles\img\Image::handle()` instead, will be removed with 4.0.0
     * deprecated `stubbles\img\Image::getExtension()`, use `stubbles\img\Image::fileExtension()` instead, will be removed with 4.0.0
     * deprecated `stubbles\img\Image::getContentType()`, use `stubbles\img\Image::mimeType()` instead, will be removed with 4.0.0
 
