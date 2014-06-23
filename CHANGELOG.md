@@ -18,6 +18,7 @@
 ### Other changes
 
   * upgraded to stubbles/core 4.x & stubbles/webapp-core 4.x
+  * added `stubbles\img\Image::loadFromResource()`
 
 
 2.0.3 (2013-11-04)

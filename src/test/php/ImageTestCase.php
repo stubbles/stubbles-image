@@ -8,6 +8,7 @@
  * @package  stubbles\img
  */
 namespace stubbles\img;
+use stubbles\lang\ResourceLoader;
 use stubbles\lang\Rootpath;
 /**
  * Test for stubbles\img\Image.
@@ -76,8 +77,8 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $image->getName());
         $this->assertSame(ImageType::$PNG, $image->getType());
         $this->assertSame($this->handle, $image->getHandle());
-        $this->assertEquals('.png', $image->getExtension());
-        $this->assertEquals('image/png', $image->getContentType());
+        $this->assertEquals('.png', $image->fileExtension());
+        $this->assertEquals('image/png', $image->mimeType());
     }
 
     /**
@@ -89,8 +90,22 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->testPath . 'empty.png', $image->getName());
         $this->assertSame(ImageType::$PNG, $image->getType());
         $this->assertNotNull($image->getHandle());
-        $this->assertEquals('.png', $image->getExtension());
-        $this->assertEquals('image/png', $image->getContentType());
+        $this->assertEquals('.png', $image->fileExtension());
+        $this->assertEquals('image/png', $image->mimeType());
+    }
+
+    /**
+     * @test
+     * @since  3.0.0
+     */
+    public function instantiateWithLoadFromResource()
+    {
+        $image = Image::loadFromResource($this->testPath . 'empty.png', new ResourceLoader());
+        $this->assertEquals($this->testPath . 'empty.png', $image->getName());
+        $this->assertSame(ImageType::$PNG, $image->getType());
+        $this->assertNotNull($image->getHandle());
+        $this->assertEquals('.png', $image->fileExtension());
+        $this->assertEquals('image/png', $image->mimeType());
     }
 
     /**
@@ -102,8 +117,8 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
         $this->assertSame($image, $image->store('bar'));
         $this->assertEquals('bar', ImageType::$DUMMY->value()->lastStoredFileName());
         $this->assertSame($this->handle, ImageType::$DUMMY->value()->lastStoredHandle());
-        $this->assertEquals('.dummy', $image->getExtension());
-        $this->assertEquals('image/dummy', $image->getContentType());
+        $this->assertEquals('.dummy', $image->fileExtension());
+        $this->assertEquals('image/dummy', $image->mimeType());
     }
 
     /**
@@ -114,7 +129,7 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
         $image = new Image('foo', ImageType::$DUMMY, $this->handle);
         $image->display();
         $this->assertSame($this->handle, ImageType::$DUMMY->value()->lastDisplayedHandle());
-        $this->assertEquals('.dummy', $image->getExtension());
-        $this->assertEquals('image/dummy', $image->getContentType());
+        $this->assertEquals('.dummy', $image->fileExtension());
+        $this->assertEquals('image/dummy', $image->mimeType());
     }
 }

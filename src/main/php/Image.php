@@ -8,6 +8,7 @@
  * @package  stubbles\img
  */
 namespace stubbles\img;
+use stubbles\lang\ResourceLoader;
 use stubbles\lang\exception\IllegalArgumentException;
 /**
  * Container for an image.
@@ -47,7 +48,7 @@ class Image
     {
         $this->name   = $name;
         $this->type   = ((null === $type) ? (ImageType::$PNG) : ($type));
-        if (null !== $handle && (is_resource($handle) === false || get_resource_type($handle) !== 'gd')) {
+        if (null !== $handle && (!is_resource($handle) || get_resource_type($handle) !== 'gd')) {
             throw new IllegalArgumentException('Given handle is not a valid gd resource.');
         }
 
@@ -55,10 +56,27 @@ class Image
     }
 
     /**
+     * loads image from resource
+     *
+     * @param   string          $resource        resource uri of image to load
+     * @param   ResourceLoader  $resourceLoader  resource loader to be used
+     * @param   ImageType       $type            optional  defaults to ImageType::$PNG
+     * @return  Image
+     * @since   3.0.0
+     */
+    public static function loadFromResource($resource, ResourceLoader $resourceLoader, ImageType $type = null)
+    {
+        return $resourceLoader->load(
+                $resource,
+                function($fileName) use ($type) { return self::load($fileName, $type); }
+        );
+    }
+
+    /**
      * loads image from file
      *
-     * @param   string     $fileName
-     * @param   ImageType  $type      defaults to ImageType::$PNG
+     * @param   string     $fileName  file name of image to load
+     * @param   ImageType  $type      optional  defaults to ImageType::$PNG
      * @return  Image
      */
     public static function load($fileName, ImageType $type = null)
