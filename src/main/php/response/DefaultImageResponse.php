@@ -48,6 +48,24 @@ class DefaultImageResponse extends WebResponse implements ImageResponse
     }
 
     /**
+     * write data into the response
+     *
+     * @param   string|Image  $body
+     * @return  ImageResponse
+     */
+    public function write($body)
+    {
+        if ($body instanceof Image) {
+            $this->setImage($body);
+        } else {
+            $this->image = null;
+            parent::write($body);
+        }
+
+        return $this;
+    }
+
+    /**
      * send the response out
      *
      * @return  ImageResponse
@@ -55,7 +73,7 @@ class DefaultImageResponse extends WebResponse implements ImageResponse
     public function send()
     {
         if (null !== $this->image) {
-            $this->write(null);
+            parent::write(null);
             parent::send();
             $this->image->display();
         } else {

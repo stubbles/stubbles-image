@@ -73,7 +73,7 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
         $this->defaultImageResponse->expects($this->at(1))
                                    ->method('header')
                                    ->with($this->equalTo('Content-type: ' . ImageType::$DUMMY->mimeType()));
-        $this->defaultImageResponse->setImage($this->image)
+        $this->defaultImageResponse->write($this->image)
                                    ->send();
     }
 
@@ -82,7 +82,7 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
      */
     public function sendResponseWithImage()
     {
-        $this->defaultImageResponse->setImage($this->image)->send();
+        $this->defaultImageResponse->write($this->image)->send();
         $this->assertSame($this->handle,
                           ImageType::$DUMMY->value()->lastDisplayedHandle()
         );
@@ -94,7 +94,7 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
      */
     public function clearRemovesImageFromResponse()
     {
-        $this->defaultImageResponse->setImage($this->image)->clear()->send();
+        $this->defaultImageResponse->write($this->image)->clear()->send();
         $this->assertNull(ImageType::$DUMMY->value()->lastDisplayedHandle());
     }
 
@@ -102,10 +102,23 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
      * @test
      * @since  2.0.3
      */
-    public function bodyIsNeverSendWhenImagePresent()
+    public function stringBodyIsNeverSendWhenImagePresent()
     {
         $this->defaultImageResponse->expects($this->never())
                                    ->method('sendBody');
-        $this->defaultImageResponse->setImage($this->image)->write('something')->send();
+        $this->defaultImageResponse->write('something')->write($this->image)->send();
+    }
+
+    /**
+     * @test
+     * @since  3.0.0
+     */
+    public function writeOverwritesExistingImage()
+    {
+        $this->defaultImageResponse->expects($this->once())
+                                   ->method('sendBody')
+                                   ->with($this->equalTo('something'));
+        $this->defaultImageResponse->write($this->image)->write('something')->send();
+        $this->assertNull(ImageType::$DUMMY->value()->lastDisplayedHandle());
     }
 }
