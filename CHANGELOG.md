@@ -22,6 +22,7 @@
 
   * upgraded to stubbles/core 4.x & stubbles/webapp-core 4.x
   * added `stubbles\img\Image::loadFromResource()`
+  * added `stubbles\img\response\ImageFormatter`
 
 
 2.0.3 (2013-11-04)
