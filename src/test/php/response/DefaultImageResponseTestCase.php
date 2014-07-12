@@ -11,6 +11,8 @@ namespace stubbles\img\response;
 use stubbles\img\Image;
 use stubbles\img\ImageType;
 use stubbles\lang\Rootpath;
+use stubbles\peer\http\Http;
+use stubbles\peer\http\HttpVersion;
 /**
  * Test for stubbles\img\response\DefaultImageResponse.
  */
@@ -34,12 +36,6 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
      * @type  Image
      */
     private $image;
-    /**
-     * path to test resource images
-     *
-     * @type  string
-     */
-    private $testPath;
 
     /**
      * set up test environment
@@ -47,13 +43,34 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         ImageType::$DUMMY->value()->reset();
-        $this->defaultImageResponse = $this->getMockBuilder('stubbles\img\response\DefaultImageResponse')
-                                           ->setMethods(['header', 'sendBody'])
-                                           ->getMock();
+        $this->defaultImageResponse = $this->createResponse();
         $rootpath                   = new Rootpath();
         $this->handle               = imagecreatefrompng($rootpath->to('/src/test/resources/empty.png'));
         $this->image                = new Image('test', ImageType::$DUMMY, $this->handle);
     }
+
+    /**
+     * creates response where output facing methods are mocked
+     *
+     * @param   string  $requestMethod  optional  http request method to use, defaults to GET
+     * @return  DefaultImageResponse
+     */
+    private function createResponse($requestMethod = Http::GET)
+    {
+        $mockRequest = $this->getMock('stubbles\input\web\WebRequest');
+        $mockRequest->expects($this->once())
+                    ->method('protocolVersion')
+                    ->will($this->returnValue(HttpVersion::fromString(HttpVersion::HTTP_1_1)));
+        $mockRequest->expects($this->any())
+                    ->method('method')
+                    ->will($this->returnValue($requestMethod));
+        return $this->getMock(
+                'stubbles\img\response\DefaultImageResponse',
+                ['header', 'sendBody'],
+                [$mockRequest]
+        );
+    }
+
 
     /**
      * @test
@@ -86,6 +103,17 @@ class DefaultImageResponseTestCase extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->handle,
                           ImageType::$DUMMY->value()->lastDisplayedHandle()
         );
+    }
+
+    /**
+     * @test
+     * @since  3.0.0
+     */
+    public function imageIsNotSendWhenRequestMethodIsHead()
+    {
+        $this->defaultImageResponse = $this->createResponse(Http::HEAD);
+        $this->defaultImageResponse->write($this->image)->send();
+        $this->assertNull(ImageType::$DUMMY->value()->lastDisplayedHandle());
     }
 
     /**
