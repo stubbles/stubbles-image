@@ -8,23 +8,23 @@
     "packages": [
         {
             "name": "stubbles/core",
-            "version": "dev-master",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stubbles/stubbles-core.git",
-                "reference": "8ee6763294b3b4c0ebbec6165ef5407e53acb5eb"
+                "reference": "6e84ef039726b6eccc9536586f76e71948e20682"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-core/zipball/8ee6763294b3b4c0ebbec6165ef5407e53acb5eb",
-                "reference": "8ee6763294b3b4c0ebbec6165ef5407e53acb5eb",
+                "url": "https://api.github.com/repos/stubbles/stubbles-core/zipball/6e84ef039726b6eccc9536586f76e71948e20682",
+                "reference": "6e84ef039726b6eccc9536586f76e71948e20682",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "mikey179/vfsstream": "~1.2",
+                "mikey179/vfsstream": "~1.3",
                 "phpunit/phpunit": "~4.1",
                 "stubbles/core-dev": "dev-master"
             },
@@ -49,7 +49,7 @@
             ],
             "description": "Provides base classes for Stubbles packages.",
             "homepage": "http://stubbles.net/",
-            "time": "2014-06-29 15:37:18"
+            "time": "2014-07-31 11:22:40"
         }
     ],
     "packages-dev": [
@@ -303,16 +303,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.1.3",
+            "version": "4.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "939cb801b3b2aa253aedd0b279f40bb8f35cec91"
+                "reference": "a71c4842c5fb836d8b200624583b859ec34e8a26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/939cb801b3b2aa253aedd0b279f40bb8f35cec91",
-                "reference": "939cb801b3b2aa253aedd0b279f40bb8f35cec91",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a71c4842c5fb836d8b200624583b859ec34e8a26",
+                "reference": "a71c4842c5fb836d8b200624583b859ec34e8a26",
                 "shasum": ""
             },
             "require": {
@@ -373,7 +373,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-06-11 14:15:47"
+            "time": "2014-07-18 07:15:58"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -702,16 +702,16 @@
         },
         {
             "name": "stubbles/input",
-            "version": "dev-master",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stubbles/stubbles-input.git",
-                "reference": "a1e7c6bda7ea9e2a84b20b0154e81018368d81e1"
+                "reference": "c4997a473c81a6056f0bfec9b2d836a4d479a9a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-input/zipball/a1e7c6bda7ea9e2a84b20b0154e81018368d81e1",
-                "reference": "a1e7c6bda7ea9e2a84b20b0154e81018368d81e1",
+                "url": "https://api.github.com/repos/stubbles/stubbles-input/zipball/c4997a473c81a6056f0bfec9b2d836a4d479a9a3",
+                "reference": "c4997a473c81a6056f0bfec9b2d836a4d479a9a3",
                 "shasum": ""
             },
             "require": {
@@ -719,7 +719,7 @@
                 "stubbles/core": "~4.0"
             },
             "require-dev": {
-                "mikey179/vfsstream": "~1.2",
+                "mikey179/vfsstream": "~1.3",
                 "phpunit/phpunit": "~4.1",
                 "stubbles/date": "~4.0"
             },
@@ -743,20 +743,20 @@
             ],
             "description": "Stubbles Input enables to handle input data via validation and filtering.",
             "homepage": "http://stubbles.net/",
-            "time": "2014-06-29 15:54:29"
+            "time": "2014-07-31 12:22:34"
         },
         {
             "name": "stubbles/webapp-core",
-            "version": "dev-master",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stubbles/stubbles-webapp-core.git",
-                "reference": "e2c5e9168d80fcd7d13ca9f278e1137722510237"
+                "reference": "48f7310261ba0fe69e6b7bcfbf29445bedefcce0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-webapp-core/zipball/e2c5e9168d80fcd7d13ca9f278e1137722510237",
-                "reference": "e2c5e9168d80fcd7d13ca9f278e1137722510237",
+                "url": "https://api.github.com/repos/stubbles/stubbles-webapp-core/zipball/48f7310261ba0fe69e6b7bcfbf29445bedefcce0",
+                "reference": "48f7310261ba0fe69e6b7bcfbf29445bedefcce0",
                 "shasum": ""
             },
             "require": {
@@ -765,7 +765,7 @@
                 "stubbles/input": "~3.0"
             },
             "require-dev": {
-                "mikey179/vfsstream": "~1.2",
+                "mikey179/vfsstream": "~1.3",
                 "phpunit/phpunit": "~4.1",
                 "stubbles/webapp-session": "~4.0",
                 "stubbles/xml": "~3.0"
@@ -783,7 +783,10 @@
             "autoload": {
                 "psr-4": {
                     "stubbles\\webapp\\": "src/main/php"
-                }
+                },
+                "files": [
+                    "src/main/php/functions.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -791,21 +794,21 @@
             ],
             "description": "Base classes for Stubbles based web applications.",
             "homepage": "http://stubbles.net/",
-            "time": "2014-07-12 10:11:55"
+            "time": "2014-07-31 16:23:11"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.5.1",
+            "version": "v2.5.2",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "1057e87364c0b38b50f5695fc9df9dd189036bec"
+                "reference": "f868ecdbcc0276b6158dfbf08b9e98ce07f014e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1057e87364c0b38b50f5695fc9df9dd189036bec",
-                "reference": "1057e87364c0b38b50f5695fc9df9dd189036bec",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/f868ecdbcc0276b6158dfbf08b9e98ce07f014e1",
+                "reference": "f868ecdbcc0276b6158dfbf08b9e98ce07f014e1",
                 "shasum": ""
             },
             "require": {
@@ -840,12 +843,13 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-08 12:21:33"
+            "time": "2014-07-09 09:05:48"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": [],
+    "prefer-stable": true,
     "platform": {
         "php": ">=5.4.0",
         "ext-gd": "*"
