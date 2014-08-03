@@ -20,8 +20,8 @@ class PngImageDriver implements ImageDriver
      *
      * @param   string    $fileName
      * @return  resource
-     * @throws  FileNotFoundException
-     * @throws  IOException
+     * @throws  \stubbles\lang\exception\FileNotFoundException
+     * @throws  \stubbles\lang\exception\IOException
      */
     public function load($fileName)
     {
@@ -42,8 +42,8 @@ class PngImageDriver implements ImageDriver
      *
      * @param   string              $fileName
      * @param   resource        $handle
-     * @return  PngImageDriver
-     * @throws  IOException
+     * @return  \stubbles\img\driver\PngImageDriver
+     * @throws  \stubbles\lang\exception\IOException
      */
     public function store($fileName, $handle)
     {

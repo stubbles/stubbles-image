@@ -54,7 +54,7 @@ class DummyImageDriver implements ImageDriver
      *
      * @param   string    $fileName
      * @return  resource
-     * @throws  IOException
+     * @throws  \stubbles\lang\exception\IOException
      */
     public function load($fileName)
     {
@@ -70,6 +70,7 @@ class DummyImageDriver implements ImageDriver
      *
      * @param   string    $fileName
      * @param   resource  $handle
+     * @return  \stubbles\img\driver\DummyImageDriver
      */
     public function store($fileName, $handle)
     {

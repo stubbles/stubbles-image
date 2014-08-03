@@ -26,6 +26,7 @@ interface ImageDriver
      *
      * @param   string    $fileName
      * @param   resource  $handle
+     * @return  \stubbles\img\driver\ImageDriver
      */
     public function store($fileName, $handle);
 

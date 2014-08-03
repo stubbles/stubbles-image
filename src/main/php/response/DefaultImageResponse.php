@@ -25,8 +25,8 @@ class DefaultImageResponse extends WebResponse implements ImageResponse
     /**
      * sets image for the response
      *
-     * @param   Image          $image
-     * @return  ImageResponse
+     * @param   \stubbles\img\Image  $image
+     * @return  \stubbles\img\response\ImageResponse
      */
     public function setImage(Image $image)
     {
@@ -38,7 +38,7 @@ class DefaultImageResponse extends WebResponse implements ImageResponse
     /**
      * clears the response
      *
-     * @return  ImageResponse
+     * @return  \stubbles\img\response\ImageResponse
      */
     public function clear()
     {
@@ -50,8 +50,8 @@ class DefaultImageResponse extends WebResponse implements ImageResponse
     /**
      * write data into the response
      *
-     * @param   string|Image  $body
-     * @return  ImageResponse
+     * @param   string|\stubbles\img\Image  $body
+     * @return  \stubbles\img\response\ImageResponse
      */
     public function write($body)
     {
@@ -68,7 +68,7 @@ class DefaultImageResponse extends WebResponse implements ImageResponse
     /**
      * send the response out
      *
-     * @return  ImageResponse
+     * @return  \stubbles\img\response\ImageResponse
      */
     public function send()
     {

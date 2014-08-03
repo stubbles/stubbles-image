@@ -33,7 +33,7 @@ class ImageFormatter implements Formatter
     /**
      * constructor
      *
-     * @param  ResourceLoader  $resourceLoader
+     * @param  \stubbles\lang\ResourceLoader  $resourceLoader
      * @Inject
      */
     public function __construct(ResourceLoader $resourceLoader)
@@ -58,8 +58,8 @@ class ImageFormatter implements Formatter
     /**
      * formats resource for response
      *
-     * @param   string|Image  $resource
-     * @param   Headers       $headers
+     * @param   string|\stubbles\img\Image         $resource
+     * @param   \stubbles\webapp\response\Headers  $headers
      * @return  string
      */
     public function format($resource, Headers $headers)
@@ -117,7 +117,7 @@ class ImageFormatter implements Formatter
     /**
      * loads error image
      *
-     * @return  Image
+     * @return  \stubbles\img\Image
      */
     private function loadErrorImage()
     {
