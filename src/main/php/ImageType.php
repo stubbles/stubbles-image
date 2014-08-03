@@ -18,14 +18,14 @@ class ImageType extends Enum
      * png images
      *
      * @api
-     * @type  ImageType
+     * @type  \stubbles\img\ImageType
      */
     public static $PNG;
     /**
      * dummy images
      *
      * @api
-     * @type  ImageType
+     * @type  \stubbles\img\ImageType
      */
     public static $DUMMY;
 

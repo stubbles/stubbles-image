@@ -18,8 +18,8 @@ interface ImageResponse extends Response
     /**
      * sets image for the response
      *
-     * @param   Image          $image
-     * @return  ImageResponse
+     * @param   \stubbles\img\Image  $image
+     * @return  \stubbles\img\response\ImageResponse
      */
     public function setImage(Image $image);
 }

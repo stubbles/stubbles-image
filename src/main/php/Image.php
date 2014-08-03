@@ -39,10 +39,10 @@ class Image
     /**
      * constructor
      *
-     * @param   string     $fileName  file name of image to load
-     * @param   ImageType  $type      optional defaults to ImageType::$PNG
-     * @param   resource   $handle
-     * @throws  IllegalArgumentException
+     * @param   string                   $fileName  file name of image to load
+     * @param   \stubbles\img\ImageType  $type      optional defaults to ImageType::$PNG
+     * @param   resource                 $handle
+     * @throws  \stubbles\lang\exception\IllegalArgumentException
      */
     public function __construct($fileName, ImageType $type = null, $handle = null)
     {
@@ -58,9 +58,9 @@ class Image
     /**
      * loads image from resource
      *
-     * @param   string          $resource        resource uri of image to load
-     * @param   ResourceLoader  $resourceLoader  resource loader to be used
-     * @param   ImageType       $type            optional  defaults to ImageType::$PNG
+     * @param   string                         $resource        resource uri of image to load
+     * @param   \stubbles\lang\ResourceLoader  $resourceLoader  resource loader to be used
+     * @param   \stubbles\img\ImageType        $type            optional  defaults to ImageType::$PNG
      * @return  \stubbles\img\Image
      * @since   3.0.0
      */
@@ -75,8 +75,8 @@ class Image
     /**
      * loads image from file
      *
-     * @param   string     $fileName  file name of image to load
-     * @param   ImageType  $type      optional  defaults to ImageType::$PNG
+     * @param   string                   $fileName  file name of image to load
+     * @param   \stubbles\img\ImageType  $type      optional  defaults to ImageType::$PNG
      * @return  \stubbles\img\Image
      */
     public static function load($fileName, ImageType $type = null)
