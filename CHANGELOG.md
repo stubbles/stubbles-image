@@ -3,6 +3,7 @@
 
 ### BC breaks
 
+  * removed `stubbles\image\response`, is now in stubbles/webapp-image
   * removed all methods deprecated with 3.0.0 (see below)
 
 ### Other changes
