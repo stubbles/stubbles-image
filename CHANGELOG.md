@@ -1,14 +1,16 @@
-4.0.0 (2014-09-??)
+4.0.0 (2014-09-01)
 ------------------
 
 ### BC breaks
 
   * removed `stubbles\image\response`, is now in stubbles/webapp-image
+  * removed `stubbles\img\Image::loadFromResource()`
+  * removed `stubbles\img\ImageType`, `stubbles\img\Image` now works directly with drivers
   * removed all methods deprecated with 3.0.0 (see below)
 
 ### Other changes
 
-  * upgraded to stubbles/core 5.x & stubbles/webapp-core 5.x
+  * removed dependency to stubbles/core 5.x and stubbles/webapp-core 5.x
 
 
 3.0.0 (2014-08-03)

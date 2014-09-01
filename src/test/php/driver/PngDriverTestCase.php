@@ -8,7 +8,6 @@
  * @package  stubbles\img
  */
 namespace stubbles\img\driver;
-use stubbles\lang\Rootpath;
 /**
  * Test for stubbles\img\driver\PngDriver.
  *
@@ -36,8 +35,7 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->pngDriver = new PngDriver();
-        $rootpath        = new Rootpath();
-        $this->testPath  = $rootpath->to('/src/test/resources/');
+        $this->testPath  = dirname(__DIR__) . '/../resources/';
         if (file_exists($this->testPath . 'new.png')) {
             unlink($this->testPath . 'new.png');
         }

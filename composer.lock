@@ -4,52 +4,9 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "440f569d5589ff5b96678b64be81f481",
+    "hash": "56a6154759d82cff642f964972364508",
     "packages": [
-        {
-            "name": "stubbles/core",
-            "version": "v5.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stubbles/stubbles-core.git",
-                "reference": "8db30f944232db7e687cbbe9cef91a9fcd0fecfb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-core/zipball/8db30f944232db7e687cbbe9cef91a9fcd0fecfb",
-                "reference": "8db30f944232db7e687cbbe9cef91a9fcd0fecfb",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "~1.3",
-                "phpunit/phpunit": "~4.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "stubbles\\": "src/main/php"
-                },
-                "files": [
-                    "src/main/php/lang/functions.php",
-                    "src/main/php/peer/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Provides base classes for Stubbles packages.",
-            "homepage": "http://stubbles.net/",
-            "time": "2014-09-01 09:40:10"
-        }
+
     ],
     "packages-dev": [
         {
@@ -811,102 +768,6 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2014-03-07 15:35:33"
-        },
-        {
-            "name": "stubbles/input",
-            "version": "v4.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stubbles/stubbles-input.git",
-                "reference": "b101c151acb36a2d58ecfa4429238acc70decaf6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-input/zipball/b101c151acb36a2d58ecfa4429238acc70decaf6",
-                "reference": "b101c151acb36a2d58ecfa4429238acc70decaf6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "stubbles/core": "~5.0"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "~1.3",
-                "phpunit/phpunit": "~4.2",
-                "stubbles/date": "~5.0"
-            },
-            "suggest": {
-                "stubbles/date": "~5.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "stubbles\\input\\": "src/main/php"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Stubbles Input enables to handle input data via validation and filtering.",
-            "homepage": "http://stubbles.net/",
-            "time": "2014-09-01 11:19:45"
-        },
-        {
-            "name": "stubbles/webapp-core",
-            "version": "v5.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stubbles/stubbles-webapp-core.git",
-                "reference": "f4862bf993d0acc8c5f5db40a692df330ad5b643"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stubbles/stubbles-webapp-core/zipball/f4862bf993d0acc8c5f5db40a692df330ad5b643",
-                "reference": "f4862bf993d0acc8c5f5db40a692df330ad5b643",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "stubbles/core": "~5.0",
-                "stubbles/input": "~4.1"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "~1.3",
-                "phpunit/phpunit": "~4.2",
-                "stubbles/webapp-session": "~5.0",
-                "stubbles/xml": "~4.0"
-            },
-            "suggest": {
-                "stubbles/webapp-session": "~5.0",
-                "stubbles/xml": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "stubbles\\webapp\\": "src/main/php"
-                },
-                "files": [
-                    "src/main/php/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Base classes for Stubbles based web applications.",
-            "homepage": "http://stubbles.net/",
-            "time": "2014-09-01 12:01:39"
         },
         {
             "name": "symfony/yaml",

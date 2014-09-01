@@ -8,7 +8,6 @@
  * @package  stubbles\img
  */
 namespace stubbles\img\driver;
-use stubbles\lang\Rootpath;
 /**
  * Test for stubbles\img\driver\DummyDriver.
  *
@@ -36,8 +35,7 @@ class DummyDriverTestCase extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->dummyDriver = new DummyDriver();
-        $rootpath          = new Rootpath();
-        $this->testPath    = $rootpath->to('/src/test/resources/');
+        $this->testPath    = dirname(__DIR__) . '/../resources/';
     }
 
     /**

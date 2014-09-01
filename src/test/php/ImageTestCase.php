@@ -9,7 +9,6 @@
  */
 namespace stubbles\img;
 use stubbles\img\driver\DummyDriver;
-use stubbles\lang\Rootpath;
 /**
  * Test for stubbles\img\Image.
  *
@@ -36,8 +35,7 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $rootpath       = new Rootpath();
-        $this->testPath = $rootpath->to('/src/test/resources/');
+        $this->testPath = dirname(__DIR__) . '/resources/';
         $this->handle   = imagecreatefrompng($this->testPath . 'empty.png');
     }
 
