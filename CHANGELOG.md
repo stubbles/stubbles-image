@@ -1,3 +1,15 @@
+4.0.0 (2014-09-??)
+------------------
+
+### BC breaks
+
+  * removed all methods deprecated with 3.0.0 (see below)
+
+### Other changes
+
+  * upgraded to stubbles/core 5.x & stubbles/webapp-core 5.x
+
+
 3.0.0 (2014-08-03)
 ------------------
 

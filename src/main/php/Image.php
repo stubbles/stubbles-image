@@ -96,17 +96,6 @@ class Image
     }
 
     /**
-     * returns name of image
-     *
-     * @return  string
-     * @deprecated  since 3.0.0, use fileName() instead, will be removed with 4.0.0
-     */
-    public function getName()
-    {
-        return $this->fileName();
-    }
-
-    /**
      * returns type of image
      *
      * @return  \stubbles\img\ImageType
@@ -117,17 +106,6 @@ class Image
     }
 
     /**
-     * returns type of image
-     *
-     * @return  \stubbles\img\ImageType
-     * @deprecated  since 3.0.0, use type() instead, will be removed with 4.0.0
-     */
-    public function getType()
-    {
-        return $this->type();
-    }
-
-    /**
      * returns image handle
      *
      * @return  resource
@@ -135,17 +113,6 @@ class Image
     public function handle()
     {
         return $this->handle;
-    }
-
-    /**
-     * returns image handle
-     *
-     * @return  resource
-     * @deprecated  since 3.0.0, use handle() instead, will be removed with 4.0.0
-     */
-    public function getHandle()
-    {
-        return $this->handle();
     }
 
     /**
@@ -179,17 +146,6 @@ class Image
     }
 
     /**
-     * returns default extension for this type of image (e.g. '.png')
-     *
-     * @return  string
-     * @deprecated  since 3.0.0, use fileExtension() instead, will be removed with 4.0.0
-     */
-    public function getExtension()
-    {
-        return $this->fileExtension();
-    }
-
-    /**
      * returns content type
      *
      * @return  string
@@ -197,16 +153,5 @@ class Image
     public function mimeType()
     {
         return $this->type->mimeType();
-    }
-
-    /**
-     * returns content type
-     *
-     * @return  string
-     * @deprecated  since 3.0.0, use mimeType() instead, will be removed with 4.0.0
-     */
-    public function getContentType()
-    {
-        return $this->mimeType();
     }
 }
