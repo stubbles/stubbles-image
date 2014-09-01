@@ -10,19 +10,19 @@
 namespace stubbles\img\driver;
 use stubbles\lang\Rootpath;
 /**
- * Test for stubbles\img\driver\DummyImageDriver.
+ * Test for stubbles\img\driver\DummyDriver.
  *
  * @group  img
  * @group  driver
  */
-class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
+class DummyDriverTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * instance to test
      *
-     * @type  DummyImageDriver
+     * @type  \stubbles\img\driver\DummyDriver
      */
-    private $dummyImageDriver;
+    private $dummyDriver;
     /**
      * path to test resource images
      *
@@ -35,19 +35,19 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->dummyImageDriver = new DummyImageDriver();
-        $rootpath       = new Rootpath();
-        $this->testPath = $rootpath->to('/src/test/resources/');
+        $this->dummyDriver = new DummyDriver();
+        $rootpath          = new Rootpath();
+        $this->testPath    = $rootpath->to('/src/test/resources/');
     }
 
     /**
      * @test
-     * @expectedException  stubbles\lang\exception\IOException
+     * @expectedException  stubbles\img\driver\DriverException
      */
     public function loadWithoutHandleThrowsException()
     {
-        $this->dummyImageDriver = new DummyImageDriver();
-        $this->dummyImageDriver->load('dummy.png');
+        $this->dummyDriver = new DummyDriver();
+        $this->dummyDriver->load('dummy.png');
     }
 
     /**
@@ -56,7 +56,7 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     public function loadWithHandleReturnsHandle()
     {
         $handle           = imagecreatefrompng($this->testPath . 'empty.png');
-        $imageDummyDriver = new DummyImageDriver($handle);
+        $imageDummyDriver = new DummyDriver($handle);
         $this->assertSame($handle, $imageDummyDriver->load('dummy.png'));
     }
 
@@ -66,9 +66,9 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     public function storeSucceeds()
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
-        $this->assertSame($this->dummyImageDriver, $this->dummyImageDriver->store('dummy.png', $handle));
-        $this->assertEquals('dummy.png', $this->dummyImageDriver->lastStoredFileName());
-        $this->assertSame($handle, $this->dummyImageDriver->lastStoredHandle());
+        $this->assertSame($this->dummyDriver, $this->dummyDriver->store('dummy.png', $handle));
+        $this->assertEquals('dummy.png', $this->dummyDriver->lastStoredFileName());
+        $this->assertSame($handle, $this->dummyDriver->lastStoredHandle());
     }
 
     /**
@@ -77,8 +77,8 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
     public function displaySucceeds()
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
-        $this->dummyImageDriver->display($handle);
-        $this->assertSame($handle, $this->dummyImageDriver->lastDisplayedHandle());
+        $this->dummyDriver->display($handle);
+        $this->assertSame($handle, $this->dummyDriver->lastDisplayedHandle());
     }
 
     /**
@@ -86,7 +86,7 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function extensionIsAlwaysDummy()
     {
-        $this->assertEquals('.dummy', $this->dummyImageDriver->fileExtension());
+        $this->assertEquals('.dummy', $this->dummyDriver->fileExtension());
     }
 
     /**
@@ -94,6 +94,6 @@ class DummyImageDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function contentTypeIsAlwaysPresent()
     {
-        $this->assertEquals('image/dummy', $this->dummyImageDriver->mimeType());
+        $this->assertEquals('image/dummy', $this->dummyDriver->mimeType());
     }
 }

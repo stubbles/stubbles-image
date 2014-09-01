@@ -8,30 +8,27 @@
  * @package  stubbles\img
  */
 namespace stubbles\img\driver;
-use stubbles\lang\exception\IOException;
-use stubbles\lang\exception\FileNotFoundException;
 /**
  * Driver for png images.
  */
-class PngImageDriver implements ImageDriver
+class PngDriver implements ImageDriver
 {
     /**
      * loads given image
      *
      * @param   string    $fileName
      * @return  resource
-     * @throws  \stubbles\lang\exception\FileNotFoundException
-     * @throws  \stubbles\lang\exception\IOException
+     * @throws  \stubbles\img\driver\DriverException
      */
     public function load($fileName)
     {
         if (!file_exists($fileName)) {
-            throw new FileNotFoundException($fileName);
+            throw new DriverException('The image ' . $fileName . ' could not be found');
         }
 
         $handle = @imagecreatefrompng($fileName);
         if (empty($handle)) {
-            throw new IOException('The image ' . $fileName . ' seems to be broken.');
+            throw new DriverException('The image ' . $fileName . ' seems to be broken.');
         }
 
         return $handle;
@@ -40,15 +37,15 @@ class PngImageDriver implements ImageDriver
     /**
      * stores given image
      *
-     * @param   string              $fileName
-     * @param   resource        $handle
-     * @return  \stubbles\img\driver\PngImageDriver
-     * @throws  \stubbles\lang\exception\IOException
+     * @param   string    $fileName
+     * @param   resource  $handle
+     * @return  \stubbles\img\driver\PngDriver
+     * @throws  \stubbles\img\driver\DriverException
      */
     public function store($fileName, $handle)
     {
         if (!@imagepng($handle, $fileName)) {
-            throw new IOException('Could not save image to ' . $fileName);
+            throw new DriverException('Could not save image to ' . $fileName);
         }
 
         return $this;

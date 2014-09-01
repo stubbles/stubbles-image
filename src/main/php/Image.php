@@ -8,7 +8,8 @@
  * @package  stubbles\img
  */
 namespace stubbles\img;
-use stubbles\lang\ResourceLoader;
+use stubbles\img\driver\ImageDriver;
+use stubbles\img\driver\PngDriver;
 /**
  * Container for an image.
  *
@@ -29,24 +30,24 @@ class Image
      */
     private $fileName;
     /**
-     * image type
+     * image driver
      *
-     * @type  ImageType
+     * @type  ImageDriver
      */
-    private $type;
+    private $driver;
 
     /**
      * constructor
      *
-     * @param   string                   $fileName  file name of image to load
-     * @param   \stubbles\img\ImageType  $type      optional defaults to ImageType::$PNG
-     * @param   resource                 $handle
+     * @param   string                            $fileName  file name of image to load
+     * @param   \stubbles\img\driver\ImageDriver  $driver    optional defaults to PngDriver
+     * @param   resource                          $handle
      * @throws  \InvalidArgumentException
      */
-    public function __construct($fileName, ImageType $type = null, $handle = null)
+    public function __construct($fileName, ImageDriver $driver = null, $handle = null)
     {
         $this->fileName = $fileName;
-        $this->type    = ((null === $type) ? (ImageType::$PNG) : ($type));
+        $this->driver  = ((null === $driver) ? (new PngDriver()) : ($driver));
         if (null !== $handle && (!is_resource($handle) || get_resource_type($handle) !== 'gd')) {
             throw new \InvalidArgumentException('Given handle is not a valid gd resource.');
         }
@@ -55,33 +56,16 @@ class Image
     }
 
     /**
-     * loads image from resource
-     *
-     * @param   string                         $resource        resource uri of image to load
-     * @param   \stubbles\lang\ResourceLoader  $resourceLoader  resource loader to be used
-     * @param   \stubbles\img\ImageType        $type            optional  defaults to ImageType::$PNG
-     * @return  \stubbles\img\Image
-     * @since   3.0.0
-     */
-    public static function loadFromResource($resource, ResourceLoader $resourceLoader, ImageType $type = null)
-    {
-        return $resourceLoader->load(
-                $resource,
-                function($fileName) use ($type) { return self::load($fileName, $type); }
-        );
-    }
-
-    /**
      * loads image from file
      *
-     * @param   string                   $fileName  file name of image to load
-     * @param   \stubbles\img\ImageType  $type      optional  defaults to ImageType::$PNG
+     * @param   string                     $fileName  file name of image to load
+     * @param   \stubbles\img\ImageDriver  $driver    optional  defaults to PngDriver
      * @return  \stubbles\img\Image
      */
-    public static function load($fileName, ImageType $type = null)
+    public static function load($fileName, ImageDriver $driver = null)
     {
-        $self = new self($fileName, $type);
-        $self->handle = $self->type->load($fileName);
+        $self = new self($fileName, $driver);
+        $self->handle = $self->driver->load($fileName);
         return $self;
     }
 
@@ -93,16 +77,6 @@ class Image
     public function fileName()
     {
         return $this->fileName;
-    }
-
-    /**
-     * returns type of image
-     *
-     * @return  \stubbles\img\ImageType
-     */
-    public function type()
-    {
-        return $this->type;
     }
 
     /**
@@ -123,7 +97,7 @@ class Image
      */
     public function store($fileName)
     {
-        $this->type->store($fileName, $this->handle);
+        $this->driver->store($fileName, $this->handle);
         return $this;
     }
 
@@ -132,7 +106,7 @@ class Image
      */
     public function display()
     {
-        $this->type->display($this->handle);
+        $this->driver->display($this->handle);
     }
 
     /**
@@ -142,7 +116,7 @@ class Image
      */
     public function fileExtension()
     {
-        return $this->type->fileExtension();
+        return $this->driver->fileExtension();
     }
 
     /**
@@ -152,6 +126,6 @@ class Image
      */
     public function mimeType()
     {
-        return $this->type->mimeType();
+        return $this->driver->mimeType();
     }
 }

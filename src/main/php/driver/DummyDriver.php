@@ -8,11 +8,10 @@
  * @package  stubbles\img
  */
 namespace stubbles\img\driver;
-use stubbles\lang\exception\IOException;
 /**
  * Dummy driver for images.
  */
-class DummyImageDriver implements ImageDriver
+class DummyDriver implements ImageDriver
 {
     /**
      * dummy handle to be used
@@ -54,12 +53,12 @@ class DummyImageDriver implements ImageDriver
      *
      * @param   string    $fileName
      * @return  resource
-     * @throws  \stubbles\lang\exception\IOException
+     * @throws  \stubbles\img\driver\DriverException
      */
     public function load($fileName)
     {
         if (null === $this->handle) {
-            throw new IOException('The image ' . $fileName . ' seems to be broken.');
+            throw new DriverException('The image ' . $fileName . ' seems to be broken.');
         }
 
         return $this->handle;
@@ -70,7 +69,7 @@ class DummyImageDriver implements ImageDriver
      *
      * @param   string    $fileName
      * @param   resource  $handle
-     * @return  \stubbles\img\driver\DummyImageDriver
+     * @return  \stubbles\img\driver\DummyDriver
      */
     public function store($fileName, $handle)
     {
