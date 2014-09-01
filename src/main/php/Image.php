@@ -9,7 +9,6 @@
  */
 namespace stubbles\img;
 use stubbles\lang\ResourceLoader;
-use stubbles\lang\exception\IllegalArgumentException;
 /**
  * Container for an image.
  *
@@ -42,14 +41,14 @@ class Image
      * @param   string                   $fileName  file name of image to load
      * @param   \stubbles\img\ImageType  $type      optional defaults to ImageType::$PNG
      * @param   resource                 $handle
-     * @throws  \stubbles\lang\exception\IllegalArgumentException
+     * @throws  \InvalidArgumentException
      */
     public function __construct($fileName, ImageType $type = null, $handle = null)
     {
         $this->fileName = $fileName;
         $this->type    = ((null === $type) ? (ImageType::$PNG) : ($type));
         if (null !== $handle && (!is_resource($handle) || get_resource_type($handle) !== 'gd')) {
-            throw new IllegalArgumentException('Given handle is not a valid gd resource.');
+            throw new \InvalidArgumentException('Given handle is not a valid gd resource.');
         }
 
         $this->handle = $handle;
