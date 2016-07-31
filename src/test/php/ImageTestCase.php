@@ -9,6 +9,14 @@
  */
 namespace stubbles\img;
 use stubbles\img\driver\DummyDriver;
+
+use function bovigo\assert\{
+    assert,
+    assertNotNull,
+    expect,
+    predicate\equals,
+    predicate\isSameAs
+};
 /**
  * Test for stubbles\img\Image.
  *
@@ -41,20 +49,22 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException  InvalidArgumentException
      */
     public function instantiateWithIllegalHandleThrowsIllegalArgumentException()
     {
-        new Image('foo', null, 'illegal');
+        expect(function() { new Image('foo', null, 'illegal'); })
+                ->throws(\InvalidArgumentException::class);
     }
 
     /**
      * @test
-     * @expectedException  InvalidArgumentException
      */
     public function instantiateWithIllegalResourceHandleThrowsIllegalArgumentException()
     {
-        new Image('foo', null, fopen($this->testPath . 'empty.png', 'r+'));
+        expect(function() {
+                new Image('foo', null, fopen($this->testPath . 'empty.png', 'r+'));
+        })
+                ->throws(\InvalidArgumentException::class);
     }
 
     /**
@@ -62,12 +72,11 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
      */
     public function instantiateWithHandle()
     {
-        $this->handle = imagecreatefrompng($this->testPath . 'empty.png');
         $image  = new Image('foo', null, $this->handle);
-        $this->assertEquals('foo', $image->fileName());
-        $this->assertSame($this->handle, $image->handle());
-        $this->assertEquals('.png', $image->fileExtension());
-        $this->assertEquals('image/png', $image->mimeType());
+        assert($image->fileName(), equals('foo'));
+        assert($image->handle(), isSameAs($this->handle));
+        assert($image->fileExtension(), equals('.png'));
+        assert($image->mimeType(), equals('image/png'));
     }
 
     /**
@@ -76,10 +85,10 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     public function instantiateWithLoad()
     {
         $image = Image::load($this->testPath . 'empty.png');
-        $this->assertEquals($this->testPath . 'empty.png', $image->fileName());
-        $this->assertNotNull($image->handle());
-        $this->assertEquals('.png', $image->fileExtension());
-        $this->assertEquals('image/png', $image->mimeType());
+        assert($image->fileName(), equals($this->testPath . 'empty.png'));
+        assertNotNull($image->handle());
+        assert($image->fileExtension(), equals('.png'));
+        assert($image->mimeType(), equals('image/png'));
     }
 
     /**
@@ -89,9 +98,9 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     {
         $dummyDriver = new DummyDriver();
         $image = new Image('foo', $dummyDriver, $this->handle);
-        $this->assertSame($image, $image->store('bar'));
-        $this->assertEquals('bar', $dummyDriver->lastStoredFileName());
-        $this->assertSame($this->handle, $dummyDriver->lastStoredHandle());
+        assert($image->store('bar'), isSameAs($image));
+        assert($dummyDriver->lastStoredFileName(), equals('bar'));
+        assert($dummyDriver->lastStoredHandle(), isSameAs($this->handle));
     }
 
     /**
@@ -102,6 +111,6 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
         $dummyDriver = new DummyDriver();
         $image = new Image('foo', $dummyDriver, $this->handle);
         $image->display();
-        $this->assertSame($this->handle, $dummyDriver->lastDisplayedHandle());
+        assert($dummyDriver->lastDisplayedHandle(), isSameAs($this->handle));
     }
 }

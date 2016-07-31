@@ -8,6 +8,12 @@
  * @package  stubbles\img
  */
 namespace stubbles\img\driver;
+use function bovigo\assert\{
+    assert,
+    expect,
+    predicate\equals,
+    predicate\isSameAs
+};
 /**
  * Test for stubbles\img\driver\DummyDriver.
  *
@@ -40,12 +46,12 @@ class DummyDriverTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException  stubbles\img\driver\DriverException
      */
     public function loadWithoutHandleThrowsException()
     {
         $this->dummyDriver = new DummyDriver();
-        $this->dummyDriver->load('dummy.png');
+        expect(function() { $this->dummyDriver->load('dummy.png'); })
+                ->throws(DriverException::class);
     }
 
     /**
@@ -55,28 +61,41 @@ class DummyDriverTestCase extends \PHPUnit_Framework_TestCase
     {
         $handle           = imagecreatefrompng($this->testPath . 'empty.png');
         $imageDummyDriver = new DummyDriver($handle);
-        $this->assertSame($handle, $imageDummyDriver->load('dummy.png'));
+        assert($imageDummyDriver->load('dummy.png'), isSameAs($handle));
     }
 
     /**
      * @test
      */
-    public function storeSucceeds()
+    public function storeStoresFilenameAsLast()
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
-        $this->assertSame($this->dummyDriver, $this->dummyDriver->store('dummy.png', $handle));
-        $this->assertEquals('dummy.png', $this->dummyDriver->lastStoredFileName());
-        $this->assertSame($handle, $this->dummyDriver->lastStoredHandle());
+        assert(
+                $this->dummyDriver->store('dummy.png', $handle)->lastStoredFileName(),
+                equals('dummy.png')
+        );
     }
 
     /**
      * @test
      */
-    public function displaySucceeds()
+    public function storeStoresHandleAsLast()
+    {
+        $handle = imagecreatefrompng($this->testPath . 'empty.png');
+        assert(
+                $this->dummyDriver->store('dummy.png', $handle)->lastStoredHandle(),
+                isSameAs($handle)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function displayStoresHandleAsLastDisplayed()
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
         $this->dummyDriver->display($handle);
-        $this->assertSame($handle, $this->dummyDriver->lastDisplayedHandle());
+        assert($this->dummyDriver->lastDisplayedHandle(), isSameAs($handle));
     }
 
     /**
@@ -84,7 +103,7 @@ class DummyDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function extensionIsAlwaysDummy()
     {
-        $this->assertEquals('.dummy', $this->dummyDriver->fileExtension());
+        assert($this->dummyDriver->fileExtension(), equals('.dummy'));
     }
 
     /**
@@ -92,6 +111,6 @@ class DummyDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function contentTypeIsAlwaysPresent()
     {
-        $this->assertEquals('image/dummy', $this->dummyDriver->mimeType());
+        assert($this->dummyDriver->mimeType(), equals('image/dummy'));
     }
 }

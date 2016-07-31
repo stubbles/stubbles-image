@@ -9,6 +9,7 @@
         "ext-gd": "*"
     },
     "require-dev": {
+        "bovigo/assert": "^2.0",
         "phpunit/phpunit": "~4.5"
     },
     "autoload": {

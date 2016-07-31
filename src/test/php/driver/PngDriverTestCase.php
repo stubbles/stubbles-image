@@ -8,6 +8,13 @@
  * @package  stubbles\img
  */
 namespace stubbles\img\driver;
+use function bovigo\assert\{
+    assert,
+    assertTrue,
+    expect,
+    predicate\equals,
+    predicate\isSameAs
+};
 /**
  * Test for stubbles\img\driver\PngDriver.
  *
@@ -53,20 +60,22 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException  stubbles\img\driver\DriverException
      */
     public function loadFromNonexistingFileThrowsException()
     {
-        $this->pngDriver->load('doesNotExist.png');
+        expect(function() { $this->pngDriver->load('doesNotExist.png'); })
+                ->throws(DriverException::class);
     }
 
     /**
      * @test
-     * @expectedException  stubbles\img\driver\DriverException
      */
     public function loadFromCorruptFileThrowsException()
     {
-        $this->pngDriver->load($this->testPath . 'corrupt.png');
+        expect(function() {
+                $this->pngDriver->load($this->testPath . 'corrupt.png');
+        })
+                ->throws(DriverException::class);
     }
 
     /**
@@ -75,8 +84,8 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
     public function loadReturnsResource()
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
-        $this->assertTrue(is_resource($handle));
-        $this->assertEquals('gd', get_resource_type($handle));
+        assertTrue(is_resource($handle));
+        assert(get_resource_type($handle), equals('gd'));
     }
 
     /**
@@ -85,18 +94,23 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
     public function storeSucceeds()
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
-        $this->assertSame($this->pngDriver, $this->pngDriver->store($this->testPath . 'new.png', $handle));
-        $this->assertTrue(file_exists($this->testPath . 'new.png'));
+        assert(
+                $this->pngDriver->store($this->testPath . 'new.png', $handle),
+                isSameAs($this->pngDriver)
+        );
+        assertTrue(file_exists($this->testPath . 'new.png'));
     }
 
     /**
      * @test
-     * @expectedException  stubbles\img\driver\DriverException
      */
     public function storeThrowsExceptionWhenItFails()
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
-        $this->pngDriver->store($this->testPath . 'foo/new.png', $handle);
+        expect(function() use ($handle) {
+                $this->pngDriver->store($this->testPath . 'foo/new.png', $handle);
+        })
+                ->throws(DriverException::class);
     }
 
     /**
@@ -104,7 +118,7 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function extensionIsAlwaysPng()
     {
-        $this->assertEquals('.png', $this->pngDriver->fileExtension());
+        assert($this->pngDriver->fileExtension(), equals('.png'));
     }
 
     /**
@@ -112,6 +126,6 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function contentTypeIsAlwaysPresent()
     {
-        $this->assertEquals('image/png', $this->pngDriver->mimeType());
+        assert($this->pngDriver->mimeType(), equals('image/png'));
     }
 }

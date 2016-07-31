@@ -4,10 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "db06080723ca76527904fb327990d938",
-    "content-hash": "682c7255a4bdcd2872c1961a9cc70e91",
+    "hash": "03458a2dd3cd58d79d105c2a82fbc22c",
+    "content-hash": "a4df77476b618be148741a37355008e5",
     "packages": [],
     "packages-dev": [
+        {
+            "name": "bovigo/assert",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mikey179/bovigo-assert.git",
+                "reference": "5187f3f880fbe8c4a937c0d362682431429f999f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mikey179/bovigo-assert/zipball/5187f3f880fbe8c4a937c0d362682431429f999f",
+                "reference": "5187f3f880fbe8c4a937c0d362682431429f999f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "sebastian/comparator": "^1.2",
+                "sebastian/exporter": "^1.2"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "^1.6",
+                "phpunit/phpunit": "^5.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "bovigo\\assert\\": "src/main/php"
+                },
+                "files": [
+                    "src/main/php/assert.php",
+                    "src/main/php/predicate/predicates.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Provides assertions for unit tests.",
+            "time": "2016-07-10 10:31:41"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
