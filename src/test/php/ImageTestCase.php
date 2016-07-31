@@ -74,8 +74,24 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     public function instantiateWithHandle()
     {
         $image  = new Image('foo', null, $this->handle);
-        assert($image->fileName(), equals('foo'));
         assert($image->handle(), isSameAs($this->handle));
+    }
+
+    /**
+     * @test
+     */
+    public function instantiateWithHandleUsesGivenName()
+    {
+        $image  = new Image('foo', null, $this->handle);
+        assert($image->fileName(), equals('foo'));
+    }
+
+    /**
+     * @test
+     */
+    public function instantiateWithoutDriverFallsbackToPngDriver()
+    {
+        $image  = new Image('foo', null, $this->handle);
         assert($image->fileExtension(), equals('.png'));
         assert($image->mimeType(), equals('image/png'));
     }
@@ -83,11 +99,27 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function instantiateWithLoad()
+    public function instantiateWithLoadCreatesHandle()
+    {
+        $image = Image::load($this->testPath . 'empty.png');
+        assertNotNull($image->handle());
+    }
+
+    /**
+     * @test
+     */
+    public function instantiateWithLoadUsesGivenFilename()
     {
         $image = Image::load($this->testPath . 'empty.png');
         assert($image->fileName(), equals($this->testPath . 'empty.png'));
-        assertNotNull($image->handle());
+    }
+
+    /**
+     * @test
+     */
+    public function instantiateWithLoadWithoutDriverFallsbackToPngDriver()
+    {
+        $image = Image::load($this->testPath . 'empty.png');
         assert($image->fileExtension(), equals('.png'));
         assert($image->mimeType(), equals('image/png'));
     }
@@ -99,7 +131,7 @@ class ImageTestCase extends \PHPUnit_Framework_TestCase
     {
         $dummyDriver = new DummyDriver();
         $image = new Image('foo', $dummyDriver, $this->handle);
-        assert($image->store('bar'), isSameAs($image));
+        $image->store('bar');
         assert($dummyDriver->lastStoredFileName(), equals('bar'));
         assert($dummyDriver->lastStoredHandle(), isSameAs($this->handle));
     }
