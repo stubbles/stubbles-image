@@ -5,6 +5,7 @@
 
   * raised minimum required PHP version to 7.0.0
   * introduced scalar type hints and strict type checking
+  * removed `stubbles\image\driver\DummyImageDriver::reset()`, not required
 
 
 4.0.0 (2014-09-01)

@@ -100,16 +100,6 @@ class DummyDriver implements ImageDriver
     }
 
     /**
-     * resets stored data
-     */
-    public function reset()
-    {
-        $this->lastStoredFileName  = null;
-        $this->lastStoredHandle    = null;
-        $this->lastDisplayedHandle = null;
-    }
-
-    /**
      * displays given image (raw output to browser)
      *
      * @param  resource  $handle
