@@ -49,6 +49,12 @@
   * added `stubbles\img\response\ImageFormatter`
 
 
+2.0.4 (2014-01-23)
+------------------
+
+  * ensured that ext-gd is present
+
+
 2.0.3 (2013-11-04)
 ------------------
 
