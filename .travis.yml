@@ -15,10 +15,10 @@ before_script:
   - cp .travis.composer.config.json ~/.composer/config.json
   - composer self-update
   - composer install
-  - composer require satooshi/php-coveralls:dev-master
 
 script:
   - vendor/bin/phpunit --coverage-text
 
-after_script:
+after_success:
+  - composer require satooshi/php-coveralls
   - vendor/bin/coveralls
