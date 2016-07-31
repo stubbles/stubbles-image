@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of stubbles.
  *
@@ -20,7 +21,7 @@ class PngDriver implements ImageDriver
      * @return  resource
      * @throws  \stubbles\img\driver\DriverException
      */
-    public function load($fileName)
+    public function load(string $fileName)
     {
         if (!file_exists($fileName)) {
             throw new DriverException('The image ' . $fileName . ' could not be found');
@@ -42,7 +43,7 @@ class PngDriver implements ImageDriver
      * @return  \stubbles\img\driver\PngDriver
      * @throws  \stubbles\img\driver\DriverException
      */
-    public function store($fileName, $handle)
+    public function store(string $fileName, $handle): ImageDriver
     {
         if (!@imagepng($handle, $fileName)) {
             throw new DriverException('Could not save image to ' . $fileName);
@@ -66,7 +67,7 @@ class PngDriver implements ImageDriver
      *
      * @return  string
      */
-    public function fileExtension()
+    public function fileExtension(): string
     {
         return '.png';
     }
@@ -76,7 +77,7 @@ class PngDriver implements ImageDriver
      *
      * @return  string
      */
-    public function mimeType()
+    public function mimeType(): string
     {
         return 'image/png';
     }

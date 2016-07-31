@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of stubbles.
  *
@@ -19,7 +20,7 @@ interface ImageDriver
      * @param   string    $fileName
      * @return  resource
      */
-    public function load($fileName);
+    public function load(string $fileName);
 
     /**
      * stores given image
@@ -28,7 +29,7 @@ interface ImageDriver
      * @param   resource  $handle
      * @return  \stubbles\img\driver\ImageDriver
      */
-    public function store($fileName, $handle);
+    public function store(string $fileName, $handle): self;
 
     /**
      * displays given image (raw output to console
@@ -42,12 +43,12 @@ interface ImageDriver
      *
      * @return  string
      */
-    public function fileExtension();
+    public function fileExtension(): string;
 
     /**
      * returns content type
      *
      * @return  string
      */
-    public function mimeType();
+    public function mimeType(): string;
 }

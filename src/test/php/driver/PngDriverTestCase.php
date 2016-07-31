@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of stubbles.
  *
@@ -13,7 +14,7 @@ use function bovigo\assert\{
     assertTrue,
     expect,
     predicate\equals,
-    predicate\isSameAs
+    predicate\isExistingFile
 };
 /**
  * Test for stubbles\img\driver\PngDriver.
@@ -94,11 +95,8 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
     public function storeSucceeds()
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
-        assert(
-                $this->pngDriver->store($this->testPath . 'new.png', $handle),
-                isSameAs($this->pngDriver)
-        );
-        assertTrue(file_exists($this->testPath . 'new.png'));
+        $this->pngDriver->store($this->testPath . 'new.png', $handle);
+        assert($this->testPath . 'new.png', isExistingFile());
     }
 
     /**

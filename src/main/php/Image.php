@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of stubbles.
  *
@@ -44,7 +45,7 @@ class Image
      * @param   resource                          $handle
      * @throws  \InvalidArgumentException
      */
-    public function __construct($fileName, ImageDriver $driver = null, $handle = null)
+    public function __construct(string $fileName, ImageDriver $driver = null, $handle = null)
     {
         $this->fileName = $fileName;
         $this->driver  = ((null === $driver) ? (new PngDriver()) : ($driver));
@@ -62,7 +63,7 @@ class Image
      * @param   \stubbles\img\ImageDriver  $driver    optional  defaults to PngDriver
      * @return  \stubbles\img\Image
      */
-    public static function load($fileName, ImageDriver $driver = null)
+    public static function load(string $fileName, ImageDriver $driver = null): self
     {
         $self = new self($fileName, $driver);
         $self->handle = $self->driver->load($fileName);
@@ -74,7 +75,7 @@ class Image
      *
      * @return  string
      */
-    public function fileName()
+    public function fileName(): string
     {
         return $this->fileName;
     }
@@ -95,7 +96,7 @@ class Image
      * @param   string     $fileName
      * @return  \stubbles\img\Image
      */
-    public function store($fileName)
+    public function store(string $fileName): self
     {
         $this->driver->store($fileName, $this->handle);
         return $this;
@@ -114,7 +115,7 @@ class Image
      *
      * @return  string
      */
-    public function fileExtension()
+    public function fileExtension(): string
     {
         return $this->driver->fileExtension();
     }
@@ -124,7 +125,7 @@ class Image
      *
      * @return  string
      */
-    public function mimeType()
+    public function mimeType(): string
     {
         return $this->driver->mimeType();
     }

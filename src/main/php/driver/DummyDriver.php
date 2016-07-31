@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of stubbles.
  *
@@ -55,7 +56,7 @@ class DummyDriver implements ImageDriver
      * @return  resource
      * @throws  \stubbles\img\driver\DriverException
      */
-    public function load($fileName)
+    public function load(string $fileName)
     {
         if (null === $this->handle) {
             throw new DriverException('The image ' . $fileName . ' seems to be broken.');
@@ -71,7 +72,7 @@ class DummyDriver implements ImageDriver
      * @param   resource  $handle
      * @return  \stubbles\img\driver\DummyDriver
      */
-    public function store($fileName, $handle)
+    public function store(string $fileName, $handle): ImageDriver
     {
         $this->lastStoredFileName = $fileName;
         $this->lastStoredHandle   = $handle;
@@ -83,7 +84,7 @@ class DummyDriver implements ImageDriver
      *
      * @return  string
      */
-    public function lastStoredFileName()
+    public function lastStoredFileName(): string
     {
         return $this->lastStoredFileName;
     }
@@ -133,7 +134,7 @@ class DummyDriver implements ImageDriver
      *
      * @return  string
      */
-    public function fileExtension()
+    public function fileExtension(): string
     {
         return '.dummy';
     }
@@ -143,7 +144,7 @@ class DummyDriver implements ImageDriver
      *
      * @return  string
      */
-    public function mimeType()
+    public function mimeType(): string
     {
         return 'image/dummy';
     }
