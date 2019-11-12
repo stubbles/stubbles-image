@@ -57,8 +57,8 @@ class Image
     /**
      * loads image from file
      *
-     * @param   string                     $fileName  file name of image to load
-     * @param   \stubbles\img\ImageDriver  $driver    optional  defaults to PngDriver
+     * @param   string                            $fileName  file name of image to load
+     * @param   \stubbles\img\driver\ImageDriver  $driver    optional  defaults to PngDriver
      * @return  \stubbles\img\Image
      */
     public static function load(string $fileName, ImageDriver $driver = null): self
