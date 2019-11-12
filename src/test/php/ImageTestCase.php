@@ -47,15 +47,6 @@ class ImageTestCase extends TestCase
     /**
      * @test
      */
-    public function instantiateWithIllegalHandleThrowsIllegalArgumentException()
-    {
-        expect(function() { new Image('foo', null, 'illegal'); })
-                ->throws(\InvalidArgumentException::class);
-    }
-
-    /**
-     * @test
-     */
     public function instantiateWithIllegalResourceHandleThrowsIllegalArgumentException()
     {
         expect(function() {
