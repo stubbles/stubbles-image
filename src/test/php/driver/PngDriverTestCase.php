@@ -5,12 +5,12 @@ declare(strict_types=1);
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @package  stubbles\img
  */
 namespace stubbles\img\driver;
+use PHPUnit\Framework\TestCase;
+
 use function bovigo\assert\{
-    assert,
+    assertThat,
     assertTrue,
     expect,
     predicate\equals,
@@ -22,7 +22,7 @@ use function bovigo\assert\{
  * @group  img
  * @group  driver
  */
-class PngDriverTestCase extends \PHPUnit_Framework_TestCase
+class PngDriverTestCase extends TestCase
 {
     /**
      * instance to test
@@ -37,10 +37,7 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     private $testPath;
 
-    /**
-     * set up test environment
-     */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->pngDriver = new PngDriver();
         $this->testPath  = dirname(__DIR__) . '/../resources/';
@@ -52,7 +49,7 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
     /**
      * clean up test environment
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         if (file_exists($this->testPath . 'new.png')) {
             unlink($this->testPath . 'new.png');
@@ -86,7 +83,7 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
         assertTrue(is_resource($handle));
-        assert(get_resource_type($handle), equals('gd'));
+        assertThat(get_resource_type($handle), equals('gd'));
     }
 
     /**
@@ -96,7 +93,7 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
         $this->pngDriver->store($this->testPath . 'new.png', $handle);
-        assert($this->testPath . 'new.png', isExistingFile());
+        assertThat($this->testPath . 'new.png', isExistingFile());
     }
 
     /**
@@ -116,7 +113,7 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function extensionIsAlwaysPng()
     {
-        assert($this->pngDriver->fileExtension(), equals('.png'));
+        assertThat($this->pngDriver->fileExtension(), equals('.png'));
     }
 
     /**
@@ -124,6 +121,6 @@ class PngDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     public function contentTypeIsAlwaysPresent()
     {
-        assert($this->pngDriver->mimeType(), equals('image/png'));
+        assertThat($this->pngDriver->mimeType(), equals('image/png'));
     }
 }

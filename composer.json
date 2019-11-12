@@ -9,12 +9,17 @@
         "ext-gd": "*"
     },
     "require-dev": {
-        "bovigo/assert": "^2.0",
-        "phpunit/phpunit": "^5.4"
+        "bovigo/assert": "^5.0",
+        "phpunit/phpunit": "^8.4"
     },
     "autoload": {
         "psr-4": {
             "stubbles\\img\\": "src/main/php"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "stubbles\\img\\": "src/test/php"
         }
     },
     "extra": {
