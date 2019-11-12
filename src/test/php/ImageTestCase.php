@@ -14,6 +14,7 @@ use function bovigo\assert\{
     assertThat,
     assertNotNull,
     expect,
+    fail,
     predicate\equals,
     predicate\isSameAs
 };
@@ -49,8 +50,14 @@ class ImageTestCase extends TestCase
      */
     public function instantiateWithIllegalResourceHandleThrowsIllegalArgumentException()
     {
-        expect(function() {
-                new Image('foo', null, fopen($this->testPath . 'empty.png', 'r+'));
+        $fileHandle = fopen($this->testPath . 'empty.png', 'r+');
+        if (false === $fileHandle) {
+            fail('Could not create file handle');
+            return;
+        }
+
+        expect(function() use($fileHandle) {
+                new Image('foo', null, $fileHandle);
         })
                 ->throws(\InvalidArgumentException::class);
     }

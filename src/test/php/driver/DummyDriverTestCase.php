@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use function bovigo\assert\{
     assertThat,
     expect,
+    fail,
     predicate\equals,
     predicate\isSameAs
 };
@@ -58,6 +59,11 @@ class DummyDriverTestCase extends TestCase
     public function loadWithHandleReturnsHandle()
     {
         $handle           = imagecreatefrompng($this->testPath . 'empty.png');
+        if (false === $handle) {
+            fail('Could not create file handle');
+            return;
+        }
+
         $imageDummyDriver = new DummyDriver($handle);
         assertThat($imageDummyDriver->load('dummy.png'), isSameAs($handle));
     }
