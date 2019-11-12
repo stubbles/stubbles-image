@@ -5,7 +5,7 @@
     "license": "BSD-3-Clause",
     "description": "Simple image handling support.",
     "require": {
-        "php": "^7.0",
+        "php": "^7.3",
         "ext-gd": "*"
     },
     "require-dev": {
@@ -24,7 +24,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "5.0.x-dev"
+            "dev-master": "6.0.x-dev"
         }
     },
     "minimum-stability": "dev",

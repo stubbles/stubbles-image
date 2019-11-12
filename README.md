@@ -20,10 +20,10 @@ _stubbles/image is distributed as [Composer](https://getcomposer.org/)
 package. To install it as a dependency of your package use the following
 command:
 
-    composer require "stubbles/image": "^5.0"
+    composer require "stubbles/image": "^6.0"
 
 
 Requirements
 ------------
 
-_stubbles/image_ requires at least PHP 7.0.
+_stubbles/image_ requires at least PHP 7.3.
