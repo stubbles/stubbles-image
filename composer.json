@@ -1,7 +1,6 @@
 {
     "name": "stubbles/image",
     "type": "library",
-    "homepage": "http://stubbles.net/",
     "license": "BSD-3-Clause",
     "description": "Simple image handling support.",
     "require": {
@@ -24,7 +23,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "6.0.x-dev"
+            "dev-master": "6.1.x-dev"
         }
     },
     "minimum-stability": "dev",

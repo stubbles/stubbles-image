@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.1.0 (2019-11-18)
+
+### BC breaks
+
+* Added new method `contentForDisplay($handle): string` to interface `stubbles\img\driver\ImageDriver`
+* Changed signature of `stubbles\img\driver\ImageDriver::display()` to return type void
+
+### Other changes
+
+* Added `stubbles\img\Image::contentForDisplay(): string` to return image contents ready for display
+
 ## 6.0.0 (2019-11-12)
 
 ### BC breaks

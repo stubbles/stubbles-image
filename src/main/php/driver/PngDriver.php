@@ -12,6 +12,8 @@ namespace stubbles\img\driver;
  */
 class PngDriver implements ImageDriver
 {
+    use ContentViaOutputBuffer;
+
     /**
      * loads given image
      *
@@ -51,11 +53,11 @@ class PngDriver implements ImageDriver
     }
 
     /**
-     * displays given image (raw output to browser)
+     * displays given image (raw output to stdout)
      *
      * @param  resource  $handle
      */
-    public function display($handle)
+    public function display($handle): void
     {
         imagepng($handle);
     }

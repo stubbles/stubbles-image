@@ -8,7 +8,7 @@ declare(strict_types=1);
  */
 namespace stubbles\img;
 use PHPUnit\Framework\TestCase;
-use stubbles\img\driver\DummyDriver;
+use stubbles\img\driver\{DummyDriver, PngDriver};
 
 use function bovigo\assert\{
     assertThat,
@@ -139,5 +139,23 @@ class ImageTestCase extends TestCase
         $image = new Image('foo', $dummyDriver, $this->handle);
         $image->display();
         assertThat($dummyDriver->lastDisplayedHandle(), isSameAs($this->handle));
+    }
+
+    /**
+     * @test
+     * @group  content_for_display
+     * @since  6.1.0
+     */
+    public function content()
+    {
+        $pngDriver = new PngDriver();
+        $h = $pngDriver->load($this->testPath . 'empty.png');
+        ob_start();
+        $pngDriver->display($h);
+        $displayContent = ob_get_contents();
+        ob_end_clean();
+
+        $image = Image::load($this->testPath . 'empty.png');
+        assertThat($image->contentForDisplay(), equals($displayContent));
     }
 }

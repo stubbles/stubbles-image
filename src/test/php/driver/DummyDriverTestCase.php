@@ -10,6 +10,7 @@ namespace stubbles\img\driver;
 use PHPUnit\Framework\TestCase;
 
 use function bovigo\assert\{
+    assertEmptyString,
     assertThat,
     expect,
     fail,
@@ -99,6 +100,29 @@ class DummyDriverTestCase extends TestCase
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
         $this->dummyDriver->display($handle);
+        assertThat($this->dummyDriver->lastDisplayedHandle(), isSameAs($handle));
+    }
+
+    /**
+     * @test
+     * @group  content_for_display
+     * @since  6.1.0
+     */
+    public function contentForDisplayIsEmpty(): void
+    {
+        $handle = imagecreatefrompng($this->testPath . 'empty.png');
+        assertEmptyString($this->dummyDriver->contentForDisplay($handle));
+    }
+
+    /**
+     * @test
+     * @group  content_for_display
+     * @since  6.1.0
+     */
+    public function contentForDisplayStoresHandleAsLastDisplayed()
+    {
+        $handle = imagecreatefrompng($this->testPath . 'empty.png');
+        $this->dummyDriver->contentForDisplay($handle);
         assertThat($this->dummyDriver->lastDisplayedHandle(), isSameAs($handle));
     }
 

@@ -12,6 +12,7 @@ namespace stubbles\img\driver;
  */
 class DummyDriver implements ImageDriver
 {
+    use ContentViaOutputBuffer;
     /**
      * dummy handle to be used
      *
@@ -102,7 +103,7 @@ class DummyDriver implements ImageDriver
      *
      * @param  resource  $handle
      */
-    public function display($handle)
+    public function display($handle): void
     {
         $this->lastDisplayedHandle = $handle;
     }

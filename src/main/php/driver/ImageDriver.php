@@ -30,11 +30,20 @@ interface ImageDriver
     public function store(string $fileName, $handle): self;
 
     /**
-     * displays given image (raw output to console
+     * displays given image (raw output to stdout)
      *
      * @param  resource $handle
      */
     public function display($handle);
+
+    /**
+     * returns content of given image ready for display
+     *
+     * @since   6.1.0
+     * @param   resource  $handle
+     * @return  string
+     */
+    public function contentForDisplay($handle): string;
 
     /**
      * returns file extension for image type

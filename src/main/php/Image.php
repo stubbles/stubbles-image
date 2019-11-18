@@ -103,9 +103,22 @@ class Image
     /**
      * displays image
      */
-    public function display()
+    public function display(): void
     {
         $this->driver->display($this->handle);
+    }
+
+    /**
+     * returns image content for display
+     *
+     * This can be used if raw output to stdout via display() is not useful.
+     *
+     * @since   6.1.0
+     * @return  string
+     */
+    public function contentForDisplay(): string
+    {
+        return $this->driver->contentForDisplay($this->handle);
     }
 
     /**
