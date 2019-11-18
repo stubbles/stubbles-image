@@ -5,7 +5,7 @@
 ### BC breaks
 
 * Added new method `contentForDisplay($handle): string` to interface `stubbles\img\driver\ImageDriver`
-* Changed signature of `stubbles\img\driver\ImageDriver::display()` to return type void
+* Changed signature of `stubbles\img\driver\ImageDriver::display()` to return type `void`
 
 ### Other changes
 
