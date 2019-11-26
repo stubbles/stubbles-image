@@ -75,7 +75,6 @@ class PngDriverTestCase extends TestCase
         })
             ->throws(DriverException::class)
             ->withMessage("'" . $this->testPath . "corrupt.png' is not a valid PNG file");
-
     }
 
     /**
