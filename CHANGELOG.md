@@ -1,6 +1,6 @@
 # Changelog
 
-## 6.2.0 (2019-11-??)
+## 6.2.0 (2019-11-26)
 
 * Added support for jpeg images with new `stubbles\img\driver\JpegDriver`
 * Added more details to exception messages when storing or loading an image fails
