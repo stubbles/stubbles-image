@@ -47,7 +47,11 @@ class PngDriver implements ImageDriver
     public function store(string $fileName, $handle): ImageDriver
     {
         if (!@imagepng($handle, $fileName)) {
-            throw new DriverException('Could not save image to ' . $fileName);
+            $error = \error_get_last();
+            throw new DriverException(
+                'Could not save \'' . $fileName . '\': '
+                . str_replace('imagepng('.$fileName.'): ', '', $error['message'])
+            );
         }
 
         return $this;

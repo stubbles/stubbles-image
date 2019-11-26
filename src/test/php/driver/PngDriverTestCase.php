@@ -105,9 +105,10 @@ class PngDriverTestCase extends TestCase
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
         expect(function() use ($handle) {
-                $this->pngDriver->store($this->testPath . 'foo/new.png', $handle);
+            $this->pngDriver->store($this->testPath . 'foo/new.png', $handle);
         })
-                ->throws(DriverException::class);
+            ->throws(DriverException::class)
+            ->withMessage("Could not save '" . $this->testPath . "foo/new.png': failed to open stream: No such file or directory");
     }
 
     /**
