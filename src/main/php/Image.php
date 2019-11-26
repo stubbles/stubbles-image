@@ -7,8 +7,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img;
-use stubbles\img\driver\ImageDriver;
-use stubbles\img\driver\PngDriver;
+use stubbles\img\driver\{ImageDriver, JpegDriver, PngDriver};
 /**
  * Container for an image.
  *
@@ -34,6 +33,37 @@ class Image
      * @type  ImageDriver
      */
     private $driver;
+    /**
+     * list of registered drivers
+     *
+     * @type  array<string,string>
+     */
+    private static $drivers = [
+      'png'  => PngDriver::class,
+      'jpeg' => JpegDriver::class,
+      'jpg'  => JpegDriver::class,
+    ];
+
+    /**
+     * selects driver based on extension in $fileName
+     *
+     * In case no such extension is present or no driver is known
+     * for the extension it falls back to png.
+     *
+     * Note: for the next major release it is advisable to think
+     * whether it shouldn't fall back in such cases but raise an
+     * UnsupportedImageType exception instead. But for the 6.x
+     * series this is not an option as it would be a bc break.
+     */
+    private function selectDriver(string $fileName): ImageDriver
+    {
+        $extension = array_values(array_slice(explode('.', $fileName), -1))[0];
+        if (isset(self::$drivers[$extension])) {
+            return new self::$drivers[$extension]();
+        }
+
+        return new PngDriver();
+    }
 
     /**
      * constructor
@@ -46,7 +76,7 @@ class Image
     public function __construct(string $fileName, ImageDriver $driver = null, $handle = null)
     {
         $this->fileName = $fileName;
-        $this->driver  = ((null === $driver) ? (new PngDriver()) : ($driver));
+        $this->driver   = (null === $driver ? self::selectDriver($fileName) : $driver);
         if (null !== $handle && (!is_resource($handle) || get_resource_type($handle) !== 'gd')) {
             throw new \InvalidArgumentException('Given handle is not a valid gd resource.');
         }

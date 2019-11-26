@@ -80,14 +80,27 @@ class ImageTestCase extends TestCase
         assertThat($image->fileName(), equals('foo'));
     }
 
+    public function extensionsAndDrivers(): array
+    {
+        return [
+            'extension .png'  => ['example.other.png', '.png', 'image/png'],
+            'extension .jpeg' => ['examplejpg.jpeg', '.jpeg', 'image/jpeg'],
+            'extension .jpg'  => ['example.jpg', '.jpeg', 'image/jpeg'],
+            'no extension'    => ['foo', '.png', 'image/png'],
+        ];
+    }
+
     /**
      * @test
+     * @dataProvider  extensionsAndDrivers
+     * @group  select_driver
+     * @since  6.2.0
      */
-    public function instantiateWithoutDriverFallsbackToPngDriver()
+    public function instantiateWithoutDriverFallsbackToDriverBasedOnExtension(string $fileName, string $expectedExtension, string $expectedMimeType): void
     {
-        $image  = new Image('foo', null, $this->handle);
-        assertThat($image->fileExtension(), equals('.png'));
-        assertThat($image->mimeType(), equals('image/png'));
+        $image  = new Image($fileName);
+        assertThat($image->fileExtension(), equals($expectedExtension));
+        assertThat($image->mimeType(), equals($expectedMimeType));
     }
 
     /**

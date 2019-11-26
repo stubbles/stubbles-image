@@ -4,6 +4,7 @@
 
 * Added support for jpeg images with new `stubbles\img\driver\JpegDriver`
 * Added more details to exception messages when storing or loading an image fails
+* Passing no driver to constructor of `stubbles\img\Image` will now select driver based on extension in filename, and fallback to png when extension is unknown or not present
 
 ## 6.1.0 (2019-11-18)
 
