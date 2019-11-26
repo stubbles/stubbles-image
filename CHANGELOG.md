@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.?.? (2019-11-??)
+
+* Add more details to exception messages when storing or loading an image fails
+
 ## 6.1.0 (2019-11-18)
 
 ### BC breaks
