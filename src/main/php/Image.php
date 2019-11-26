@@ -7,7 +7,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img;
-use stubbles\img\driver\{ImageDriver, JpegDriver, PngDriver};
+use stubbles\img\driver\{DriverException, ImageDriver, JpegDriver, PngDriver};
 /**
  * Container for an image.
  *
@@ -39,25 +39,35 @@ class Image
      * @type  array<string,string>
      */
     private static $drivers = [
-      'png'  => PngDriver::class,
-      'jpeg' => JpegDriver::class,
-      'jpg'  => JpegDriver::class,
+      'png'        => PngDriver::class,
+      'image/png'  => PngDriver::class,
+      'jpeg'       => JpegDriver::class,
+      'image/jpeg' => JpegDriver::class,
+      'jpg'        => JpegDriver::class,
     ];
 
     /**
-     * selects driver based on extension in $fileName
+     * selects driver based on mimetype of existing file of extension of filename
      *
-     * In case no such extension is present or no driver is known
-     * for the extension it falls back to png.
-     *
-     * Note: for the next major release it is advisable to think
-     * whether it shouldn't fall back in such cases but raise an
-     * UnsupportedImageType exception instead. But for the 6.x
-     * series this is not an option as it would be a bc break.
+     * @throws  DriverException
      */
     private function selectDriver(string $fileName): ImageDriver
     {
-        $extension = array_values(array_slice(explode('.', $fileName), -1))[0];
+        if (\file_exists($fileName)) {
+            $mimeType = @\mime_content_type($fileName);
+            if (false === $mimeType) {
+                $error = \error_get_last();
+                throw new DriverException('Could not detect mimetype to select driver: ' . $error['message']);
+            }
+
+            if (isset(self::$drivers[$mimeType])) {
+               return new self::$drivers[$mimeType]();
+            }
+
+            throw new DriverException('No driver available for mimetype ' . $mimeType);
+        }
+
+        $extension = \array_values(\array_slice(\explode('.', $fileName), -1))[0];
         if (isset(self::$drivers[$extension])) {
             return new self::$drivers[$extension]();
         }
@@ -68,8 +78,18 @@ class Image
     /**
      * constructor
      *
+     * In case the file exists the driver is selected based on the mimetype of the file.
+     * In case no driver is available for the detected mimetype or detection fails a
+     * DriverException is thrown.
+     *
+     * If the file doesn't exist the driver is selected based on the extension of the
+     * filename. In case no such extension is present or no driver is known for the
+     * extension it falls back to png.
+     *
+     * Driver selection can always be overruled by passing a driver explicitly.
+     *
      * @param   string                            $fileName  file name of image to load
-     * @param   \stubbles\img\driver\ImageDriver  $driver    optional defaults to PngDriver
+     * @param   \stubbles\img\driver\ImageDriver  $driver    optional
      * @param   resource                          $handle
      * @throws  \InvalidArgumentException
      */
@@ -87,8 +107,13 @@ class Image
     /**
      * loads image from file
      *
+     * Driver is selected based on the mimetype of the file. In case no driver is available
+     * for the detected mimetype or detection fails a DriverException is thrown.
+     *
+     * Driver selection can always be overruled by passing a driver explicitly.
+     *
      * @param   string                            $fileName  file name of image to load
-     * @param   \stubbles\img\driver\ImageDriver  $driver    optional  defaults to PngDriver
+     * @param   \stubbles\img\driver\ImageDriver  $driver    optional
      * @return  \stubbles\img\Image
      */
     public static function load(string $fileName, ImageDriver $driver = null): self

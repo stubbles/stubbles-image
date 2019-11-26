@@ -5,7 +5,8 @@
     "description": "Simple image handling support.",
     "require": {
         "php": "^7.3",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "ext-fileinfo": "*"
     },
     "require-dev": {
         "bovigo/assert": "^5.0",
@@ -23,7 +24,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "6.2.x-dev"
+            "dev-master": "7.0.x-dev"
         }
     },
     "minimum-stability": "dev",

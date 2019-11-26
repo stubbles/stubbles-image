@@ -8,7 +8,7 @@ declare(strict_types=1);
  */
 namespace stubbles\img;
 use PHPUnit\Framework\TestCase;
-use stubbles\img\driver\{DummyDriver, PngDriver};
+use stubbles\img\driver\{DriverException, DummyDriver, PngDriver};
 
 use function bovigo\assert\{
     assertThat,
@@ -96,11 +96,45 @@ class ImageTestCase extends TestCase
      * @group  select_driver
      * @since  6.2.0
      */
-    public function instantiateWithoutDriverFallsbackToDriverBasedOnExtension(string $fileName, string $expectedExtension, string $expectedMimeType): void
+    public function instantiateWithoutDriverFallsbackToDriverBasedOnExtensionWhenFileDoesNotExist(string $fileName, string $expectedExtension, string $expectedMimeType): void
     {
         $image  = new Image($fileName);
         assertThat($image->fileExtension(), equals($expectedExtension));
         assertThat($image->mimeType(), equals($expectedMimeType));
+    }
+
+    public function mimetypesAndDrivers(): array
+    {
+        $path = dirname(__DIR__) . '/../resources/';
+        return [
+            'mimetype image/png'  => [$path . 'empty.png', '.png', 'image/png'],
+            'mimetype image/jpeg' => [$path . 'empty.jpeg', '.jpeg', 'image/jpeg'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider  mimetypesAndDrivers
+     * @group  select_driver
+     * @since  7.0.0
+     */
+    public function instantiateWithoutDriverFallsbackToDriverBasedOnMimetypeWhenFileDoesExist(string $fileName, string $expectedExtension, string $expectedMimeType): void
+    {
+        $image  = new Image($fileName);
+        assertThat($image->fileExtension(), equals($expectedExtension));
+        assertThat($image->mimeType(), equals($expectedMimeType));
+    }
+
+    /**
+     * @test
+     * @group  select_driver
+     * @since  7.0.0
+     */
+    public function instantiateWithoutDriverThrowsDriverExceptionWhenFileExistsAndNoDriverAvailable(): void
+    {
+        expect(function() { $image  = new Image(__FILE__); })
+            ->throws(DriverException::class)
+            ->withMessage('No driver available for mimetype text/x-php');
     }
 
     /**

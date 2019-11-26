@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.0.0 (2019-??-??)
+
+### BC breaks
+
+* Requires PHP extension fileinfo
+* Automatic driver selection for images is now based on mimetype of actual file if file exists
+
 ## 6.2.0 (2019-11-26)
 
 * Added support for jpeg images with new `stubbles\img\driver\JpegDriver`
