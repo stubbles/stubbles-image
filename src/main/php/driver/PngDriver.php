@@ -29,7 +29,8 @@ class PngDriver implements ImageDriver
 
         $handle = @imagecreatefrompng($fileName);
         if (empty($handle)) {
-            throw new DriverException('The image ' . $fileName . ' seems to be broken.');
+            $error = \error_get_last();
+            throw new DriverException(str_replace('imagecreatefrompng(): ', '', $error['message']));
         }
 
         return $handle;

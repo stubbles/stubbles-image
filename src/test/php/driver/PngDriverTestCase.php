@@ -71,9 +71,11 @@ class PngDriverTestCase extends TestCase
     public function loadFromCorruptFileThrowsException()
     {
         expect(function() {
-                $this->pngDriver->load($this->testPath . 'corrupt.png');
+            $this->pngDriver->load($this->testPath . 'corrupt.png');
         })
-                ->throws(DriverException::class);
+            ->throws(DriverException::class)
+            ->withMessage("'" . $this->testPath . "corrupt.png' is not a valid PNG file");
+
     }
 
     /**
