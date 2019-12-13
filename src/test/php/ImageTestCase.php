@@ -29,31 +29,35 @@ class ImageTestCase extends TestCase
     /**
      * image
      *
-     * @type  resource
+     * @var  resource
      */
     private $handle;
     /**
      * path to test resource images
      *
-     * @type  string
+     * @var  string
      */
     private $testPath;
 
     protected function setUp(): void
     {
         $this->testPath = dirname(__DIR__) . '/resources/';
-        $this->handle   = imagecreatefrompng($this->testPath . 'empty.png');
+        $handle = imagecreatefrompng($this->testPath . 'empty.png');
+        if (false === $handle) {
+            fail('Could not load test image');
+        }
+
+        $this->handle = $handle;
     }
 
     /**
      * @test
      */
-    public function instantiateWithIllegalResourceHandleThrowsIllegalArgumentException()
+    public function instantiateWithIllegalResourceHandleThrowsIllegalArgumentException(): void
     {
         $fileHandle = fopen($this->testPath . 'empty.png', 'r+');
         if (false === $fileHandle) {
             fail('Could not create file handle');
-            return;
         }
 
         expect(function() use($fileHandle) {
@@ -65,7 +69,7 @@ class ImageTestCase extends TestCase
     /**
      * @test
      */
-    public function instantiateWithHandle()
+    public function instantiateWithHandle(): void
     {
         $image  = new Image('foo', null, $this->handle);
         assertThat($image->handle(), isSameAs($this->handle));
@@ -74,12 +78,15 @@ class ImageTestCase extends TestCase
     /**
      * @test
      */
-    public function instantiateWithHandleUsesGivenName()
+    public function instantiateWithHandleUsesGivenName(): void
     {
         $image  = new Image('foo', null, $this->handle);
         assertThat($image->fileName(), equals('foo'));
     }
 
+    /**
+     * @return  array<string,string[]>
+     */
     public function extensionsAndDrivers(): array
     {
         return [
@@ -103,6 +110,9 @@ class ImageTestCase extends TestCase
         assertThat($image->mimeType(), equals($expectedMimeType));
     }
 
+    /**
+     * @return  array<string,string[]>
+     */
     public function mimetypesAndDrivers(): array
     {
         $path = dirname(__DIR__) . '/../resources/';
@@ -140,7 +150,7 @@ class ImageTestCase extends TestCase
     /**
      * @test
      */
-    public function instantiateWithLoadCreatesHandle()
+    public function instantiateWithLoadCreatesHandle(): void
     {
         $image = Image::load($this->testPath . 'empty.png');
         assertNotNull($image->handle());
@@ -149,7 +159,7 @@ class ImageTestCase extends TestCase
     /**
      * @test
      */
-    public function instantiateWithLoadUsesGivenFilename()
+    public function instantiateWithLoadUsesGivenFilename(): void
     {
         $image = Image::load($this->testPath . 'empty.png');
         assertThat($image->fileName(), equals($this->testPath . 'empty.png'));
@@ -158,7 +168,7 @@ class ImageTestCase extends TestCase
     /**
      * @test
      */
-    public function instantiateWithLoadWithoutDriverFallsbackToPngDriver()
+    public function instantiateWithLoadWithoutDriverFallsbackToPngDriver(): void
     {
         $image = Image::load($this->testPath . 'empty.png');
         assertThat($image->fileExtension(), equals('.png'));
@@ -168,7 +178,7 @@ class ImageTestCase extends TestCase
     /**
      * @test
      */
-    public function storeUsesDriver()
+    public function storeUsesDriver(): void
     {
         $dummyDriver = new DummyDriver();
         $image = new Image('foo', $dummyDriver, $this->handle);
@@ -180,7 +190,7 @@ class ImageTestCase extends TestCase
     /**
      * @test
      */
-    public function displayUsesDriver()
+    public function displayUsesDriver(): void
     {
         $dummyDriver = new DummyDriver();
         $image = new Image('foo', $dummyDriver, $this->handle);
@@ -193,7 +203,7 @@ class ImageTestCase extends TestCase
      * @group  content_for_display
      * @since  6.1.0
      */
-    public function content()
+    public function content(): void
     {
         $pngDriver = new PngDriver();
         $h = $pngDriver->load($this->testPath . 'empty.png');

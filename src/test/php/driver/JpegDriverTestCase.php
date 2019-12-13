@@ -28,13 +28,13 @@ class JpegDriverTestCase extends TestCase
     /**
      * instance to test
      *
-     * @type  \stubbles\img\driver\JpegDriver
+     * @var  \stubbles\img\driver\JpegDriver
      */
     private $jpegDriver;
     /**
      * path to test resource images
      *
-     * @type  string
+     * @var  string
      */
     private $testPath;
 
@@ -57,7 +57,7 @@ class JpegDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function loadFromNonexistingFileThrowsException()
+    public function loadFromNonexistingFileThrowsException(): void
     {
         expect(function() { $this->jpegDriver->load('doesNotExist.jpeg'); })
                 ->throws(DriverException::class);
@@ -66,7 +66,7 @@ class JpegDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function loadFromCorruptFileThrowsException()
+    public function loadFromCorruptFileThrowsException(): void
     {
         expect(function() {
             $this->jpegDriver->load($this->testPath . 'corrupt.jpeg');
@@ -78,7 +78,7 @@ class JpegDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function loadReturnsResource()
+    public function loadReturnsResource(): void
     {
         $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
         assertTrue(is_resource($handle));
@@ -88,7 +88,7 @@ class JpegDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function storeSucceeds()
+    public function storeSucceeds(): void
     {
         $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
         $this->jpegDriver->store($this->testPath . 'new.jpeg', $handle);
@@ -98,7 +98,7 @@ class JpegDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function storeThrowsExceptionWhenItFails()
+    public function storeThrowsExceptionWhenItFails(): void
     {
         $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
         expect(function() use ($handle) {
@@ -111,7 +111,7 @@ class JpegDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function extensionIsAlwaysJpeg()
+    public function extensionIsAlwaysJpeg(): void
     {
         assertThat($this->jpegDriver->fileExtension(), equals('.jpeg'));
     }
@@ -119,7 +119,7 @@ class JpegDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function contentTypeIsAlwaysPresent()
+    public function contentTypeIsAlwaysPresent(): void
     {
         assertThat($this->jpegDriver->mimeType(), equals('image/jpeg'));
     }

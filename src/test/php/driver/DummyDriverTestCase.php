@@ -28,13 +28,13 @@ class DummyDriverTestCase extends TestCase
     /**
      * instance to test
      *
-     * @type  \stubbles\img\driver\DummyDriver
+     * @var  \stubbles\img\driver\DummyDriver
      */
     private $dummyDriver;
     /**
      * path to test resource images
      *
-     * @type  string
+     * @var  string
      */
     private $testPath;
 
@@ -47,7 +47,7 @@ class DummyDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function loadWithoutHandleThrowsException()
+    public function loadWithoutHandleThrowsException(): void
     {
         $this->dummyDriver = new DummyDriver();
         expect(function() { $this->dummyDriver->load('dummy.png'); })
@@ -55,16 +55,24 @@ class DummyDriverTestCase extends TestCase
     }
 
     /**
-     * @test
+     * @return  resource
      */
-    public function loadWithHandleReturnsHandle()
+    private function loadImage()
     {
-        $handle           = imagecreatefrompng($this->testPath . 'empty.png');
+        $handle = imagecreatefrompng($this->testPath . 'empty.png');
         if (false === $handle) {
             fail('Could not create file handle');
-            return;
         }
 
+        return $handle;
+    }
+
+    /**
+     * @test
+     */
+    public function loadWithHandleReturnsHandle(): void
+    {
+        $handle = $this->loadImage();
         $imageDummyDriver = new DummyDriver($handle);
         assertThat($imageDummyDriver->load('dummy.png'), isSameAs($handle));
     }
@@ -72,33 +80,33 @@ class DummyDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function storeStoresFilenameAsLast()
+    public function storeStoresFilenameAsLast(): void
     {
-        $handle = imagecreatefrompng($this->testPath . 'empty.png');
+        $handle = $this->loadImage();
         assertThat(
-                $this->dummyDriver->store('dummy.png', $handle)->lastStoredFileName(),
-                equals('dummy.png')
+            $this->dummyDriver->store('dummy.png', $handle)->lastStoredFileName(),
+            equals('dummy.png')
         );
     }
 
     /**
      * @test
      */
-    public function storeStoresHandleAsLast()
+    public function storeStoresHandleAsLast(): void
     {
-        $handle = imagecreatefrompng($this->testPath . 'empty.png');
+        $handle = $this->loadImage();
         assertThat(
-                $this->dummyDriver->store('dummy.png', $handle)->lastStoredHandle(),
-                isSameAs($handle)
+            $this->dummyDriver->store('dummy.png', $handle)->lastStoredHandle(),
+            isSameAs($handle)
         );
     }
 
     /**
      * @test
      */
-    public function displayStoresHandleAsLastDisplayed()
+    public function displayStoresHandleAsLastDisplayed(): void
     {
-        $handle = imagecreatefrompng($this->testPath . 'empty.png');
+        $handle = $this->loadImage();
         $this->dummyDriver->display($handle);
         assertThat($this->dummyDriver->lastDisplayedHandle(), isSameAs($handle));
     }
@@ -110,7 +118,7 @@ class DummyDriverTestCase extends TestCase
      */
     public function contentForDisplayIsEmpty(): void
     {
-        $handle = imagecreatefrompng($this->testPath . 'empty.png');
+        $handle = $this->loadImage();
         assertEmptyString($this->dummyDriver->contentForDisplay($handle));
     }
 
@@ -119,9 +127,9 @@ class DummyDriverTestCase extends TestCase
      * @group  content_for_display
      * @since  6.1.0
      */
-    public function contentForDisplayStoresHandleAsLastDisplayed()
+    public function contentForDisplayStoresHandleAsLastDisplayed(): void
     {
-        $handle = imagecreatefrompng($this->testPath . 'empty.png');
+        $handle = $this->loadImage();
         $this->dummyDriver->contentForDisplay($handle);
         assertThat($this->dummyDriver->lastDisplayedHandle(), isSameAs($handle));
     }
@@ -129,7 +137,7 @@ class DummyDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function extensionIsAlwaysDummy()
+    public function extensionIsAlwaysDummy(): void
     {
         assertThat($this->dummyDriver->fileExtension(), equals('.dummy'));
     }
@@ -137,7 +145,7 @@ class DummyDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function contentTypeIsAlwaysPresent()
+    public function contentTypeIsAlwaysPresent(): void
     {
         assertThat($this->dummyDriver->mimeType(), equals('image/dummy'));
     }

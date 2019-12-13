@@ -25,10 +25,10 @@ trait ContentViaOutputBuffer
     {
         // must use output buffering
         // PHP's image*() functions write directly to stdout
-        ob_start();
+        \ob_start();
         $this->display($handle);
-        $result = ob_get_contents();
-        ob_end_clean();
+        $result = \ob_get_contents();
+        \ob_end_clean();
         if (false === $result) {
             throw new DriverException('Failure with output buffering, could not retrieve image content.');
         }

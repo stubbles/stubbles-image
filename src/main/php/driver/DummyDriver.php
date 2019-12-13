@@ -16,25 +16,25 @@ class DummyDriver implements ImageDriver
     /**
      * dummy handle to be used
      *
-     * @type  resource
+     * @var  resource|null
      */
     private $handle;
     /**
      * last stored file name
      *
-     * @type  string
+     * @var  string
      */
     private $lastStoredFileName;
     /**
      * last stored handle
      *
-     * @type  resource
+     * @var  resource
      */
     private $lastStoredHandle;
     /**
      * last displayed handle
      *
-     * @type  resource
+     * @var  resource
      */
     private $lastDisplayedHandle;
 

@@ -25,14 +25,15 @@ class JpegDriver implements ImageDriver
      */
     public function load(string $fileName)
     {
-        if (!file_exists($fileName)) {
+        if (!\file_exists($fileName)) {
             throw new DriverException('The image ' . $fileName . ' could not be found');
         }
 
         $handle = @imagecreatefromjpeg($fileName);
         if (empty($handle)) {
             $error = \error_get_last();
-            throw new DriverException(str_replace('imagecreatefromjpeg(): ', '', $error['message']));
+            $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
+            throw new DriverException(str_replace('imagecreatefromjpeg(): ', '', $msg));
         }
 
         return $handle;
@@ -48,11 +49,12 @@ class JpegDriver implements ImageDriver
      */
     public function store(string $fileName, $handle): ImageDriver
     {
-        if (!@imagejpeg($handle, $fileName)) {
+        if (!@\imagejpeg($handle, $fileName)) {
             $error = \error_get_last();
+            $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
             throw new DriverException(
                 'Could not save \'' . $fileName . '\': '
-                . str_replace('imagejpeg('.$fileName.'): ', '', $error['message'])
+                . \str_replace('imagejpeg('.$fileName.'): ', '', $msg)
             );
         }
 
@@ -66,7 +68,7 @@ class JpegDriver implements ImageDriver
      */
     public function display($handle): void
     {
-        imagejpeg($handle);
+        \imagejpeg($handle);
     }
 
     /**

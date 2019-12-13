@@ -27,13 +27,13 @@ class PngDriverTestCase extends TestCase
     /**
      * instance to test
      *
-     * @type  \stubbles\img\driver\PngDriver
+     * @var  \stubbles\img\driver\PngDriver
      */
     private $pngDriver;
     /**
      * path to test resource images
      *
-     * @type  string
+     * @var  string
      */
     private $testPath;
 
@@ -59,7 +59,7 @@ class PngDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function loadFromNonexistingFileThrowsException()
+    public function loadFromNonexistingFileThrowsException(): void
     {
         expect(function() { $this->pngDriver->load('doesNotExist.png'); })
                 ->throws(DriverException::class);
@@ -68,7 +68,7 @@ class PngDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function loadFromCorruptFileThrowsException()
+    public function loadFromCorruptFileThrowsException(): void
     {
         expect(function() {
             $this->pngDriver->load($this->testPath . 'corrupt.png');
@@ -80,7 +80,7 @@ class PngDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function loadReturnsResource()
+    public function loadReturnsResource(): void
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
         assertTrue(is_resource($handle));
@@ -90,7 +90,7 @@ class PngDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function storeSucceeds()
+    public function storeSucceeds(): void
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
         $this->pngDriver->store($this->testPath . 'new.png', $handle);
@@ -100,7 +100,7 @@ class PngDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function storeThrowsExceptionWhenItFails()
+    public function storeThrowsExceptionWhenItFails(): void
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
         expect(function() use ($handle) {
@@ -113,7 +113,7 @@ class PngDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function extensionIsAlwaysPng()
+    public function extensionIsAlwaysPng(): void
     {
         assertThat($this->pngDriver->fileExtension(), equals('.png'));
     }
@@ -121,7 +121,7 @@ class PngDriverTestCase extends TestCase
     /**
      * @test
      */
-    public function contentTypeIsAlwaysPresent()
+    public function contentTypeIsAlwaysPresent(): void
     {
         assertThat($this->pngDriver->mimeType(), equals('image/png'));
     }

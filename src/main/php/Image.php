@@ -18,25 +18,25 @@ class Image
     /**
      * image handle
      *
-     * @type  resource
+     * @var  resource
      */
     private $handle;
     /**
      * file name of image
      *
-     * @type  string
+     * @var  string
      */
     private $fileName;
     /**
      * image driver
      *
-     * @type  ImageDriver
+     * @var  ImageDriver
      */
     private $driver;
     /**
      * list of registered drivers
      *
-     * @type  array<string,string>
+     * @var  array<string,string>
      */
     private static $drivers = [
       'png'        => PngDriver::class,
@@ -57,7 +57,8 @@ class Image
             $mimeType = @\mime_content_type($fileName);
             if (false === $mimeType) {
                 $error = \error_get_last();
-                throw new DriverException('Could not detect mimetype to select driver: ' . $error['message']);
+                $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
+                throw new DriverException('Could not detect mimetype to select driver: ' . $msg);
             }
 
             if (isset(self::$drivers[$mimeType])) {
@@ -97,7 +98,7 @@ class Image
     {
         $this->fileName = $fileName;
         $this->driver   = (null === $driver ? self::selectDriver($fileName) : $driver);
-        if (null !== $handle && (!is_resource($handle) || get_resource_type($handle) !== 'gd')) {
+        if (null !== $handle && (!\is_resource($handle) || \get_resource_type($handle) !== 'gd')) {
             throw new \InvalidArgumentException('Given handle is not a valid gd resource.');
         }
 

@@ -23,14 +23,15 @@ class PngDriver implements ImageDriver
      */
     public function load(string $fileName)
     {
-        if (!file_exists($fileName)) {
+        if (!\file_exists($fileName)) {
             throw new DriverException('The image ' . $fileName . ' could not be found');
         }
 
         $handle = @imagecreatefrompng($fileName);
         if (empty($handle)) {
             $error = \error_get_last();
-            throw new DriverException(str_replace('imagecreatefrompng(): ', '', $error['message']));
+            $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
+            throw new DriverException(str_replace('imagecreatefrompng(): ', '', $msg));
         }
 
         return $handle;
@@ -46,11 +47,12 @@ class PngDriver implements ImageDriver
      */
     public function store(string $fileName, $handle): ImageDriver
     {
-        if (!@imagepng($handle, $fileName)) {
+        if (!@\imagepng($handle, $fileName)) {
             $error = \error_get_last();
+            $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
             throw new DriverException(
                 'Could not save \'' . $fileName . '\': '
-                . str_replace('imagepng('.$fileName.'): ', '', $error['message'])
+                . \str_replace('imagepng('.$fileName.'): ', '', $msg)
             );
         }
 
@@ -64,7 +66,7 @@ class PngDriver implements ImageDriver
      */
     public function display($handle): void
     {
-        imagepng($handle);
+        \imagepng($handle);
     }
 
     /**
