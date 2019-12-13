@@ -51,40 +51,6 @@ class ImageTestCase extends TestCase
     }
 
     /**
-     * @test
-     */
-    public function instantiateWithIllegalResourceHandleThrowsIllegalArgumentException(): void
-    {
-        $fileHandle = fopen($this->testPath . 'empty.png', 'r+');
-        if (false === $fileHandle) {
-            fail('Could not create file handle');
-        }
-
-        expect(function() use($fileHandle) {
-                new Image('foo', null, $fileHandle);
-        })
-                ->throws(\InvalidArgumentException::class);
-    }
-
-    /**
-     * @test
-     */
-    public function instantiateWithHandle(): void
-    {
-        $image  = new Image('foo', null, $this->handle);
-        assertThat($image->handle(), isSameAs($this->handle));
-    }
-
-    /**
-     * @test
-     */
-    public function instantiateWithHandleUsesGivenName(): void
-    {
-        $image  = new Image('foo', null, $this->handle);
-        assertThat($image->fileName(), equals('foo'));
-    }
-
-    /**
      * @return  array<string,string[]>
      */
     public function extensionsAndDrivers(): array
@@ -105,7 +71,7 @@ class ImageTestCase extends TestCase
      */
     public function instantiateWithoutDriverFallsbackToDriverBasedOnExtensionWhenFileDoesNotExist(string $fileName, string $expectedExtension, string $expectedMimeType): void
     {
-        $image  = new Image($fileName);
+        $image  = Image::create($fileName, 10, 10);
         assertThat($image->fileExtension(), equals($expectedExtension));
         assertThat($image->mimeType(), equals($expectedMimeType));
     }
@@ -115,7 +81,7 @@ class ImageTestCase extends TestCase
      */
     public function mimetypesAndDrivers(): array
     {
-        $path = dirname(__DIR__) . '/../resources/';
+        $path = dirname(__DIR__) . '/resources/';
         return [
             'mimetype image/png'  => [$path . 'empty.png', '.png', 'image/png'],
             'mimetype image/jpeg' => [$path . 'empty.jpeg', '.jpeg', 'image/jpeg'],
@@ -130,7 +96,7 @@ class ImageTestCase extends TestCase
      */
     public function instantiateWithoutDriverFallsbackToDriverBasedOnMimetypeWhenFileDoesExist(string $fileName, string $expectedExtension, string $expectedMimeType): void
     {
-        $image  = new Image($fileName);
+        $image  = Image::load($fileName);
         assertThat($image->fileExtension(), equals($expectedExtension));
         assertThat($image->mimeType(), equals($expectedMimeType));
     }
@@ -142,7 +108,7 @@ class ImageTestCase extends TestCase
      */
     public function instantiateWithoutDriverThrowsDriverExceptionWhenFileExistsAndNoDriverAvailable(): void
     {
-        expect(function() { $image  = new Image(__FILE__); })
+        expect(function() { Image::load(__FILE__); })
             ->throws(DriverException::class)
             ->withMessage('No driver available for mimetype text/x-php');
     }
@@ -181,10 +147,10 @@ class ImageTestCase extends TestCase
     public function storeUsesDriver(): void
     {
         $dummyDriver = new DummyDriver();
-        $image = new Image('foo', $dummyDriver, $this->handle);
+        $image = Image::create('foo', 10, 10, $dummyDriver);
         $image->store('bar');
         assertThat($dummyDriver->lastStoredFileName(), equals('bar'));
-        assertThat($dummyDriver->lastStoredHandle(), isSameAs($this->handle));
+        assertThat($dummyDriver->lastStoredHandle(), isSameAs($image->handle()));
     }
 
     /**
@@ -193,9 +159,9 @@ class ImageTestCase extends TestCase
     public function displayUsesDriver(): void
     {
         $dummyDriver = new DummyDriver();
-        $image = new Image('foo', $dummyDriver, $this->handle);
+        $image = Image::create('foo', 10, 10, $dummyDriver);
         $image->display();
-        assertThat($dummyDriver->lastDisplayedHandle(), isSameAs($this->handle));
+        assertThat($dummyDriver->lastDisplayedHandle(), isSameAs($image->handle()));
     }
 
     /**

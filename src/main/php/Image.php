@@ -51,7 +51,7 @@ class Image
      *
      * @throws  DriverException
      */
-    private function selectDriver(string $fileName): ImageDriver
+    private static function selectDriver(string $fileName): ImageDriver
     {
         if (\file_exists($fileName)) {
             $mimeType = @\mime_content_type($fileName);
@@ -90,14 +90,14 @@ class Image
      * Driver selection can always be overruled by passing a driver explicitly.
      *
      * @param   string                            $fileName  file name of image to load
-     * @param   \stubbles\img\driver\ImageDriver  $driver    optional
+     * @param   \stubbles\img\driver\ImageDriver  $driver
      * @param   resource                          $handle
      * @throws  \InvalidArgumentException
      */
-    public function __construct(string $fileName, ImageDriver $driver = null, $handle = null)
+    private function __construct(string $fileName, ImageDriver $driver, $handle)
     {
         $this->fileName = $fileName;
-        $this->driver   = (null === $driver ? self::selectDriver($fileName) : $driver);
+        $this->driver   = $driver;
         if (null !== $handle && (!\is_resource($handle) || \get_resource_type($handle) !== 'gd')) {
             throw new \InvalidArgumentException('Given handle is not a valid gd resource.');
         }
@@ -116,12 +116,45 @@ class Image
      * @param   string                            $fileName  file name of image to load
      * @param   \stubbles\img\driver\ImageDriver  $driver    optional
      * @return  \stubbles\img\Image
+     * @throws  DriverException  in case no driver for given image available
      */
     public static function load(string $fileName, ImageDriver $driver = null): self
     {
-        $self = new self($fileName, $driver);
-        $self->handle = $self->driver->load($fileName);
-        return $self;
+        if (null === $driver) {
+            $driver = self::selectDriver($fileName);
+        }
+
+        return new self($fileName, $driver, $driver->load($fileName));
+    }
+
+    /**
+     * Creates a new image with given dimensions.
+     *
+     * Driver is selected based on the extension of the file. In case no driver is available
+     * for the detected extensions it falls back to the png driver.
+     *
+     * Driver selection can always be overruled by passing a driver explicitly.
+     *
+     * @param   string                            $fileName  file name of image to load
+     * @param   int                               $width     width of the new image
+     * @param   int                               $height    height of the new image
+     * @param   \stubbles\img\driver\ImageDriver  $driver    optional
+     * @return  \stubbles\img\Image
+     */
+    public static function create(string $fileName, int $width, int $height, ImageDriver $driver = null): self
+    {
+        if (null === $driver) {
+          $driver = self::selectDriver($fileName);
+        }
+
+        $handle = \imagecreatetruecolor($width, $height);
+        if (false === $handle) {
+            $error = \error_get_last();
+            $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
+            throw new \RuntimeException('Could not create image: ' . $msg);
+        }
+
+        return new self($fileName, $driver, $handle);
     }
 
     /**
