@@ -6,6 +6,7 @@
 
 * Requires PHP extension fileinfo
 * Automatic driver selection for images is now based on mimetype of actual file if file exists
+* `stubbles\img\Driver::display()` is now defined as returning `void`
 
 ## 6.2.0 (2019-11-26)
 

@@ -34,7 +34,7 @@ interface ImageDriver
      *
      * @param  resource $handle
      */
-    public function display($handle);
+    public function display($handle): void;
 
     /**
      * returns content of given image ready for display
