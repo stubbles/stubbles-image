@@ -79,30 +79,15 @@ class Image
     /**
      * constructor
      *
-     * In case the file exists the driver is selected based on the mimetype of the file.
-     * In case no driver is available for the detected mimetype or detection fails a
-     * DriverException is thrown.
-     *
-     * If the file doesn't exist the driver is selected based on the extension of the
-     * filename. In case no such extension is present or no driver is known for the
-     * extension it falls back to png.
-     *
-     * Driver selection can always be overruled by passing a driver explicitly.
-     *
      * @param   string                            $fileName  file name of image to load
      * @param   \stubbles\img\driver\ImageDriver  $driver
      * @param   resource                          $handle
-     * @throws  \InvalidArgumentException
      */
     private function __construct(string $fileName, ImageDriver $driver, $handle)
     {
         $this->fileName = $fileName;
         $this->driver   = $driver;
-        if (null !== $handle && (!\is_resource($handle) || \get_resource_type($handle) !== 'gd')) {
-            throw new \InvalidArgumentException('Given handle is not a valid gd resource.');
-        }
-
-        $this->handle = $handle;
+        $this->handle   = $handle;
     }
 
     /**
