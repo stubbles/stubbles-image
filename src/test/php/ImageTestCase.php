@@ -15,6 +15,7 @@ use function bovigo\assert\{
     assertNotNull,
     expect,
     fail,
+    outputOf,
     predicate\equals,
     predicate\isSameAs
 };
@@ -173,12 +174,9 @@ class ImageTestCase extends TestCase
     {
         $pngDriver = new PngDriver();
         $h = $pngDriver->load($this->testPath . 'empty.png');
-        ob_start();
-        $pngDriver->display($h);
-        $displayContent = ob_get_contents();
-        ob_end_clean();
-
-        $image = Image::load($this->testPath . 'empty.png');
-        assertThat($image->contentForDisplay(), equals($displayContent));
+        outputOf(
+            function() use ($pngDriver, $h) { $pngDriver->display($h); },
+            equals(Image::load($this->testPath . 'empty.png')->contentForDisplay())
+        );
     }
 }
