@@ -6,7 +6,7 @@ Package containing classes to work with images
 Build status
 ------------
 
-[![Build Status](https://secure.travis-ci.org/stubbles/stubbles-image.png)](http://travis-ci.org/stubbles/stubbles-image)
+![Tests](https://github.com/stubbles/stubbles-image/workflows/Tests/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/stubbles/stubbles-image/badge.svg?branch=master)](https://coveralls.io/github/stubbles/stubbles-image?branch=master)
 
 [![Latest Stable Version](https://poser.pugx.org/stubbles/image/version.png)](https://packagist.org/packages/stubbles/image)
