@@ -29,7 +29,7 @@ use function bovigo\assert\{
  */
 #[Group('img')]
 #[Group('core')]
-class ImageTestCase extends TestCase
+class ImageTest extends TestCase
 {
     private string $testPath;
 

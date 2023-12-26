@@ -21,39 +21,38 @@ use function bovigo\assert\{
     predicate\isExistingFile
 };
 /**
- * Test for stubbles\img\driver\PngDriver.
+ * Test for stubbles\img\driver\JpegDriver.
+ *
+ * @since  6.2.0
  */
 #[Group('img')]
 #[Group('driver')]
-class PngDriverTestCase extends TestCase
+class JpegDriverTest extends TestCase
 {
-    private PngDriver $pngDriver;
+    private JpegDriver $jpegDriver;
     private string $testPath;
 
     protected function setUp(): void
     {
-        $this->pngDriver = new PngDriver();
+        $this->jpegDriver = new JpegDriver();
         $this->testPath  = dirname(__DIR__) . '/../resources/';
-        if (file_exists($this->testPath . 'new.png')) {
-            unlink($this->testPath . 'new.png');
+        if (file_exists($this->testPath . 'new.jpeg')) {
+            unlink($this->testPath . 'new.jpeg');
         }
     }
 
-    /**
-     * clean up test environment
-     */
     protected function tearDown(): void
     {
-        if (file_exists($this->testPath . 'new.png')) {
-            unlink($this->testPath . 'new.png');
+        if (file_exists($this->testPath . 'new.jpeg')) {
+            unlink($this->testPath . 'new.jpeg');
         }
     }
 
     #[Test]
     public function loadFromNonexistingFileThrowsException(): void
     {
-        expect(function() { $this->pngDriver->load('doesNotExist.png'); })
-                ->throws(DriverException::class);
+        expect(function() { $this->jpegDriver->load('doesNotExist.jpeg'); })
+            ->throws(DriverException::class);
     }
 
     #[Test]
@@ -61,12 +60,12 @@ class PngDriverTestCase extends TestCase
     public function loadFromCorruptFileThrowsException(): void
     {
         expect(function() {
-            $this->pngDriver->load($this->testPath . 'corrupt.png');
+            $this->jpegDriver->load($this->testPath . 'corrupt.jpeg');
         })
             ->throws(DriverException::class)
             ->withMessage(
                 sprintf(
-                    '"%scorrupt.png" is not a valid PNG file',
+                    '"%scorrupt.jpeg" is not a valid JPEG file',
                     $this->testPath
                 )
             );
@@ -75,37 +74,37 @@ class PngDriverTestCase extends TestCase
     #[Test]
     public function storeSucceeds(): void
     {
-        $handle = $this->pngDriver->load($this->testPath . 'empty.png');
-        $this->pngDriver->store($this->testPath . 'new.png', $handle);
-        assertThat($this->testPath . 'new.png', isExistingFile());
+        $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
+        $this->jpegDriver->store($this->testPath . 'new.jpeg', $handle);
+        assertThat($this->testPath . 'new.jpeg', isExistingFile());
     }
 
     #[Test]
     #[WithoutErrorHandler]
     public function storeThrowsExceptionWhenItFails(): void
     {
-        $handle = $this->pngDriver->load($this->testPath . 'empty.png');
+        $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
         expect(function() use ($handle) {
-            $this->pngDriver->store($this->testPath . 'foo/new.png', $handle);
+            $this->jpegDriver->store($this->testPath . 'foo/new.jpeg', $handle);
         })
             ->throws(DriverException::class)
             ->withMessage(
                 sprintf(
-                    'Could not save "%sfoo/new.png": Failed to open stream: No such file or directory',
+                    'Could not save "%sfoo/new.jpeg": Failed to open stream: No such file or directory',
                     $this->testPath
                 )
             );
     }
 
     #[Test]
-    public function extensionIsAlwaysPng(): void
+    public function extensionIsAlwaysJpeg(): void
     {
-        assertThat($this->pngDriver->fileExtension(), equals('.png'));
+        assertThat($this->jpegDriver->fileExtension(), equals('.jpeg'));
     }
 
     #[Test]
     public function contentTypeIsAlwaysPresent(): void
     {
-        assertThat($this->pngDriver->mimeType(), equals('image/png'));
+        assertThat($this->jpegDriver->mimeType(), equals('image/jpeg'));
     }
 }

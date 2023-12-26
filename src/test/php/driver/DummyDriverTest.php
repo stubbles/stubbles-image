@@ -26,7 +26,7 @@ use function bovigo\assert\{
  */
 #[Group('img')]
 #[Group('driver')]
-class DummyDriverTestCase extends TestCase
+class DummyDriverTest extends TestCase
 {
     private DummyDriver $dummyDriver;
     private string $testPath;

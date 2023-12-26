@@ -21,38 +21,39 @@ use function bovigo\assert\{
     predicate\isExistingFile
 };
 /**
- * Test for stubbles\img\driver\JpegDriver.
- *
- * @since  6.2.0
+ * Test for stubbles\img\driver\PngDriver.
  */
 #[Group('img')]
 #[Group('driver')]
-class JpegDriverTestCase extends TestCase
+class PngDriverTest extends TestCase
 {
-    private JpegDriver $jpegDriver;
+    private PngDriver $pngDriver;
     private string $testPath;
 
     protected function setUp(): void
     {
-        $this->jpegDriver = new JpegDriver();
+        $this->pngDriver = new PngDriver();
         $this->testPath  = dirname(__DIR__) . '/../resources/';
-        if (file_exists($this->testPath . 'new.jpeg')) {
-            unlink($this->testPath . 'new.jpeg');
+        if (file_exists($this->testPath . 'new.png')) {
+            unlink($this->testPath . 'new.png');
         }
     }
 
+    /**
+     * clean up test environment
+     */
     protected function tearDown(): void
     {
-        if (file_exists($this->testPath . 'new.jpeg')) {
-            unlink($this->testPath . 'new.jpeg');
+        if (file_exists($this->testPath . 'new.png')) {
+            unlink($this->testPath . 'new.png');
         }
     }
 
     #[Test]
     public function loadFromNonexistingFileThrowsException(): void
     {
-        expect(function() { $this->jpegDriver->load('doesNotExist.jpeg'); })
-            ->throws(DriverException::class);
+        expect(function() { $this->pngDriver->load('doesNotExist.png'); })
+                ->throws(DriverException::class);
     }
 
     #[Test]
@@ -60,12 +61,12 @@ class JpegDriverTestCase extends TestCase
     public function loadFromCorruptFileThrowsException(): void
     {
         expect(function() {
-            $this->jpegDriver->load($this->testPath . 'corrupt.jpeg');
+            $this->pngDriver->load($this->testPath . 'corrupt.png');
         })
             ->throws(DriverException::class)
             ->withMessage(
                 sprintf(
-                    '"%scorrupt.jpeg" is not a valid JPEG file',
+                    '"%scorrupt.png" is not a valid PNG file',
                     $this->testPath
                 )
             );
@@ -74,37 +75,37 @@ class JpegDriverTestCase extends TestCase
     #[Test]
     public function storeSucceeds(): void
     {
-        $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
-        $this->jpegDriver->store($this->testPath . 'new.jpeg', $handle);
-        assertThat($this->testPath . 'new.jpeg', isExistingFile());
+        $handle = $this->pngDriver->load($this->testPath . 'empty.png');
+        $this->pngDriver->store($this->testPath . 'new.png', $handle);
+        assertThat($this->testPath . 'new.png', isExistingFile());
     }
 
     #[Test]
     #[WithoutErrorHandler]
     public function storeThrowsExceptionWhenItFails(): void
     {
-        $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
+        $handle = $this->pngDriver->load($this->testPath . 'empty.png');
         expect(function() use ($handle) {
-            $this->jpegDriver->store($this->testPath . 'foo/new.jpeg', $handle);
+            $this->pngDriver->store($this->testPath . 'foo/new.png', $handle);
         })
             ->throws(DriverException::class)
             ->withMessage(
                 sprintf(
-                    'Could not save "%sfoo/new.jpeg": Failed to open stream: No such file or directory',
+                    'Could not save "%sfoo/new.png": Failed to open stream: No such file or directory',
                     $this->testPath
                 )
             );
     }
 
     #[Test]
-    public function extensionIsAlwaysJpeg(): void
+    public function extensionIsAlwaysPng(): void
     {
-        assertThat($this->jpegDriver->fileExtension(), equals('.jpeg'));
+        assertThat($this->pngDriver->fileExtension(), equals('.png'));
     }
 
     #[Test]
     public function contentTypeIsAlwaysPresent(): void
     {
-        assertThat($this->jpegDriver->mimeType(), equals('image/jpeg'));
+        assertThat($this->pngDriver->mimeType(), equals('image/png'));
     }
 }
