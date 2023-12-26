@@ -54,7 +54,7 @@ class ImageTestCase extends TestCase
     /**
      * @return  array<string,string[]>
      */
-    public function extensionsAndDrivers(): array
+    public static function extensionsAndDrivers(): array
     {
         return [
             'extension .png'  => ['example.other.png', '.png', 'image/png'],
@@ -80,7 +80,7 @@ class ImageTestCase extends TestCase
     /**
      * @return  array<string,string[]>
      */
-    public function mimetypesAndDrivers(): array
+    public static function mimetypesAndDrivers(): array
     {
         $path = dirname(__DIR__) . '/resources/';
         return [
