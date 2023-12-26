@@ -31,18 +31,11 @@ use function bovigo\assert\{
 #[Group('core')]
 class ImageTestCase extends TestCase
 {
-    private GdImage $handle;
     private string $testPath;
 
     protected function setUp(): void
     {
         $this->testPath = dirname(__DIR__) . '/resources/';
-        $handle = imagecreatefrompng($this->testPath . 'empty.png');
-        if (false === $handle) {
-            fail('Could not load test image');
-        }
-
-        $this->handle = $handle;
     }
 
     /**
