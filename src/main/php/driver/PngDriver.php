@@ -7,6 +7,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img\driver;
+
+use GdImage;
+
 /**
  * Driver for png images.
  */
@@ -17,19 +20,17 @@ class PngDriver implements ImageDriver
     /**
      * loads given image
      *
-     * @param   string    $fileName
-     * @return  resource
-     * @throws  \stubbles\img\driver\DriverException
+     * @throws  DriverException
      */
-    public function load(string $fileName)
+    public function load(string $fileName): GdImage
     {
-        if (!\file_exists($fileName)) {
+        if (!file_exists($fileName)) {
             throw new DriverException('The image ' . $fileName . ' could not be found');
         }
 
         $handle = @imagecreatefrompng($fileName);
-        if (empty($handle)) {
-            $error = \error_get_last();
+        if (false === $handle) {
+            $error = error_get_last();
             $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
             throw new DriverException(str_replace('imagecreatefrompng(): ', '', $msg));
         }
@@ -40,19 +41,16 @@ class PngDriver implements ImageDriver
     /**
      * stores given image
      *
-     * @param   string    $fileName
-     * @param   resource  $handle
-     * @return  \stubbles\img\driver\PngDriver
-     * @throws  \stubbles\img\driver\DriverException
+     * @throws  DriverException
      */
-    public function store(string $fileName, $handle): ImageDriver
+    public function store(string $fileName, GdImage $handle): ImageDriver
     {
-        if (!@\imagepng($handle, $fileName)) {
-            $error = \error_get_last();
+        if (!@imagepng($handle, $fileName)) {
+            $error = error_get_last();
             $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
             throw new DriverException(
-                'Could not save \'' . $fileName . '\': '
-                . \str_replace('imagepng('.$fileName.'): ', '', $msg)
+                'Could not save "' . $fileName . '": '
+                . str_replace('imagepng('.$fileName.'): ', '', $msg)
             );
         }
 
@@ -61,18 +59,14 @@ class PngDriver implements ImageDriver
 
     /**
      * displays given image (raw output to stdout)
-     *
-     * @param  resource  $handle
      */
-    public function display($handle): void
+    public function display(GdImage $handle): void
     {
-        \imagepng($handle);
+        imagepng($handle);
     }
 
     /**
      * returns file extension for image type
-     *
-     * @return  string
      */
     public function fileExtension(): string
     {
@@ -81,8 +75,6 @@ class PngDriver implements ImageDriver
 
     /**
      * returns content type
-     *
-     * @return  string
      */
     public function mimeType(): string
     {

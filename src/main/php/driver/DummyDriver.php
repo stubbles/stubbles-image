@@ -7,43 +7,20 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img\driver;
+
+use GdImage;
+
 /**
  * Dummy driver for images.
  */
 class DummyDriver implements ImageDriver
 {
     use ContentViaOutputBuffer;
-    /**
-     * dummy handle to be used
-     *
-     * @var  resource|null
-     */
-    private $handle;
-    /**
-     * last stored file name
-     *
-     * @var  string
-     */
-    private $lastStoredFileName;
-    /**
-     * last stored handle
-     *
-     * @var  resource
-     */
-    private $lastStoredHandle;
-    /**
-     * last displayed handle
-     *
-     * @var  resource
-     */
-    private $lastDisplayedHandle;
+    private ?string $lastStoredFileName = null;
+    private ?GdImage $lastStoredHandle = null;
+    private ?GdImage $lastDisplayedHandle = null;
 
-    /**
-     * constructor
-     *
-     * @param  resource  $handle
-     */
-    public function __construct($handle = null)
+    public function __construct(private ?GdImage $handle = null)
     {
         $this->handle = $handle;
     }
@@ -51,11 +28,9 @@ class DummyDriver implements ImageDriver
     /**
      * loads given image
      *
-     * @param   string    $fileName
-     * @return  resource
-     * @throws  \stubbles\img\driver\DriverException
+     * @throws  DriverException
      */
-    public function load(string $fileName)
+    public function load(string $fileName): GdImage
     {
         if (null === $this->handle) {
             throw new DriverException('The image ' . $fileName . ' seems to be broken.');
@@ -66,12 +41,8 @@ class DummyDriver implements ImageDriver
 
     /**
      * stores given image
-     *
-     * @param   string    $fileName
-     * @param   resource  $handle
-     * @return  \stubbles\img\driver\DummyDriver
      */
-    public function store(string $fileName, $handle): ImageDriver
+    public function store(string $fileName, GdImage $handle): self
     {
         $this->lastStoredFileName = $fileName;
         $this->lastStoredHandle   = $handle;
@@ -80,48 +51,38 @@ class DummyDriver implements ImageDriver
 
     /**
      * returns last stored file name
-     *
-     * @return  string
      */
-    public function lastStoredFileName(): string
+    public function lastStoredFileName(): ?string
     {
         return $this->lastStoredFileName;
     }
 
     /**
      * returns last stored file name
-     *
-     * @return  resource
      */
-    public function lastStoredHandle()
+    public function lastStoredHandle(): ?GdImage
     {
         return $this->lastStoredHandle;
     }
 
     /**
      * displays given image (raw output to browser)
-     *
-     * @param  resource  $handle
      */
-    public function display($handle): void
+    public function display(GdImage $handle): void
     {
         $this->lastDisplayedHandle = $handle;
     }
 
     /**
      * returns last displayed handle
-     *
-     * @return  resource
      */
-    public function lastDisplayedHandle()
+    public function lastDisplayedHandle(): ?GdImage
     {
         return $this->lastDisplayedHandle;
     }
 
     /**
      * returns file extension for image type
-     *
-     * @return  string
      */
     public function fileExtension(): string
     {
@@ -130,8 +91,6 @@ class DummyDriver implements ImageDriver
 
     /**
      * returns content type
-     *
-     * @return  string
      */
     public function mimeType(): string
     {

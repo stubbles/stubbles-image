@@ -7,6 +7,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img\driver;
+
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use PHPUnit\Framework\TestCase;
 
 use function bovigo\assert\{
@@ -19,24 +23,14 @@ use function bovigo\assert\{
 /**
  * Test for stubbles\img\driver\JpegDriver.
  *
- * @group  img
- * @group  driver
  * @since  6.2.0
  */
+#[Group('img')]
+#[Group('driver')]
 class JpegDriverTestCase extends TestCase
 {
-    /**
-     * instance to test
-     *
-     * @var  \stubbles\img\driver\JpegDriver
-     */
-    private $jpegDriver;
-    /**
-     * path to test resource images
-     *
-     * @var  string
-     */
-    private $testPath;
+    private JpegDriver $jpegDriver;
+    private string $testPath;
 
     protected function setUp(): void
     {
@@ -54,40 +48,30 @@ class JpegDriverTestCase extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function loadFromNonexistingFileThrowsException(): void
     {
         expect(function() { $this->jpegDriver->load('doesNotExist.jpeg'); })
-                ->throws(DriverException::class);
+            ->throws(DriverException::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
+    #[WithoutErrorHandler]
     public function loadFromCorruptFileThrowsException(): void
     {
         expect(function() {
             $this->jpegDriver->load($this->testPath . 'corrupt.jpeg');
         })
             ->throws(DriverException::class)
-            ->withMessage("'" . $this->testPath . "corrupt.jpeg' is not a valid JPEG file");
+            ->withMessage(
+                sprintf(
+                    '"%scorrupt.jpeg" is not a valid JPEG file',
+                    $this->testPath
+                )
+            );
     }
 
-    /**
-     * @test
-     */
-    public function loadReturnsResource(): void
-    {
-        $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
-        assertTrue(is_resource($handle));
-        assertThat(get_resource_type($handle), equals('gd'));
-    }
-
-    /**
-     * @test
-     */
+    #[Test]
     public function storeSucceeds(): void
     {
         $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
@@ -95,9 +79,8 @@ class JpegDriverTestCase extends TestCase
         assertThat($this->testPath . 'new.jpeg', isExistingFile());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
+    #[WithoutErrorHandler]
     public function storeThrowsExceptionWhenItFails(): void
     {
         $handle = $this->jpegDriver->load($this->testPath . 'empty.jpeg');
@@ -105,20 +88,21 @@ class JpegDriverTestCase extends TestCase
             $this->jpegDriver->store($this->testPath . 'foo/new.jpeg', $handle);
         })
             ->throws(DriverException::class)
-            ->withMessage("Could not save '" . $this->testPath . "foo/new.jpeg': failed to open stream: No such file or directory");
+            ->withMessage(
+                sprintf(
+                    'Could not save "%sfoo/new.jpeg": Failed to open stream: No such file or directory',
+                    $this->testPath
+                )
+            );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function extensionIsAlwaysJpeg(): void
     {
         assertThat($this->jpegDriver->fileExtension(), equals('.jpeg'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function contentTypeIsAlwaysPresent(): void
     {
         assertThat($this->jpegDriver->mimeType(), equals('image/jpeg'));

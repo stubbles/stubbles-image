@@ -7,6 +7,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img;
+
+use GdImage;
 use stubbles\img\driver\{DriverException, ImageDriver, JpegDriver, PngDriver};
 /**
  * Container for an image.
@@ -16,29 +18,11 @@ use stubbles\img\driver\{DriverException, ImageDriver, JpegDriver, PngDriver};
 class Image
 {
     /**
-     * image handle
-     *
-     * @var  resource
-     */
-    private $handle;
-    /**
-     * file name of image
-     *
-     * @var  string
-     */
-    private $fileName;
-    /**
-     * image driver
-     *
-     * @var  ImageDriver
-     */
-    private $driver;
-    /**
      * list of registered drivers
      *
      * @var  array<string,string>
      */
-    private static $drivers = [
+    private static array $drivers = [
       'png'        => PngDriver::class,
       'image/png'  => PngDriver::class,
       'jpeg'       => JpegDriver::class,
@@ -53,10 +37,10 @@ class Image
      */
     private static function selectDriver(string $fileName): ImageDriver
     {
-        if (\file_exists($fileName)) {
-            $mimeType = @\mime_content_type($fileName);
+        if (file_exists($fileName)) {
+            $mimeType = @mime_content_type($fileName);
             if (false === $mimeType) {
-                $error = \error_get_last();
+                $error = error_get_last();
                 $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
                 throw new DriverException('Could not detect mimetype to select driver: ' . $msg);
             }
@@ -68,7 +52,7 @@ class Image
             throw new DriverException('No driver available for mimetype ' . $mimeType);
         }
 
-        $extension = \array_values(\array_slice(\explode('.', $fileName), -1))[0];
+        $extension = array_values(array_slice(explode('.', $fileName), -1))[0];
         if (isset(self::$drivers[$extension])) {
             return new self::$drivers[$extension]();
         }
@@ -76,15 +60,11 @@ class Image
         return new PngDriver();
     }
 
-    /**
-     * constructor
-     *
-     * @param   string                            $fileName  file name of image to load
-     * @param   \stubbles\img\driver\ImageDriver  $driver
-     * @param   resource                          $handle
-     */
-    private function __construct(string $fileName, ImageDriver $driver, $handle)
-    {
+    private function __construct(
+        private string $fileName,
+        private ImageDriver $driver,
+        private GdImage $handle
+    ) {
         $this->fileName = $fileName;
         $this->driver   = $driver;
         $this->handle   = $handle;

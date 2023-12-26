@@ -7,6 +7,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img\driver;
+
+use GdImage;
+
 /**
  * Driver for images.
  */
@@ -14,48 +17,33 @@ interface ImageDriver
 {
     /**
      * loads given image
-     *
-     * @param   string    $fileName
-     * @return  resource
      */
-    public function load(string $fileName);
+    public function load(string $fileName): GdImage;
 
     /**
      * stores given image
-     *
-     * @param   string    $fileName
-     * @param   resource  $handle
-     * @return  \stubbles\img\driver\ImageDriver
      */
-    public function store(string $fileName, $handle): self;
+    public function store(string $fileName, GdImage $handle): self;
 
     /**
      * displays given image (raw output to stdout)
-     *
-     * @param  resource $handle
      */
-    public function display($handle): void;
+    public function display(GdImage $handle): void;
 
     /**
      * returns content of given image ready for display
      *
      * @since   6.1.0
-     * @param   resource  $handle
-     * @return  string
      */
-    public function contentForDisplay($handle): string;
+    public function contentForDisplay(GdImage $handle): string;
 
     /**
      * returns file extension for image type
-     *
-     * @return  string
      */
     public function fileExtension(): string;
 
     /**
      * returns content type
-     *
-     * @return  string
      */
     public function mimeType(): string;
 }

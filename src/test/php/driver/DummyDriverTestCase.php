@@ -7,6 +7,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img\driver;
+
+use GdImage;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 use function bovigo\assert\{
@@ -19,24 +23,13 @@ use function bovigo\assert\{
 };
 /**
  * Test for stubbles\img\driver\DummyDriver.
- *
- * @group  img
- * @group  driver
  */
+#[Group('img')]
+#[Group('driver')]
 class DummyDriverTestCase extends TestCase
 {
-    /**
-     * instance to test
-     *
-     * @var  \stubbles\img\driver\DummyDriver
-     */
-    private $dummyDriver;
-    /**
-     * path to test resource images
-     *
-     * @var  string
-     */
-    private $testPath;
+    private DummyDriver $dummyDriver;
+    private string $testPath;
 
     protected function setUp(): void
     {
@@ -44,20 +37,15 @@ class DummyDriverTestCase extends TestCase
         $this->testPath    = dirname(__DIR__) . '/../resources/';
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function loadWithoutHandleThrowsException(): void
     {
         $this->dummyDriver = new DummyDriver();
         expect(function() { $this->dummyDriver->load('dummy.png'); })
-                ->throws(DriverException::class);
+            ->throws(DriverException::class);
     }
 
-    /**
-     * @return  resource
-     */
-    private function loadImage()
+    private function loadImage(): GdImage
     {
         $handle = imagecreatefrompng($this->testPath . 'empty.png');
         if (false === $handle) {
@@ -67,9 +55,7 @@ class DummyDriverTestCase extends TestCase
         return $handle;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function loadWithHandleReturnsHandle(): void
     {
         $handle = $this->loadImage();
@@ -77,9 +63,7 @@ class DummyDriverTestCase extends TestCase
         assertThat($imageDummyDriver->load('dummy.png'), isSameAs($handle));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storeStoresFilenameAsLast(): void
     {
         $handle = $this->loadImage();
@@ -89,9 +73,7 @@ class DummyDriverTestCase extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storeStoresHandleAsLast(): void
     {
         $handle = $this->loadImage();
@@ -101,9 +83,7 @@ class DummyDriverTestCase extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function displayStoresHandleAsLastDisplayed(): void
     {
         $handle = $this->loadImage();
@@ -112,10 +92,10 @@ class DummyDriverTestCase extends TestCase
     }
 
     /**
-     * @test
-     * @group  content_for_display
      * @since  6.1.0
      */
+    #[Test]
+    #[Group('content_for_display')]
     public function contentForDisplayIsEmpty(): void
     {
         $handle = $this->loadImage();
@@ -123,10 +103,10 @@ class DummyDriverTestCase extends TestCase
     }
 
     /**
-     * @test
-     * @group  content_for_display
      * @since  6.1.0
      */
+    #[Test]
+    #[Group('content_for_display')]
     public function contentForDisplayStoresHandleAsLastDisplayed(): void
     {
         $handle = $this->loadImage();
@@ -134,17 +114,13 @@ class DummyDriverTestCase extends TestCase
         assertThat($this->dummyDriver->lastDisplayedHandle(), isSameAs($handle));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function extensionIsAlwaysDummy(): void
     {
         assertThat($this->dummyDriver->fileExtension(), equals('.dummy'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function contentTypeIsAlwaysPresent(): void
     {
         assertThat($this->dummyDriver->mimeType(), equals('image/dummy'));

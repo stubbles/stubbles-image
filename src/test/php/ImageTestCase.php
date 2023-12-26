@@ -7,6 +7,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img;
+
+use GdImage;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use stubbles\img\driver\{DriverException, DummyDriver, PngDriver};
 
@@ -21,24 +26,13 @@ use function bovigo\assert\{
 };
 /**
  * Test for stubbles\img\Image.
- *
- * @group  img
- * @group  core
  */
+#[Group('img')]
+#[Group('core')]
 class ImageTestCase extends TestCase
 {
-    /**
-     * image
-     *
-     * @var  resource
-     */
-    private $handle;
-    /**
-     * path to test resource images
-     *
-     * @var  string
-     */
-    private $testPath;
+    private GdImage $handle;
+    private string $testPath;
 
     protected function setUp(): void
     {
@@ -65,13 +59,16 @@ class ImageTestCase extends TestCase
     }
 
     /**
-     * @test
-     * @dataProvider  extensionsAndDrivers
-     * @group  select_driver
      * @since  6.2.0
      */
-    public function instantiateWithoutDriverFallsbackToDriverBasedOnExtensionWhenFileDoesNotExist(string $fileName, string $expectedExtension, string $expectedMimeType): void
-    {
+    #[Test]
+    #[Group('select_driver')]
+    #[DataProvider('extensionsAndDrivers')]
+    public function instantiateWithoutDriverFallsbackToDriverBasedOnExtensionWhenFileDoesNotExist(
+        string $fileName,
+        string $expectedExtension,
+        string $expectedMimeType
+    ): void {
         $image  = Image::create($fileName, 10, 10);
         assertThat($image->fileExtension(), equals($expectedExtension));
         assertThat($image->mimeType(), equals($expectedMimeType));
@@ -90,23 +87,26 @@ class ImageTestCase extends TestCase
     }
 
     /**
-     * @test
-     * @dataProvider  mimetypesAndDrivers
-     * @group  select_driver
      * @since  7.0.0
      */
-    public function instantiateWithoutDriverFallsbackToDriverBasedOnMimetypeWhenFileDoesExist(string $fileName, string $expectedExtension, string $expectedMimeType): void
-    {
+    #[Test]
+    #[Group('select_driver')]
+    #[DataProvider('mimetypesAndDrivers')]
+    public function instantiateWithoutDriverFallsbackToDriverBasedOnMimetypeWhenFileDoesExist(
+        string $fileName,
+        string $expectedExtension,
+        string $expectedMimeType
+    ): void {
         $image  = Image::load($fileName);
         assertThat($image->fileExtension(), equals($expectedExtension));
         assertThat($image->mimeType(), equals($expectedMimeType));
     }
 
     /**
-     * @test
-     * @group  select_driver
      * @since  7.0.0
      */
+    #[Test]
+    #[Group('select_driver')]
     public function instantiateWithoutDriverThrowsDriverExceptionWhenFileExistsAndNoDriverAvailable(): void
     {
         expect(function() { Image::load(__FILE__); })
@@ -114,27 +114,21 @@ class ImageTestCase extends TestCase
             ->withMessage('No driver available for mimetype text/x-php');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function instantiateWithLoadCreatesHandle(): void
     {
         $image = Image::load($this->testPath . 'empty.png');
         assertNotNull($image->handle());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function instantiateWithLoadUsesGivenFilename(): void
     {
         $image = Image::load($this->testPath . 'empty.png');
         assertThat($image->fileName(), equals($this->testPath . 'empty.png'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function instantiateWithLoadWithoutDriverFallsbackToPngDriver(): void
     {
         $image = Image::load($this->testPath . 'empty.png');
@@ -142,9 +136,7 @@ class ImageTestCase extends TestCase
         assertThat($image->mimeType(), equals('image/png'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function storeUsesDriver(): void
     {
         $dummyDriver = new DummyDriver();
@@ -154,9 +146,7 @@ class ImageTestCase extends TestCase
         assertThat($dummyDriver->lastStoredHandle(), isSameAs($image->handle()));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function displayUsesDriver(): void
     {
         $dummyDriver = new DummyDriver();
@@ -166,10 +156,10 @@ class ImageTestCase extends TestCase
     }
 
     /**
-     * @test
-     * @group  content_for_display
      * @since  6.1.0
      */
+    #[Test]
+    #[Group('content_for_display')]
     public function content(): void
     {
         $pngDriver = new PngDriver();

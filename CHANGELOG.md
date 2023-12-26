@@ -1,9 +1,10 @@
 # Changelog
 
-## 7.0.0 (2019-??-??)
+## 7.0.0 (2023-12-??)
 
 ### BC breaks
 
+* Raised minimum required PHP version to 8.2 and switched all `resource` type hints to `GdImage`
 * Image instances can't be created with `new Image()` any more:
   * either load an existing image with `Image::load()`
   * or create a new image with `Image::create()`

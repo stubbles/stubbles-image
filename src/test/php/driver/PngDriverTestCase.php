@@ -7,6 +7,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img\driver;
+
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use PHPUnit\Framework\TestCase;
 
 use function bovigo\assert\{
@@ -18,24 +22,13 @@ use function bovigo\assert\{
 };
 /**
  * Test for stubbles\img\driver\PngDriver.
- *
- * @group  img
- * @group  driver
  */
+#[Group('img')]
+#[Group('driver')]
 class PngDriverTestCase extends TestCase
 {
-    /**
-     * instance to test
-     *
-     * @var  \stubbles\img\driver\PngDriver
-     */
-    private $pngDriver;
-    /**
-     * path to test resource images
-     *
-     * @var  string
-     */
-    private $testPath;
+    private PngDriver $pngDriver;
+    private string $testPath;
 
     protected function setUp(): void
     {
@@ -56,40 +49,30 @@ class PngDriverTestCase extends TestCase
         }
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function loadFromNonexistingFileThrowsException(): void
     {
         expect(function() { $this->pngDriver->load('doesNotExist.png'); })
                 ->throws(DriverException::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
+    #[WithoutErrorHandler]
     public function loadFromCorruptFileThrowsException(): void
     {
         expect(function() {
             $this->pngDriver->load($this->testPath . 'corrupt.png');
         })
             ->throws(DriverException::class)
-            ->withMessage("'" . $this->testPath . "corrupt.png' is not a valid PNG file");
+            ->withMessage(
+                sprintf(
+                    '"%scorrupt.png" is not a valid PNG file',
+                    $this->testPath
+                )
+            );
     }
 
-    /**
-     * @test
-     */
-    public function loadReturnsResource(): void
-    {
-        $handle = $this->pngDriver->load($this->testPath . 'empty.png');
-        assertTrue(is_resource($handle));
-        assertThat(get_resource_type($handle), equals('gd'));
-    }
-
-    /**
-     * @test
-     */
+    #[Test]
     public function storeSucceeds(): void
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
@@ -97,9 +80,8 @@ class PngDriverTestCase extends TestCase
         assertThat($this->testPath . 'new.png', isExistingFile());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
+    #[WithoutErrorHandler]
     public function storeThrowsExceptionWhenItFails(): void
     {
         $handle = $this->pngDriver->load($this->testPath . 'empty.png');
@@ -107,20 +89,21 @@ class PngDriverTestCase extends TestCase
             $this->pngDriver->store($this->testPath . 'foo/new.png', $handle);
         })
             ->throws(DriverException::class)
-            ->withMessage("Could not save '" . $this->testPath . "foo/new.png': failed to open stream: No such file or directory");
+            ->withMessage(
+                sprintf(
+                    'Could not save "%sfoo/new.png": Failed to open stream: No such file or directory',
+                    $this->testPath
+                )
+            );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function extensionIsAlwaysPng(): void
     {
         assertThat($this->pngDriver->fileExtension(), equals('.png'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function contentTypeIsAlwaysPresent(): void
     {
         assertThat($this->pngDriver->mimeType(), equals('image/png'));

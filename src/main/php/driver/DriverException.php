@@ -7,12 +7,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 namespace stubbles\img\driver;
+
+use Exception;
+
 /**
  * Exception when something goes wrong in a driver.
  *
  * @since  4.0.0
  */
-class DriverException extends \Exception
+class DriverException extends Exception
 {
     // intentionally empty
 }
