@@ -3,6 +3,7 @@
 ## 7.0.1 (2024-02-19)
 
 * Fixed return type of `stubbles\img\Image::handle()`
+* `stubbles\img\Image::create()` now throws a more specific `stubbles\img\ImageCreationFailed`which is an instance of `\RuntimeException`
 
 ## 7.0.0 (2023-12-26)
 

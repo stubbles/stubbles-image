@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace stubbles\img;
 
 use GdImage;
-use RuntimeException;
 use stubbles\img\driver\{DriverException, ImageDriver, JpegDriver, PngDriver};
 /**
  * Container for an image.
@@ -101,10 +100,15 @@ class Image
      * @param   string  $fileName  file name of image to load
      * @param   int     $width     width of the new image
      * @param   int     $height    height of the new image
-     * @throws  RuntimeException
+     * @throws  DriverException in case no appropriate driver could be selected
+     * @throws  ImageCreationFailed in case actual image creation fails
      */
-    public static function create(string $fileName, int $width, int $height, ImageDriver $driver = null): self
-    {
+    public static function create(
+        string $fileName,
+        int $width,
+        int $height,
+        ImageDriver $driver = null
+    ): self {
         if (null === $driver) {
           $driver = self::selectDriver($fileName);
         }
@@ -113,7 +117,7 @@ class Image
         if (false === $handle) {
             $error = \error_get_last();
             $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
-            throw new RuntimeException('Could not create image: ' . $msg);
+            throw new ImageCreationFailed('Could not create image: ' . $msg);
         }
 
         return new self($fileName, $driver, $handle);
