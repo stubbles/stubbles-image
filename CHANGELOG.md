@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.1 (2024-02-19)
+
+* Fixed return type of `stubbles\img\Image::handle()`
+
 ## 7.0.0 (2023-12-26)
 
 ### BC breaks

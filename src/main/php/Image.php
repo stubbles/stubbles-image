@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace stubbles\img;
 
 use GdImage;
+use RuntimeException;
 use stubbles\img\driver\{DriverException, ImageDriver, JpegDriver, PngDriver};
 /**
  * Container for an image.
@@ -78,9 +79,6 @@ class Image
      *
      * Driver selection can always be overruled by passing a driver explicitly.
      *
-     * @param   string                            $fileName  file name of image to load
-     * @param   \stubbles\img\driver\ImageDriver  $driver    optional
-     * @return  \stubbles\img\Image
      * @throws  DriverException  in case no driver for given image available
      */
     public static function load(string $fileName, ImageDriver $driver = null): self
@@ -100,11 +98,10 @@ class Image
      *
      * Driver selection can always be overruled by passing a driver explicitly.
      *
-     * @param   string                            $fileName  file name of image to load
-     * @param   int                               $width     width of the new image
-     * @param   int                               $height    height of the new image
-     * @param   \stubbles\img\driver\ImageDriver  $driver    optional
-     * @return  \stubbles\img\Image
+     * @param   string  $fileName  file name of image to load
+     * @param   int     $width     width of the new image
+     * @param   int     $height    height of the new image
+     * @throws  RuntimeException
      */
     public static function create(string $fileName, int $width, int $height, ImageDriver $driver = null): self
     {
@@ -116,7 +113,7 @@ class Image
         if (false === $handle) {
             $error = \error_get_last();
             $msg = (null !== $error) ? $error['message'] : 'an unknown error occurred';
-            throw new \RuntimeException('Could not create image: ' . $msg);
+            throw new RuntimeException('Could not create image: ' . $msg);
         }
 
         return new self($fileName, $driver, $handle);
@@ -124,8 +121,6 @@ class Image
 
     /**
      * returns name of image
-     *
-     * @return  string
      */
     public function fileName(): string
     {
@@ -134,19 +129,14 @@ class Image
 
     /**
      * returns image handle
-     *
-     * @return  resource
      */
-    public function handle()
+    public function handle(): GdImage
     {
         return $this->handle;
     }
 
     /**
      * stores image under given file name
-     *
-     * @param   string     $fileName
-     * @return  \stubbles\img\Image
      */
     public function store(string $fileName): self
     {
@@ -168,7 +158,6 @@ class Image
      * This can be used if raw output to stdout via display() is not useful.
      *
      * @since   6.1.0
-     * @return  string
      */
     public function contentForDisplay(): string
     {
@@ -177,8 +166,6 @@ class Image
 
     /**
      * returns default extension for this type of image (e.g. '.png')
-     *
-     * @return  string
      */
     public function fileExtension(): string
     {
@@ -187,8 +174,6 @@ class Image
 
     /**
      * returns content type
-     *
-     * @return  string
      */
     public function mimeType(): string
     {
