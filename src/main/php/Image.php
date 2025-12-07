@@ -80,7 +80,7 @@ class Image
      *
      * @throws  DriverException  in case no driver for given image available
      */
-    public static function load(string $fileName, ImageDriver $driver = null): self
+    public static function load(string $fileName, ?ImageDriver $driver = null): self
     {
         if (null === $driver) {
             $driver = self::selectDriver($fileName);
@@ -107,7 +107,7 @@ class Image
         string $fileName,
         int $width,
         int $height,
-        ImageDriver $driver = null
+        ?ImageDriver $driver = null
     ): self {
         if (null === $driver) {
           $driver = self::selectDriver($fileName);
