@@ -1,5 +1,15 @@
 # Changelog
 
+## 8.0.0 (2025-12-07)
+
+### BC breaks
+
+* raised minimum required PHP version to 8.3
+
+### Other changes
+
+* ensured compatibility with PHP 8.5
+
 ## 7.0.1 (2024-02-19)
 
 * Fixed return type of `stubbles\img\Image::handle()`

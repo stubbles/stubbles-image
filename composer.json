@@ -4,13 +4,13 @@
     "license": "BSD-3-Clause",
     "description": "Simple image handling support.",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "ext-gd": "*",
         "ext-fileinfo": "*"
     },
     "require-dev": {
-        "bovigo/assert": "^8.0",
-        "phpunit/phpunit": "^10.5"
+        "bovigo/assert": "^8.1",
+        "phpunit/phpunit": "^12.5"
     },
     "autoload": {
         "psr-4": {
@@ -24,13 +24,12 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "7.0.x-dev"
+            "dev-master": "8.0.x-dev"
         }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "phpunit",
-        "php-coveralls": "php-coveralls"
+        "test": "phpunit"
     }
 }
